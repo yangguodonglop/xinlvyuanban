@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>管理收货地址</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/index.css"/>
+</head>
+
+<body>
+	<!--标题-->
+	<header class="mui-bar mui-bar-nav b_w" style="box-shadow: none;">
+		<a class="mui-action-back mui-pull-left"><img class="img11" src="/public/imgs/img_76.png" /></a>
+		<h1 class="mui-title">管理收货地址</h1>
+	</header>
+	<div class="mui-content mar_t_-9"  id="app">
+		<template v-for="item in list">
+			<div class="col4 h_118 b_w mar_t_10 txt_c2 pad_t_10 pad_b_10 pad_l_15 pad_r_15">
+				<div class="row txt_c5 ts_16">
+					<span>{{item.name}}</span>
+					<span>{{item.phone}}</span>
+				</div>
+				<span class="ts_13">{{item.province}}{{item.city}}{{item.area}}{{item.address}}</span>
+				<span class="br3"></span>
+				<div class="row ts_12">
+					<div v-if="item.is_default==1">
+						<span><img class="img2 mar_r_5" src="/public/imgs/img_41.png"/>默认地址</span>
+					</div>
+					<div v-else>
+						<span @click="setDefaultAddress(item.id)"><img class="img2 mar_r_5" src="/public/imgs/img_30.png"/>默认地址</span>
+					</div>
+					<span>
+						<span @click="editAddress(item.id)"><img class="img2 mar_r_5" src="/public/imgs/img_28.png"/>编辑  </span>
+						<span @click="deleteAddress(item.id)"><img class="img2 mar_r_5 mar_l_20 " src="/public/imgs/img_29.png"/>删除</span>
+					</span>
+				</div>
+			</div>
+		</template>
+		<div class="fix_but b_w">
+			<div class="txt_cw ts_16 but_bac mar_13" @click="createAddress()">
+				添加新地址
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/user.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            list: [
+            ]
+        },
+        methods: {
+            editAddress: function(index) {
+					mui.openWindow({
+						url:'detail.html'+'?id='+index,//跳转至指定页面
+				   });
+            },
+            setDefaultAddress:function (index) {
+            	mui.confirm('是否设为默认','提示',['取消','确定'],function(e){
+            		if(e.index == 1){
+            			let data = {
+		                    id:index,
+		                }
+		                Vue.http.options.emulateHTTP = true;
+		                Vue.http.options.emulateJSON = true;
+		                var token = localStorage.getItem('token');
+		                Vue.http.post(URL+'/setDefaultAddress',data,{headers :{Authorization: 'Bearer '+token}}).then(function(response) {
+		                      if(response.body.status==1){
+		                          get_data();
+							  }
+		                }, function(err) {
+		                    alert('网络异常!');
+		                });	
+            		}
+            	});
+            },
+			createAddress:function () {
+                mui.openWindow({
+                    url:'create.html',//跳转至指定页面
+                });
+            },
+			deleteAddress:function (index) {
+				mui.confirm('是否删除当前地址','提示',['取消','确定'],function(e){
+            		if(e.index == 1){
+		                let data = {
+		                    address_id:index,
+		                }
+		                Vue.http.options.emulateHTTP = true;
+		                Vue.http.options.emulateJSON = true;
+		                var token = localStorage.getItem('token');
+		                Vue.http.post(URL+'/deleteAddress',data,{headers :{Authorization: 'Bearer '+token}}).then(function(response) {
+		                    if(response.body.status==1){
+		                        get_data();
+		                    }
+		                }, function(err) {
+		                    alert('网络异常!');
+		                });
+            		}
+            	});
+            }
+        }
+    })
+	get_data();
+	function get_data() {
+		var token = localStorage.getItem('token');
+        Vue.http.get(URL+'/addressList',{headers :{Authorization: 'Bearer '+token}}).then(function(response) {
+            var list=response.body.data;
+            app.list = list;
+        }, function(err) {
+            alert('网络异常!');
+        });
+    }
+
+</script>

@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>积分商城</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css" />
+	</head>
+
+	<body>
+		<div id="app">
+			<!--标题-->
+			<header class="mui-bar mui-bar-nav padding_t_20 h_60" style="box-shadow: none;">
+				<a class="mui-action-back mui-pull-left"><img class="img11" src="/public/imgs/img_76.png" /></a>
+				<h1 class="mui-title c_white">积分商城</h1>
+				<!--<a class="mui-icon mui-pull-right" style="display: none;"><img class="nar_img margin_r_10" src="../images/img_32-min.png" /></a>-->
+			</header>
+			<img class="widths mar_t_45" src="/public/imgs/banner4.jpg" />
+			<!--积分  兑换记录-->
+			<div id="txt_tit" class="row h_44 b_w txt_12 mar_t_-5" style="z-index: 1000;">
+				<div class="wid_49 cen jf_tit_link">
+					<img class="img2 mar_r_5" src="/public/imgs/money.png" /> 积分
+					<span class="txt_c1 margin_l_5">{{integral}}</span>
+				</div>
+				<div class="wid_49 cen" onclick="openPager(this, '../integral_order/index.html')">
+					<img class="img2 mar_r_5" src="/public/imgs/money_dh.png" /> 兑换记录
+				</div>
+			</div>
+			<div id="zxb_cont" class="mui-row mui-fullscreen mar_t_230 b_w mar_b_50">    
+				<div id="zxb_cont1" class="mui-col-xs-3 margin_t_-5">
+					<ul class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+						<li v-for="(item, n) in dt" :class="(n==pg)?'l_item_action':'l_item'" onclick="sele_item(this)" :data-n="n">{{item.name}}</li>
+						<div style="width: 100%; background-color: white; height: 100px;"></div>
+					</ul>
+				</div>
+				<div id="zxb_cont2" class="mui-col-xs-9 pad_10">
+					<div v-for="(item, n) in dt">
+						<img :id=n class="widths brad_5" :data-id="item.id" :src="item.mobile_thumb" @click="getGoodList(item.id)"/>
+						<div class="row_wrap mar_t_5">
+							<div v-for="it in item.product" :data-id="it.id" @click="getGoodDetail(it.id)"
+								 class="col1 wid_48 mar_b_10 pad_l_10 pad_r_10" style="width: 50%;">
+								<img class="w_80 h_80" :src="it.thumb" />
+								<span class="ts_12 txt_c2 widths one_lin margin_t_10">{{it.title}}</span>
+								<span class="ts_12 txt_c1">{{it.price}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--<div class="mui-bar mui-bar-tab z_9999" id="nav">
+			<template v-for="n in 5">
+				<a class="mui-tab-item" v-on:click="tonavlink(navUrl[n-1])">
+					<span class="mui-icon"> <img class="h_22" :src="navImg[n-1]"/></span>
+					<span id="txt_1" class="mui-tab-label" v-bind:class="navnum ==(n-1)?'txt_c1':'txt_c2'">{{navName[n-1]}}</span>
+				</a>
+			</template>
+		</div>-->
+			<div class="tab_myself" id="nav">
+			<template v-for="n in 5">
+				<a class="tab_myself_a" data-url="" v-on:click="tonavlink(navUrl[n-1])">
+					<span class="tab_myself_span"> <img class="h_22" :src="navImg[n-1]"/></span>
+					<span id="txt_1" class="mui-tab-label" v-bind:class="navnum ==(n-1)?'txt_c1':'txt_c2'">{{navName[n-1]}}</span>
+				</a>
+			</template>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.showLoading("数据加载中...", "div");
+    var app = new Vue({
+        el: "#app",
+        data: {
+            pg: 0,
+            dt: '',
+			integral: '0'
+        },
+        methods: {
+            getGoodList:function (level_id) {
+                mui.openWindow({
+                    url:'page.html'+'?level_id='+level_id,//跳转至指定页面
+                });
+            },
+            getGoodDetail:function (id) {
+                mui.openWindow({
+                    url:'detail.html'+'?id='+id,//跳转至指定页面
+                });
+            }
+        }
+    })
+    if(localStorage.getItem('userstatus') == 'true'){
+        app.integral = JSON.parse(localStorage.getItem('userdata')).integral;
+	}
+    get_data();
+    function get_data() {
+        Vue.http.get(URL+'/mobile/integral').then(function(response) {
+            var data=response.body.data;
+            app.dt = data;
+            setTimeout(function(){
+            	mui.hideLoading();
+				onscrol();
+			},200);
+        }, function(err) {
+        	mui.hideLoading();
+            mui.toast('网络异常，请检查网络!');
+        });
+    }
+    (function($, doc) {
+        var h = window.innerHeight;
+        document.getElementById('zxb_cont').style.height = (h - 123) + 'px';
+    }(mui, document));
+
+    //保存每个图片的位置
+    var scroll_img = [0, 0, 0, 0, 0];
+    var contentsElem = document.getElementById("zxb_cont2");
+
+    //切换
+    function sele_item(e) {
+        var n = e.getAttribute('data-n');
+        app.pg = n;
+        contentsElem.scrollTop = scroll_img[n]-10;
+    }
+
+    function onscrol(){
+        scroll_img[0] = document.getElementById('0').offsetTop;
+        scroll_img[1] = document.getElementById('1').offsetTop;
+        scroll_img[2] = document.getElementById('2').offsetTop;
+        scroll_img[3] = document.getElementById('3').offsetTop;
+        scroll_img[4] = document.getElementById('4').offsetTop;
+
+        contentsElem.addEventListener('scroll', function(e) {
+            var cur_scro = contentsElem.scrollTop;
+
+            if((cur_scro+10) >= scroll_img[0] && (cur_scro+10) < scroll_img[1])
+                app.pg = 0;
+            else if((cur_scro+10) >= scroll_img[1] && (cur_scro+10) < scroll_img[2])
+                app.pg = 1;
+            else if((cur_scro+10) >= scroll_img[2] && (cur_scro+10) < scroll_img[3])
+                app.pg = 2;
+            else if((cur_scro+10) >= scroll_img[3] && (cur_scro+10) < scroll_img[4])
+                app.pg = 3;
+            else if((cur_scro+10) >= scroll_img[4])
+                app.pg = 4;
+        });
+    }
+
+    //页面跳转
+    function openPager(e, urls) {
+        var ids = e.getAttribute('data-id');
+        //A页面中打开B页面，设置show的autoShow为false，则B页面在其loaded事件发生后，不会自动显示；
+        mui.openWindow({
+            url: urls,
+            id: urls,
+            show: {
+                autoShow: false
+            },
+            extras: {
+                item: ids
+            }
+        });
+    }
+
+</script>

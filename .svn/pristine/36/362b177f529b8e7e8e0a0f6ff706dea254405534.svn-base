@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>产品详情单页</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css"/>
+		<style type="text/css">
+			table,
+			table tr th,
+			table tr td {
+				border: 1px solid #0094ff;
+			}
+			
+			.float-nav-all {
+				background-color: white;
+				margin-left: -10px;
+				margin-right: -10px;
+				margin-bottom: 20px;
+			}
+			
+			.float-nav-list {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				list-style: none;
+				margin: 0 auto;
+				padding: 0;
+			}
+			
+			.float-nav-list li {
+				list-style: none;
+				height: 40px;
+				line-height: 40px;
+			}
+			
+			img {
+				max-width: 100%;
+				height: auto;
+			}
+			h3{
+				color: #ff7500;
+			}
+			h2{
+				text-align: center;color: #8f8f94;
+			}
+			.section-box-content{
+				    color: #8f8f94;font-size: 14px;
+			}
+			.section-box-content b{
+				color: #ff7500;
+			}
+			.section-box-body{
+				 color: #8f8f94;
+			}
+			.detail-route-download{
+				color: #ff7500;
+			}
+			.float-nav-all a{
+				color: #ff7500;
+			}
+			.pd-title{
+				text-align: center;
+				font-style: normal;
+				color: #ff7500;
+			}
+			b{
+				font-style: normal;
+				color: #ff7500;
+			}
+			table th{
+				color: #8f8f94;
+			}
+			table td{
+				color: #8f8f94;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<div class="mar_b_50">
+				<!--头部-->
+				<header class="mui-bar mui-bar-nav" style="background-color: transparent; box-shadow: 0px 0px;">
+					<a class="mui-action-back mui-icon mui-pull-left"><img class="img15" src="/public/imgs/img_23.png" /></a>
+				</header>
+				<!-- 图片轮播 -->
+				<div class="mui-slider swiper" style="max-height: 320px;">
+					<div id="banner_id" class="mui-slider-group mui-slider-loop">
+						<div class="mui-slider-item" v-for="(item,i) in list2" :key='i'>
+							<img :src="item" />
+						</div>
+					</div>
+				</div>
+				<div class="pad_10 b_w mar_t_-10">
+					<span class="dom_txt" v-html="list1.title"></span>
+					<div class="dom_back pad_b_10 mar_t_10 pad_t_10">
+						<div class="row ali h_38">
+							<div class="row ali">
+								<img class="h_38" src="/public/imgs/img_38.png" />
+								<span class="ts_12 txt_c1">&nbsp;&nbsp;￥<span class="ts_18">{{list1.price}}</span><span class="txt_c2"> 起</span></span>
+							</div>
+							<span class="ts_12 txt_c4 pad_r_10">100%好评</span>
+						</div>
+					</div>
+					<div class="row ali mar_t_10 pad_t_3">
+						<img class="w_25 mar_r_10" src="/public/imgs/img_39.PNG" />
+						<span class="ts_13 txt_c2" style="line-height: 15px;">此产品需二次确认，商家将在12个工作小时内（工作日9:00 - 18:00)电话咨询
+					 核实是否有位。</span>
+					</div>
+				</div>
+				<!--</template>-->
+
+				<div class="row b_w mar_t_10 mar_b_1 h_44 ali pad_l_10 pad_r_10">
+					<span class="ts_14 txt_c2">优惠信息<span class="txt_11 c_txt5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;立减优惠&nbsp;&nbsp;&nbsp;| 点评返现 |</span></span>
+					<span class="c_txt1" style="display: none;">></span>
+				</div>
+				<div class="row b_w h_44 ali pad_l_10 pad_r_10">
+					<span class="ts_14 txt_c2">领券活动<span class="txt_11 c_txt5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;满1000元减10 |&nbsp;&nbsp;&nbsp;| 满3000元减50 |</span></span>
+					<span class="c_txt1" style="display: none;">></span>
+				</div>
+
+				<!--产品特色-->
+				<div v-html="list1.content" class="pad_10 pad_10_imgs" style="overflow-x: hidden;">
+					{{list1.content}}
+				</div>
+
+			</div>
+
+			<!--提交订单-->
+			<div class="h_50 zxb_fixed widths b_w" style="bottom: 0;">
+				<div class="row heights">
+					<div class="detail_but1" v-on:click="phoneCall('4008700392')"><img src="/public/imgs/img_44.png" />电话咨询</div>
+					<a @click="go_url"  class="detail_but2">
+						<span class="c_white" >立即预定</span>
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</body>
+
+</html>
+<script src="/public/js/mui.min.js" type="text/jscript"></script>
+<script src="/public/js/vue.min.js" type="text/javascript"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript"></script>
+<script src="/public/config/config.js" type="text/javascript"></script>
+<script src="/public/js/showLoding.js" type="text/javascript"></script>
+<script>
+	var app = new Vue({
+			el: "#app",
+			data: {
+				strStoreid:'',
+				list2: [],
+				list1: [
+	
+				]
+			},
+		created: function() {
+			//延时初始化轮播组件
+			var init_gall = () => {
+				setTimeout(function() {
+					var gallery = mui('.mui-slider');
+					gallery.slider({
+						interval: 3000
+					});
+				}, 200);
+			}
+			var url=location.search;
+		    var Request = new Object();
+		    if(url.indexOf("?")!=-1)
+		    {
+		        var str = url.substr(1)　//去掉?号
+		        strs = str.split("&");
+		        for(var i=0;i<strs.length;i++)
+		        {
+		            Request[strs[i ].split("=")[0]]=unescape(strs[ i].split("=")[1]);
+		        }
+	        	this.strStoreid = Request['id'];
+		        Vue.http.get(goods_details + '?id=' + this.strStoreid).then(function(respones) {
+					app.list1 = respones.data.data;
+					var obj = JSON.parse(respones.data.data.thumb)
+					for(var i = 0; i < obj.length; i++) {
+						app.list2.push(obj[i])
+					}
+					init_gall();
+				}, function(err) {
+					mui.toast('网络不可用，请检查网络');
+				})
+		    }else {
+		        console.log('数据未找到');
+		    }
+			
+			
+		},
+		methods: {
+			phoneCall: function (msg) {
+		    	window.location.href="tel:"+msg;
+		   	},
+			go_url: function() {
+				mui.showLoading('正在预定...');
+				var token = localStorage.getItem('token');
+				var expired_at = localStorage.getItem('expired_at');
+				var refresh_expired_at = localStorage.getItem('refresh_expired_at');
+				var myDate = new Date();
+				if(Date.parse(myDate) < Date.parse(refresh_expired_at)){
+					if(Date.parse(myDate) > Date.parse(expired_at)){
+						Vue.http.options.emulateJSON = true;
+						Vue.http.post(URL+'/token/refresh',{token:token}).then(function(response){
+							localStorage.token = response.body.data.token;//token
+							localStorage.expired_at = response.body.data.expired_at;//过期时间
+							localStorage.refresh_expired_at = response.body.data.refresh_expired_at;//刷新时间
+							mui.hideLoading();
+							window.location.href = "/details/new_order_set.html?id="+this.strStoreid;
+						});
+					}else{
+						mui.hideLoading();
+						window.location.href = "/details/new_order_set.html?id="+this.strStoreid;
+					}
+				}else{
+					mui.hideLoading();
+					mui.confirm('您还没有登录','提示',['取消','立即登陆'],function(e){
+						if (e.index == 1) {
+							window.location.href = "/login/login.html";
+						}
+					});
+				}
+			}
+		}
+	})
+</script>

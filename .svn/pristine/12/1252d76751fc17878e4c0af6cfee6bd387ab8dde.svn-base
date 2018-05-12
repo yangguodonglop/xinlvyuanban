@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>订单填写</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+	</head>
+
+	<body>
+		<!--标题-->
+		<div id="app">
+			<header class="mui-bar mui-bar-nav b_w" style="box-shadow: none;">
+				<a class="mui-action-back mui-pull-left"><img class="img11" src="../imgs/left_jt.png" /></a>
+				<h1 class="mui-title">订单填写</h1>
+			</header>
+
+			<div class="mui-content">
+				<!--用户是否登录-->
+				<div class="order_txt1">
+					可先<span class="txt_c6">登录</span>享受更多优惠
+				</div>
+				<div class="order_txt1" style="display: none;">
+					需要手机<span class="txt_c6">认证</span>后才可提交订单
+				</div>
+
+				<!--订单商品-->
+				<div class="b_w mar_t_1 row pad_l_15 pad_r_10 pad_t_10 pad_b_10">
+					<img class="img19 fshr" :src="list1.thumb" />
+					<div class="col4 mar_l_20 h_80">
+						<span class="ts_16 ts_w_600 txt_c2">{{list1.title}}</span>
+						<!--<span class="ts_10 txt_c3"><img class="img20" src="../imgs/img_40.png"/>不支持退改</span>
+					<span class="ts_12 txt_c4">订票须知 ></span>-->
+						<span class="ts_12 txt_c4 txt_c4_active">{{list1.suggest_price}}<i>元</i></span>
+					</div>
+				</div>
+
+				<!--日期选择、购买数量-->
+				<div class="b_w">
+					<span class="txt_c2 ts_14 mar_l_10">选择日期</span>
+					<div class="row mar_l_10 mar_r_10 mar_t_5">
+						<template v-for="(item,$index) in list">
+							<div id="date1" data-item=1 class="h_50 order_bor txt_c2 ts_11 mar_r_10" :class="{'order_bor5':curr1==$index}" @click="choiceDate(item,$index)">
+								<span class="time_1">{{item.start_time}}</span><br /><i style="font-style: normal;">{{item.sale}}</i>
+							</div>
+							<!--<div id="date2" data-item=2 class="h_50 order_bor txt_c2 ts_11 mar_r_10" :class="{'order_bor5':curr==2}" @click="choiceDate(2)">
+						<span class="time_1">01-13 周六</span><br /><i style="font-style: normal;">￥100</i>
+					</div>
+					<div id="date3" data-item=3 class="h_50 order_bor txt_c2 ts_11 mar_r_10" :class="{'order_bor5':curr==3}" @click="choiceDate(3)">
+						<span class="time_1">01-13 周六</span><br /><i style="font-style: normal;">￥100</i>
+					</div>-->
+						</template>
+						<div id="date4" data-item=4 class="h_50 order_bor txt_c2 ts_11">
+							更多日期>
+						</div>
+
+					</div>
+					<div class="row h_56 pad_l_15 pad_r_15 ts_14 txt_c2">
+						<span>购买数量</span>
+						<div class="row w_81">
+							<a class="but1" href="#" @click="but_add()">-</a>
+							<span class="but_txt">{{num}}</span>
+							<a class="but1" href="#" @click="but_reduce()" style="line-height: 27px;">+</a>
+						</div>
+					</div>
+				</div>
+
+				<!--用户信息-->
+				<div class="b_w mar_t_10 txt_c2 ts_14 pad_t_15">
+					<span class="pad_l_15 ts_w_800">联系人信息</span>
+					<div class="br4 mar_t_10"></div>
+					<div class="h_44 b_w row pad_l_15 pad_r_15">
+						<span class="w_75 ts_w_600">姓名</span>
+						<input type="text" name="" id="" placeholder="name" v-model='name' style="border: 0; flex-grow: 1; height: 40px; margin-top: 13px; font-size: 14px;" />
+					</div>
+					<div class="br4"></div>
+					<div class="h_44 b_w row pad_l_15 pad_r_15">
+						<span class="w_75 ts_w_600">电话</span>
+						<input type="number" name="" id="" placeholder="phone" v-model='phone' style="border: 0; flex-grow: 1; height: 40px; margin-top: 13px; font-size: 14px;" />
+					</div>
+					<!--<div class="br4"></div>
+				<div class="h_44 b_w row pad_l_15 pad_r_15">
+					<span class="w_75 ts_w_600">所在地区</span>
+					<span style="flex-grow: 1;">湖北省武汉市洪山区关山街道</span>
+					<img class="img17" src="../imgs/img_25.png"/>
+				</div>-->
+					<div class="br4"></div>
+					<div class="h_80 b_w row1 pad_l_15 pad_r_15">
+						<span class="w_75 ts_w_600 pad_t_10">留言</span>
+						<textarea class="h_80 ts_14" type="text" v-model='contents' name="" id="" placeholder="contents" style="border: 0; flex-grow: 1;"></textarea>
+					</div>
+				</div>
+				<!--提交信息-->
+				<div class="fix_but1 row">
+					<span class="ts_12 txt_c2 mar_l_20">应付：<span class="ts_20 txt_c1">¥{{price_tatol}}</span></span>
+					<span class="wid_42 but_bac1" @click="goto_item()">提交订单</span>
+				</div>
+				<!--阅读并同意-->
+				<div class="margin_10 padding_l_10 txt_12 c_txt1 login_hyxy" 　@click="choiceDate1()" style="color: #474747; font-size: 12px; padding: 10px 0px 30px 15px;"><span class="order_iocn1" :class="{'order_iocn1add':action}" /> </span><span class="c_txt2" style="color: #b8b8b8; font-size: 12px;">&nbsp;&nbsp;&nbsp;已阅读并同意</span>&nbsp;&nbsp;心旅天下预定条款</div>
+
+			</div>
+		</div>
+		<a  id="test" href="new_payment.html">  </a>
+	</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/base_data.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.init()
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			name: '杨洋',
+			phone: '15951813234',
+			contents: '光谷软件园软件园',
+			getStr: null,
+			action: true,
+			product_id:"",
+			num: 0,
+			isactive:true,
+			curr: '',
+			price_tatol:'',
+			curr1: '',
+			list1:[
+			],
+			list: [{
+					start_time: "2018-01-13",
+					sale: "100"
+				},
+				{
+					start_time: "2018-01-14",
+					sale: "200"
+				},
+				{
+					start_time: "2018-01-15",
+					sale: "100"
+				}
+			]
+
+		},
+		mounted: function() {
+				var strStoreid = window.sessionStorage? sessionStorage.getItem("id_item"): Cookie.read("id_item");
+				console.log(strStoreid)
+				Vue.http.get(order_fill+'?id='+strStoreid).then(function(respones){
+					console.log(respones.body.data)
+					vm.list1=respones.body.data
+					vm.price_tatol=vm.list1.suggest_price
+				
+				},function(err){
+					
+				})
+
+		},
+		methods: {
+			//阅读条款切换
+			choiceDate1: function() {
+				if(vm.action == true) {
+					vm.action = false
+				} else {
+					vm.action = true
+				}
+			},
+			//选择日期
+			choiceDate: function(item, $index) {
+			
+				this.curr = item
+				this.curr1 = $index
+				
+			},
+			//购买增减少数量
+			but_add: function() {
+				vm.num--
+				this.price_tatol=this.price_tatol=this.list1.suggest_price*vm.num
+					if(vm.num < 0) {
+						vm.num = 0
+						this.price_tatol=0
+					}
+			},
+			//购买增加数量
+			but_reduce: function() {
+				vm.num++
+				this.price_tatol=this.list1.suggest_price*vm.num
+//				if(vm.num=0){
+//					this.price__tatol=this.list1.suggest_price
+//				}
+			},
+			//提交订单验证
+			goto_item: function() {
+				
+				var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+				//var url="/nptOfficialWebsite/apply/sendSms?mobile="+this.ruleForm.phone;
+				if(vm.name == '') {
+					mui.alert('请输入联系人');
+					return
+				};
+				if(vm.phone == '') {
+					mui.alert('手机号码不能为空');
+					return
+				} else if(!reg.test(vm.phone)) {
+					mui.alert('请输入正确的手机号码');
+					return
+				};
+				if(vm.action == true) {
+					mui.alert('请仔细阅读条款');
+					return
+				}
+				let data = {
+					product_id:vm.list1.id,
+					phone:vm.phone,
+					name:vm.name,
+					contents:vm.contents,
+					start_time:vm.curr.start_time,
+					num:vm.num
+					//sale:vm.curr.sale	
+				}
+				if(vm.num==0){
+					mui.alert('请填写正确数量');
+				}else{
+					Vue.http.options.emulateJSON = true;
+				
+				Vue.http.post(SCORDERURL+'/makeOrder',data).then(function(response){
+					console.log(response)
+					var now_order_id=response.body.data.order_id
+					var now_price1=response.body.data.price
+					if(window.sessionStorage){
+						sessionStorage.setItem("now_price1",now_price1)
+						sessionStorage.setItem("now_order_id",now_order_id)
+					}
+					else{
+						Cookie.write("now_price1",now_price1)
+						Cookie.write("now_order_id",now_order_id)
+					}
+					window.location.href="new_payment.html"
+                   	console.log(response.body.data.price) 
+				},function(err){
+					mui.toast('网络不可用，请检查网络');
+				})
+				}
+				
+
+			}
+		}
+	});
+
+	(function($, doc) {
+		
+	}(mui, document));
+</script>

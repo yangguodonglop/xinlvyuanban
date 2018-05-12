@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+		<title>目的地</title>
+		
+	</head>
+
+	<body>
+		<div id="app">
+			<!--头部-->
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> 
+				<h1 class="mui-title">目的地0 </h1>
+			</header>
+			
+
+		</div>
+	
+	</body>
+
+</html>
+
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var app = new Vue({
+		el: "#app",
+		data: {
+
+		},
+		mounted: function() {
+			
+		},
+		methods: {
+		
+		}
+	})
+</script>

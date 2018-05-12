@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我的</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="/public/css/base.css"/>
+	    <link rel="stylesheet" type="text/css" href="/public/css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css"/>
+	</head>
+	<body>
+		<div id="me">
+			<!--背景图片-->
+			<div class="back_red h_120 abs widths" style="top: 0; z-index: -100;">
+				<img class="widths abs" style="bottom: 0;" src="/public/imgs/banner_zz1.png"/>
+			</div>
+			<div class="b_w h_120 abs widths" style="top: 120px; z-index: -100;"></div>
+			<div class="h_155 mar_t_50 mar_l_18 mar_r_18 txt_bac_red1 rel" style="box-shadow: 1px 2px 10px #E1e1e1">
+				<img class="widths abs" src="/public/imgs/me_back.png"/>
+				<img class="img26 abs" style="margin-top: -25px; left: 50%; margin-left: -25px;" :src="avatar_url" v-on:click="tolink('../user/mysettings.html')"/>
+				<div class="col widths h_120 abs" style="bottom: 0;">
+					<template v-if="status">
+						<span class="ts_15" v-on:click="tolink('../user/mysettings.html')">{{ name }}</span>
+						<img class="w_71 margin_t_3" src="/public/imgs/img_79.png" />
+					</template>
+					<template v-else>
+						<span class="ts_15" v-on:click="tolink('../login/login.html')">登录 / 注册</span>
+						<div class="w_71 margin_t_3"></div>
+					</template>
+					<span id="sign" class="ts_10 txt_c3 mar_b_5 pad_l_15 pad_r_15" style="line-height: 15px;">"{{sign}}"</span>
+					<div class="h_38 bor_t row5 widths ts_14 txt_c2 pad_t_5">
+						<span><img class="h_14 mar_r_10" style="vertical-align: -10%;" src="/public/imgs/jifen.png"/><span id="integ" class="c_txt3 margin_l_10"> {{integral}} </span>积分</span>
+						<span class="s_br"></span>
+						<span class="" v-on:click="tolink('../user/my_invitation_list.html')">
+							<img class="h_14 mar_r_10" style="vertical-align: -10%;"  src="/public/imgs/yaoqing.png"/>已邀请
+							<span class="c_txt3 margin_l_10"> {{invite}} </span>人
+						</span>
+					</div>
+				</div>
+			</div>  
+			
+			<!--我的订单-->
+			<div class="b_w pad_18">
+				<span class="ts_12 txt_c8">我的订单</span>
+				<div class="row mar_t_10">
+					<div class="col1" @click="goclick(1)">
+						<img class="w_20" src="/public/imgs/d1.png"/>
+						<span class="txt_c2 ts_12 mar_t_8">全部订单</span>
+					</div>
+					<div class="col1" @click="goclick(2)">
+						<img class="w_20" src="/public/imgs/d2.png"/>
+						<span class="txt_c2 ts_12 mar_t_8">待付款</span>
+					</div>
+					<div class="col1" @click="goclick(3)">
+						<img class="w_20" src="/public/imgs/d3.png"/>
+						<span class="txt_c2 ts_12 mar_t_8">已支付</span>
+					</div>
+					<div class="col1" @click="goclick(4)">
+						<img class="w_20" src="/public/imgs/d4.png"/>
+						<span class="txt_c2 ts_12 mar_t_8">已完成</span>
+					</div>
+				</div>
+				<div class="br4 mar_t_18 mar_b_18"></div> 
+				
+				<span class="ts_12 txt_c8">常用功能</span>
+				<div class="row_wrap1"> 
+					<div class="col wid_25 mar_t_20">
+						<img class="h_22" src="/public/imgs/l1.png"/>
+						<span class="txt_c2 ts_12 mar_t_8">邀请好友</span>
+					</div>
+					<div class="col wid_25 mar_t_20">
+						<img class="h_22" src="/public/imgs/l2.png"/>
+						<span class="txt_c2 ts_12 mar_t_8">优惠券</span>
+					</div>
+					<div class="col wid_25 mar_t_20" v-on:click="tolink('/integral/index.html')">
+						<img class="h_22" src="/public/imgs/l3.png"/>
+						<span class="txt_c2 ts_12 mar_t_8">积分商城</span>
+					</div>
+				
+					<div class="col wid_25 mar_t_20" v-on:click="tolink('/user/address/index.html',true)">
+						<img class="h_22" src="/public/imgs/l5.png" />
+						<span class="txt_c2 ts_12 mar_t_8">地址管理</span>
+					</div>
+					<div class="col wid_25 mar_t_20">
+						<img class="h_22" src="/public/imgs/l6.png" />
+						<span class="txt_c2 ts_12 mar_t_8">联系人</span>
+					</div>
+
+					<div class="col wid_25 mar_t_20" v-on:click="phoneCall()">
+
+						<img class="h_22" src="/public/imgs/l8.png" />
+						<span class="txt_c2 ts_12 mar_t_8">客服中心</span>
+					</div>
+					<div class="col wid_25 mar_t_20" v-on:click="tolink('../user/feedback.html',true)">
+						<img class="h_22" src="/public/imgs/l9.png" />
+						<span class="txt_c2 ts_12 mar_t_8">建议反馈</span>
+					</div>
+					<div class="col wid_25 mar_t_20" v-on:click="tolink('../user/about_us.html',true)">
+						<img class="h_22" src="/public/imgs/l10.png" />
+						<span class="txt_c2 ts_12 mar_t_8">关于我们</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mar_b_50"></div>
+		<div class="mui-bar mui-bar-tab z_9999" id="nav">
+			<template v-for="n in 5">
+				<a class="mui-tab-item" v-on:click="tonavlink(navUrl[n-1])">
+					<span class="mui-icon"> <img class="h_22" :src="navImg[n-1]"/></span>
+					<span id="txt_1" class="mui-tab-label" v-bind:class="navnum ==(n-1)?'txt_c1':'txt_c2'">{{navName[n-1]}}</span>
+				</a>
+			</template>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/user.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.showLoading('加载中');
+	var me = new Vue({
+		el:'#me',
+		data:{
+			status:false,
+			id:0,
+			pg:1,
+			name:'用户名',
+			integral: 0,
+			invite:0,
+			sign: '旅行的意义，就在于不断发现新的世界和新的自己',
+			avatar_url: '/public/imgs/wxlogo-1.png',
+		},
+		created:function(){
+			mui.showLoading('加载中');
+			if(localStorage.getItem('userstatus') == 'true'){
+				var _this = this;
+				Vue.http.get(URLS+'/customer/inviteLog',{headers :{Authorization: 'Bearer '+localStorage.getItem('token')}}).then(function(response){
+					var userdata = JSON.parse(localStorage.getItem('userdata'));
+					_this.invite = response.body.data;
+					_this.status = localStorage.getItem('userstatus');
+					_this.name = userdata.name;
+					_this.integral = userdata.integral;
+					_this.sign = userdata.sign==null?_this.sign:userdata.sign;
+					_this.avatar_url = userdata.avatar_url==null?_this.avatar_url:userdata.avatar_url;
+					mui.hideLoading();
+				});
+			}else{
+				mui.hideLoading();
+			}
+		},
+		methods:{
+			tolink:function(link,type){
+				if(this.status || type){
+					window.location.href = link;
+				}else{
+					window.location.href = "/login/login.html";
+				}
+			},
+			phoneCall: function () {
+		    	window.location.href="tel:4008700392";
+			},
+			goclick:function(n){
+			me.pg = n;
+			if(window.sessionStorage) {
+					sessionStorage.setItem("me.pg", me.pg );
+				} else {
+					Cookie.write("me.pg", product_id);
+				}
+				window.location.href = "order/index.html";
+			}
+		}
+	});
+</script>

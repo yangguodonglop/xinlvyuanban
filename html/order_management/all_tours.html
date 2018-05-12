@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>国内游</title>
+
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/base_new.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/personal_set.css" />
+
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/new_style.css" />
+	
+	</head>
+
+	<body style="background: #FFFFFF;">
+		<div id="app">
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ">国内游</h1>
+				<a href="javascript:void(0);" class="mui-icon mui-pull-right mui-action-back "><img class="nar_back_l margin_l_10 domestic_icon" src="imgs/img_31.png"></a>
+			</header>
+			<div class="my_order b_w" id="txt_tit" style="padding: 0 0px;">
+				<div :class="(mag_t < -35)?'index_tit_fix tit_bor':'index_tit_fix1 tit_bor'">
+					<div class="row">
+						<span :class="(cur_page == 0)?'action_tit1':'action_tit'" @click="goto_item(0)">推荐</span>
+						<span :class="(cur_page == 1)?'action_tit1':'action_tit'" @click="goto_item(1)">出境游</span>
+						<span :class="(cur_page == 2)?'action_tit1':'action_tit'" @click="goto_item(2)">国内游</span>
+						<span :class="(cur_page == 3)?'action_tit1':'action_tit'" @click="goto_item(3)">周边游</span>
+						<span :class="(cur_page == 4)?'action_tit1':'action_tit'" @click="goto_item(4)">定制游</span>
+					</div>
+				</div>
+				<!--<template v-for="(item,index) in list">
+					<div @click="tabswitch(index)" class="my_order_item" v-bind:class="{cl_active:item.isActive}">{{item.tabname}}</div>
+					<!--<div class="my_order_item cl_active">未使用</div>
+				<div class="my_order_item">已使用</div>
+				<div class="my_order_item">已过期</div>
+				</template>-->
+			</div>
+			<div class="travel_palce"  >
+					<!--<img class="widths margin_b_-5 margin_t_45" src="imgs/img_124.jpg"/>-->
+				<div class="tr_palce_item" style="display: block;">
+					<div class="place_item_banner" id="gt_img1">
+						<a href="###"><img src="imgs/new_img_023.png"></a>
+					</div>
+					<div class="place_item_list">
+							<ul>
+								<li v-for="item in dt1">
+									<a href="###">
+										<p class="item_p1">
+											<i><img :src="item.thumb"></i>
+											<span>武汉出发</span>
+										</p>
+										<p class="item_p2">
+											<span>{{item.title}}</span>
+										</p>
+										<p class="item_p3">
+											<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+											<span class="item_span2">{{item.id}}购买</span>
+										</p>
+									</a>
+								</li>
+							</ul>
+					</div>
+				</div>
+				<div class="tr_palce_item">
+					<div class="place_item_banner" id="gt_img2">
+						<a href="###"><img src="imgs/new_img_023.png"></a>
+					</div>
+					<div class="place_item_list">
+							<ul>
+								<li v-for="item in dt2">
+									<a href="###">
+										<p class="item_p1">
+											<i><img :src="item.thumb"></i>
+											<span>武汉出发</span>
+										</p>
+										<p class="item_p2">
+											<span>{{item.title}}</span>
+										</p>
+										<p class="item_p3">
+											<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+											<span class="item_span2">{{item.id}}购买</span>
+										</p>
+									</a>
+								</li>
+							
+							</ul>
+					</div>
+				</div>
+				<div class="tr_palce_item">
+					<div class="place_item_banner" id="gt_img3">
+						<a href="###"><img src="imgs/new_img_023.png"></a>
+					</div>
+					<div class="place_item_list">
+							<ul>
+								<li v-for="item in dt3">
+									<a href="###">
+										<p class="item_p1">
+											<i><img :src="item.thumb"></i>
+											<span>武汉出发</span>
+										</p>
+										<p class="item_p2">
+											<span>{{item.title}}</span>
+										</p>
+										<p class="item_p3">
+											<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+											<span class="item_span2">{{item.id}}购买</span>
+										</p>
+									</a>
+								</li>
+							
+							</ul>
+					</div>
+				</div>
+				<div class="tr_palce_item">
+					<div class="place_item_banner" id="gt_img4">
+						<a href="###"><img src="imgs/new_img_023.png"></a>
+					</div>
+					<div class="place_item_list">
+							<ul>
+								<li v-for="item in dt2">
+									<a href="###">
+										<p class="item_p1">
+											<i><img :src="item.thumb"></i>
+											<span>武汉出发</span>
+										</p>
+										<p class="item_p2">
+											<span>{{item.title}}</span>
+										</p>
+										<p class="item_p3">
+											<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+											<span class="item_span2">{{item.id}}购买</span>
+										</p>
+									</a>
+								</li>
+								
+							</ul>
+					</div>
+				</div>
+				<div class="tr_palce_item" id="tab1">
+					<div class="place_item_banner" id="gt_img5">
+						<a href="###"><img src="imgs/img_124.jpg"></a>
+					</div>
+					<div class="back_white col_1 ali padding_l_20 padding_r_20">
+						<span class="margin_t_15 txt_14 customized_tit">我要定制 · 优惠省心</span>
+						<div class="customized_hx margin_t_10"></div>
+						<div class="row_2 widths margin_t_10 txt_12 c_txt1 padding_l_10 padding_r_10">
+							<span>出发地</span><span>目的地</span>
+						</div>
+						<div class="row_2 widths margin_b_-5">
+							<input style="border: 0px; padding-left: 9px; color: #cccccc;"  v-model="start" type="text"  placeholder="start" />
+							<img class="customized_img margin_t_10" src="imgs/new_img_025.png" @click="switchChange('item1','item2')" />
+							<input style="text-align:right; border: 0px; padding-right: 9px;color: #cccccc;" v-model="end" type="text"  placeholder="end" />
+						</div>
+						<div class="col_2 ali txt_16 con_tal">
+							<div class="con_item con_item_login">
+								<div class="con_item_l c_txt1 txt_15 con_item_phone">
+									<span class="span_phone ts_15">联系人</span>
+									<input type="text" v-model="name" placeholder="name" class="input_item txt_14 c_txt10 ts_15" />
+								</div>
+							</div>
+							<div class="con_item con_item_login">
+								<div class="con_item_l c_txt1 txt_15 con_item_phone">
+									<span class="span_phone ts_15">手机号</span>
+									<input type="text" v-model="phone" placeholder="phone" class="input_item txt_14 c_txt10 ts_15" />
+								</div>
+							</div>
+							<div class="con_item con_item_login">
+								<div class="con_item_l c_txt1 txt_15 con_item_phone">
+									<span class="span_phone ts_15">留言</span>
+									<input type="text" v-model="contents" placeholder="contents" class="input_item txt_14 c_txt10 ts_15" />
+								</div>
+							</div>
+							<div class="drop_btn">
+								<div class="btn_text c_white" @click="go_btn()">提交定制</div>
+							</div>
+							
+
+						</div>
+					</div>
+					<div class="place_item_list">
+							<ul>
+								<li>
+									<a href="###">
+										<p class="item_p1">
+											<img src="imgs/new_img_024.png">
+											<span>武汉出发</span>
+										</p>
+										<p class="item_p2">
+											<span>马尔代夫Outriger奥特瑞格6-7天自由行</span>
+										</p>
+										<p class="item_p3">
+											<span class="item_span1">¥<i>499</i> 起</span>
+											<span class="item_span2">503人购买</span>
+										</p>
+									</a>
+								</li>
+								<li>
+									<a href="###">
+										<p class="item_p1">
+											<img src="imgs/new_img_024.png">
+											<span>武汉出发</span>
+										</p>
+										<p class="item_p2">
+											<span>马尔代夫Outriger奥特瑞格6-7天自由行</span>
+										</p>
+										<p class="item_p3">
+											<span class="item_span1">¥<i>499</i> 起</span>
+											<span class="item_span2">503人购买</span>
+										</p>
+									</a>
+								</li>
+							
+							</ul>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+
+</html>
+<!--<script src="js/mui.min.js"></script>
+--><script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/base_data.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+--><script>
+	var app = new Vue({
+		el: "#app",
+		data: {
+			cur_page: 0,
+			mag_t: 10,
+			dt1: '',
+			dt2: '',
+			dt3: '',
+			flag:false,
+			start:"武汉",
+			end:"请输入目的地",
+			phone:"15951813234",
+			name:"杨国栋",
+			contents:"光谷软件园",
+			list: [
+
+			]
+		},	
+		mounted:function(){
+//				(function($, doc) {
+//
+//		}(mui, document));
+			
+			//获取页面数据
+				Vue.http.get(URLS + '/recommend').then(function(response){
+				app.dt1 = response.body.data.abroad;
+				app.dt2 = response.body.data.inland;
+				app.dt3 = response.body.data.recommend;
+				app.dt4 = response.body.data.tour_around;
+
+				},function(err){
+						mui.toast('网络异常！');
+				})
+			
+			//悬停功能
+			window.onscroll = function() {
+				//获取div距离顶部的距离
+
+				var mTop = document.getElementById('txt_tit').offsetTop;
+				//减去滚动条的高度
+				var sTop;
+				if(document.documentElement && document.documentElement.scrollTop)
+					sTop = document.documentElement.scrollTop;
+				else if(document.body)
+					sTop = document.body.scrollTop;
+				var result = mTop - sTop;
+				app.mag_t = result;
+
+				//得到每个部位距离顶部的距离
+				var img1 = document.getElementById('gt_img1').offsetTop;
+				var img2 = document.getElementById('gt_img2').offsetTop;
+				var img3 = document.getElementById('gt_img3').offsetTop;
+				var img4 = document.getElementById('gt_img4').offsetTop;
+				var img5 = document.getElementById('gt_img5').offsetTop;
+				var n1 = img1 - sTop;
+				var n2 = img2 - sTop;
+				var n3 = img3 - sTop;
+				var n4 = img4 - sTop;
+				var n5 = img5 - sTop;
+			
+				if(n1 < 48 && n2 > 48)
+					app.cur_page = 0;
+				else if(n2 < 48 && n3 > 48)
+					app.cur_page = 1;
+				else if(n3 < 48 && n4 > 48)
+					app.cur_page = 2;
+				else if(n4 < 48 && n5 > 300 )
+					app.cur_page = 3;
+				else if(n5 < 300)
+					app.cur_page = 4;	
+			}
+		
+		},
+		methods: {
+			goto_item: function(n) {
+				app.cur_page=n
+				window.scrollTo(0, document.getElementById('gt_img' + (n + 1)).offsetTop - 47);
+			},
+			switchChange:function(item1,item2){
+				this.flag=!this.flag
+				if(this.flag==false){
+					item1=this.start
+					item2=this.end
+					app.start=item2
+					app.end=item1
+				}else{
+					item1=this.end
+					item2=this.start
+					app.start=item1
+					app.end=item2
+				}
+					
+			},
+			go_btn:function(){
+				var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+				//var url="/nptOfficialWebsite/apply/sendSms?mobile="+this.ruleForm.phone;
+				if(app.name == '') {
+					alert('请输入联系人');
+					return
+				};
+				if(app.phone == '') {
+					alert('手机号码不能为空');
+					return
+				} else if(!reg.test(app.phone)) {
+					alert('请输入正确的手机号码');
+					return
+				};
+				if(app.start=="" || app.start=="请输入目的地"){
+					alert("请输入正确地址")
+					return
+				}
+				if(app.end==""|| app.end=="请输入目的地" ){
+					alert("请输入正确地址")
+					return
+				}
+			var data={
+				start:app.start,
+				end:app.end,
+				name:app.name,
+				phone:app.phone,
+				contents:app.contents
+			}
+			Vue.http.options.emulateJSON = true;
+			Vue.http.post(URLS+'/customization/store',data).then(function(response){
+				alert("你已成功提交定制")
+			},function(err){
+				alert("网络错误，请检查网络")
+			})
+			}
+		}
+	
+	})
+</script>

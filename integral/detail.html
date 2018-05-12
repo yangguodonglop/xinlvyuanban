@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>商品详情</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/css/index.css"/>
+</head>
+
+<body>
+	<!--悬浮窗-->
+	<!--头部-->
+	<header class="mui-bar mui-bar-nav" style="background-color: transparent; box-shadow: 0px 0px;"> 
+		<a class="mui-action-back mui-icon mui-pull-left"><img class="img15" src="/public/imgs/img_23.png"/></a>
+	</header>
+	<div id="app">
+	<div class="fix_but b_w">
+		<div class="txt_cw ts_16 but_bac mar_13" @click="sumbitOrder(good.id)">
+			立即兑换
+		</div>
+	</div>
+	<img class="widths mar_b_-3"  :src="good.thumb"/>
+	<div class="col2 b_w pad_l_15 pad_r_15 pad_t_10">
+		<span class="txt_c1 ts_18">{{good.price}}<span class="ts_12"> &nbsp;&nbsp;积分</span></span>
+		<span class="ts_15 mar_t_10 pad_b_10 txt_c2">{{good.title}} </span>
+		<div class="row3 mar_b_10 pad_t_10 jf_tit_link1">
+			<img class="img12" src="/public/imgs/remind.png"/>
+			<span class="ts_13 mar_l_10 txt_c2">每月最后一天，不能进行该礼品兑换。</span>
+		</div>
+	</div>
+	<div class="b_w mar_t_10">
+		<img class="img13 mar_l_20 mar_t_10" src="/public/imgs/fwcn.png"/>
+		<div class="ts_11 mar_l_20 mar_r_10">
+			欣旅天下积分商城向您保证所兑换的商品均为正品，与您亲临商场选购的商品享受相同的质量、服务保障，请放心兑换；如您兑换环节遇到任何问题，请第一时间联系客服人员，我们会尽心为您处理问题。
+		</div>
+	</div>
+	<div class="b_w mar_t_10 h_44 row4 ts_14"> 
+		<img class="img14" src="/public/imgs/spxq_l.png"/>
+		<span class="mar_l_20 mar_r_20 wgt_600">商品详情</span>
+		<img class="img14" src="/public/imgs/spxq_r.png"/>
+	</div>
+	<div v-html="good.contents" id="imgs"></div>
+	</div>
+</body>
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            good: [
+            ]
+        },
+        methods: {
+            sumbitOrder:function (id) {
+                mui.openWindow({
+                    url:'submit_order.html'+'?id='+id,//跳转至指定页面
+                });
+            }
+        }
+    })
+    //获取传递数据
+    var url=location.search;
+    var Request = new Object();
+    if(url.indexOf("?")!=-1)
+    {
+        var str = url.substr(1)　//去掉?号
+        strs = str.split("&");
+        for(var i=0;i<strs.length;i++)
+        {
+            Request[strs[i ].split("=")[0]]=unescape(strs[ i].split("=")[1]);
+            console.log();
+        }
+    }else {
+        console.log('数据未找到');
+    }
+    //加载地址详情
+    get_data(Request['id']);
+    function get_data(id) {
+        Vue.http.get(URL+'/mobile/integralDetails?id='+id).then(function(response) {
+            var good=response.body.data;
+            app.good = good;
+            
+        setTimeout(function(){
+         	set_img();
+          },200);
+            
+        }, function(err) {
+            mui.toast('网络异常！');
+        });
+    }
+    
+    function set_img(){
+    	var list = document.getElementById("imgs").getElementsByTagName("img");
+		console.log(list);
+		//	console.log(list[0]);
+	    for (var i = 0; i < list.length; i++) {
+	    	
+	    	list[i].src = "http://www.xinlv123.com/"+list[i].src.slice(25);
+	    	console.log(list[i].src)
+	        list[i].style.width = (document.body.clientWidth) + "px";
+	        list[i].style.height = "auto";
+	    }
+    }
+
+</script>
+

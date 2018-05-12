@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>确认订单</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+	</head>
+	<body>
+		<!--标题-->
+		<header class="mui-bar mui-bar-nav b_w" style="box-shadow: none;">
+			<a class="mui-action-back mui-pull-left"><img class="img11" src="../imgs/left_jt.png" /></a>
+			<h1 class="mui-title">确认订单</h1>
+		</header>
+		<div id="app" style="margin-top: 45px;">
+		<!--地址信息-->
+		<div class="mui-content">
+			<div class="b_w mar_t_1 h_84 col3">
+				<div class="row3 h_80 widths">
+					<div class="col3 mar_t_10 txt_c2">
+						<span class="ts_16 mar_l_30 mar_t_10">
+							<span v-if="address == null">
+								未找到您的收货地址
+							</span>
+							<span v-else="order.status == 2">
+								{{address.name}}<span class="mar_l_20">{{address.phone}}</span>
+							</span>
+						</span>
+						<span class="ts_13 mar_10 pad_b_10"> <img class="img5 mar_r_10" src="../imgs/img_26.PNG"/>
+							<span v-if="address == null">
+								点此添加收货地址
+							</span>
+							<span v-else="order.status == 2">
+								{{address.province}}{{address.city}}{{address.area}}{{address.address}}
+							</span>
+						</span>
+					</div>
+					<img class="img6 mar_r_15" src="../imgs/img_25.png"/>
+				</div>
+				<img class="widths" src="../imgs/img_27.jpg"/>
+			</div>
+		</div>
+		<!--产品信息-->
+		<div class="b_w mar_t_10">
+			<div class="row h_115 pad_10">
+				<img class="img16 fshr" src="../imgs/img_18.jpg"/>
+				<div class="col4 heights mar_l_20">
+					<span class="ts_15 txt_c2">{{product.title}}</span>
+					<span class="txt_c1 ts_17">{{product.price}}<span class="txt_c4 ts_12 pad_l_10">积分</span></span>
+				</div>
+			</div>
+			<div class="br2"></div>
+			<div class="row h_56 pad_l_15 pad_r_15 ts_14 txt_c2">
+				<span>购买数量</span>
+				<div class="row w_81">
+					<a class="but1" href="#">-</a>
+					<span class="but_txt">{{num}}</span>
+					<a class="but1" href="#" style="line-height: 27px;">+</a>
+				</div>
+			</div>
+			<div class="br2"></div>
+			<div class="row h_44 pad_l_15 pad_r_15 ts_14 txt_c2">
+				<span>配送方式</span>
+				<span>运费&nbsp;&nbsp;免邮 <img class="img17 mar_l_10" src="../imgs/img_25.png"/></span>
+			</div>
+		</div>
+		<!--提交信息-->
+		<div class="fix_but1 row">
+			<span class="ts_12 txt_c2 mar_l_20">应扣积分：<span class="ts_20 txt_c1">575</span></span>
+			<span class="wid_42 but_bac1" @click="submit_order(product.id)">提交订单</span>
+		</div>
+		</div>
+	</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/base_data.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            num:1,
+            product:[],
+            address:[]
+        },
+        methods: {
+            submit_order:function (id) {
+                let data = {
+                    id:id,
+					num:app.num,
+                }
+               Vue.http.post(URL+'/mobile/integral/exchange',data).then(function(response) {
+                   if(response.body.status==1){
+                        mui.openWindow({
+                            url:'../integral/index.html',//跳转至指定页面
+                        });
+                    }
+                }, function(err) {
+                    alert('网络异常!');
+              });
+            }
+        }
+    })
+    //获取传递数据
+    var url=location.search;
+    var Request = new Object();
+    if(url.indexOf("?")!=-1)
+    {
+        var str = url.substr(1)　//去掉?号
+        strs = str.split("&");
+        for(var i=0;i<strs.length;i++)
+        {
+            Request[strs[i ].split("=")[0]]=unescape(strs[ i].split("=")[1]);
+        }
+    }else {
+        mui.toast('网络异常！');
+    }
+    //加载地址详情
+    get_data(Request['id']);
+    function get_data(id) {
+        Vue.http.get(URL+'/mobile/integral/order?id='+id).then(function(response) {
+            var product=response.body.data.product;
+            var address=response.body.data.default_address;
+            app.product = product;
+            app.address = address;
+        }, function(err) {
+            mui.toast('网络异常！');
+        });
+    }
+</script>

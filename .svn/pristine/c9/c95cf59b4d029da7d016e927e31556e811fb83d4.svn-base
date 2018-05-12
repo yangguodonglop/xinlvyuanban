@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>管理收货地址</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link href="../css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+</head>
+
+<body>
+	<!--标题-->
+	<header class="mui-bar mui-bar-nav b_w" style="box-shadow: none;">
+		<a class="mui-action-back mui-pull-left"><img class="img11" src="../imgs/left_jt.png" /></a>
+		<h1 class="mui-title">管理收货地址</h1>
+	</header>
+	<div class="mui-content mar_t_-9"  id="app">
+		<template v-for="item in list">
+			<div class="col4 h_118 b_w mar_t_10 txt_c2 pad_t_10 pad_b_10 pad_l_15 pad_r_15">
+				<div class="row txt_c5 ts_16">
+					<span>{{item.name}}</span>
+					<span>{{item.phone}}</span>
+				</div>
+				<span class="ts_13">{{item.province}}{{item.city}}{{item.area}}{{item.address}}</span>
+				<span class="br3"></span>
+				<div class="row ts_12">
+					<div v-if="item.is_default==1">
+						<span><img class="img2 mar_r_5" src="../imgs/img_41.png"/>默认地址</span>
+					</div>
+					<div v-else>
+						<span><img class="img2 mar_r_5" @click="setDefaultAddress(item.id)" src="../imgs/img_30.png"/>默认地址</span>
+					</div>
+					<span><img  @click="editAddress(item.id)" class="img2 mar_r_5" src="../imgs/img_28.png"/>编辑  <img @click="deleteAddress(item.id)" class="img2 mar_r_5 mar_l_20 " src="../imgs/img_29.png"/> 删除</span>
+				</div>
+			</div>
+		</template>
+		<div class="fix_but b_w">
+			<div class="txt_cw ts_16 but_bac mar_13" @click="createAddress()">
+				添加新地址
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/base_data.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            list: [
+            ]
+        },
+        methods: {
+            editAddress: function(index) {
+					mui.openWindow({
+						url:'detail.html'+'?id='+index,//跳转至指定页面
+				   });
+            },
+            setDefaultAddress:function (index) {
+			    let data = {
+                    id:index,
+                }
+                Vue.http.options.emulateHTTP = true;
+                Vue.http.options.emulateJSON = true;
+                Vue.http.post(URL+'/setDefaultAddress',data).then(function(response) {
+                      if(response.body.status==1){
+                          get_data();
+					  }
+                }, function(err) {
+                    alert('网络异常!');
+                });
+            },
+			createAddress:function () {
+                mui.openWindow({
+                    url:'create.html',//跳转至指定页面
+                });
+            },
+			deleteAddress:function (index) {
+                let data = {
+                    address_id:index,
+                }
+                Vue.http.options.emulateHTTP = true;
+                Vue.http.options.emulateJSON = true;
+                Vue.http.post(URL+'/deleteAddress',data).then(function(response) {
+                    if(response.body.status==1){
+                        get_data();
+                    }
+                }, function(err) {
+                    alert('网络异常!');
+                });
+            }
+        }
+    })
+	get_data();
+	function get_data() {
+        Vue.http.get(URL+'/addressList').then(function(response) {
+            var list=response.body.data;
+            app.list = list;
+        }, function(err) {
+            alert('网络异常!');
+        });
+    }
+
+</script>

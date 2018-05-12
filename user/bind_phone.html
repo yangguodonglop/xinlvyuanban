@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>绑定手机号</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css"/>
+	</head>
+
+	<body>
+		<div>
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1">绑定手机号</h1>
+			</header>
+			<div id="bind">
+				<div class="col_2 ali txt_16 con_tal">
+					<div class="con_item">
+						<div class="con_item_l c_txt1 txt_15 con_item_phone">
+							<span class="span_phone ts_15">手机号</span>
+							<input type="number" placeholder="请输入手机号" oninput="if(value.length>11)value=value.slice(0,11)" v-model="phone"
+								class="input_item txt_14 c_txt10 ts_15" style="margin-bottom: 0px; border: 0px; margin-left: 11px;"/>
+						</div>
+					</div>
+					<div class="con_item">
+						<div class="con_item_l c_txt1 txt_15 con_item_phone">
+							<span class="span_phone ts_15">验证码</span>
+							<input type="number" placeholder="输入短信验证码" oninput="if(value.length>5)value=value.slice(0,5)" v-model="code"
+								class="input_item txt_14 c_txt10 ts_15" style="margin-bottom: 0px; border: 0px; margin-left: 11px;"/>
+							<span class="span_phone span_br"></span>
+							<span class="span_phone c_txt11 ts_15" @click="sendsmscode">{{btnSms}}</span>
+						</div>
+					</div>
+					<div class="con_item">
+						<div class="con_item_l c_txt1 txt_15 con_item_phone">
+							<span class="span_phone ts_15">密&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+							<input type="password" placeholder="请输入密码" oninput="if(value.length>11)value=value.slice(0,11)" v-model="password"
+								 class="input_item txt_14 c_txt10 ts_15" style="margin-bottom: 0px; border: 0px; margin-left: 11px;"/>
+						</div>
+					</div>
+				</div>
+				<div class="drop_btn" @click="bind">
+					<div class="btn_text c_white">确定</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/user.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var bind = new Vue({
+		el:'#bind',
+		data:{
+			phone:sessionStorage.getItem('phone'),
+			code:'',
+			password:'',
+			btnSms:"获取验证码", //获取验证码按钮内文字
+    		timeSms:0, //发送验证码间隔时间
+    		onSms:true, //按钮状态
+    		onbind:true,
+		},
+		created: function (){
+        	mui.showLoading('数据加载中');
+			Vue.http.get(URLS+'/customerInfo',{headers :{Authorization: 'Bearer '+localStorage.getItem('token')}}).then(function(response){
+				if(response.status==200){
+					var userdata =response.body.data;
+					if(userdata.phone != null){
+						window.location.href = "/user/mysettings.html";
+					}
+					mui.hideLoading();
+				}
+			}, function(err){
+				mui.hideLoading();
+				mui.toast('数据加载失败');
+				setTimeout(function(){
+					window.location.href = "/user/mysettings.html";
+				},1000);
+			});
+		},
+		methods:{
+			isphone:function(phone){
+				var reg = /^1[3-9][0-9]\d{4,8}$/;
+				if(reg.test(phone)){
+					return true;
+				}
+				return false;
+			},
+			timer:function(){
+				if(this.timeSms>0){
+					this.btnSms = this.timeSms+'s后获取';
+					this.timeSms--;
+					this.onSms = false;
+					var timer = setTimeout(this.timer,1000);
+				}else if(this.timeSms==0){
+					this.btnSms = '获取验证码';
+					clearTimeout(timer);
+					this.onSms = true;
+				}
+			},
+			sendsmscode:function(){
+				let _this = this;
+				if(!_this.onSms){
+					return;
+				}
+				if(!_this.isphone(this.phone)){
+					mui.toast('请输入正确的手机号');
+					return;
+				};
+				let data = {
+					phone:_this.phone,
+					type:4
+				}
+				sessionStorage.phone = this.phone;
+				Vue.http.options.emulateJSON = true;
+				Vue.http.post(URL+'/sendSms',data).then(function(response){
+					if(response.status === 200){
+						if(response.body.status === 1){
+							_this.timeSms = 60;
+							_this.timer();
+							mui.toast(response.body.msg);
+							return;
+						}
+						if(response.body.status === 0){
+							mui.toast(response.body.msg);
+							return;
+						}
+					}
+				}, function(err){
+					mui.toast('网络不可用，请检查网络');
+				});
+				
+			},
+			bind:function(){
+				let _this = this;
+				if(!_this.onbind){
+					return;
+				}
+				if(!_this.isphone(this.phone)){
+					mui.toast('请输入正确的手机号');
+					return;
+				};
+				if(_this.code == ''){
+					mui.toast('请输入验证码');
+					return;
+				}
+				if(_this.password == ''){
+					mui.toast('请输入密码');
+					return;
+				}
+				if(_this.password.length<5){
+					mui.toast('密码过于简单');
+					return;
+				}
+            	mui.showLoading('数据加载中');
+				let data = {
+					phone:_this.phone,
+					password:_this.password,
+					code:_this.code,
+				}
+				Vue.http.put(URLS+'/customer/setAccount',data,{headers :{Authorization: 'Bearer '+localStorage.getItem('token')}}).then(function(response){
+					if(response.status === 200){
+						if(response.body.status === 1){
+							mui.hideLoading();
+							mui.toast(response.body.msg);
+							setTimeout(function(){
+								window.location.href = "/user/mysettings.html";
+							},1000);
+							return;
+						}
+						if(response.body.status === 0){
+							mui.hideLoading();
+							mui.toast(response.body.msg);
+							return;
+						}
+					}
+				}, function(err){
+					mui.hideLoading();
+					mui.toast('网络不可用，请检查网络');
+				});
+			},
+		}
+	});
+</script>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>产品详情单页</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+		<style type="text/css">
+			table,
+			table tr th,
+			table tr td {
+				border: 1px solid #0094ff;
+			}
+			
+			.float-nav-all {
+				background-color: white;
+				margin-left: -10px;
+				margin-right: -10px;
+				margin-bottom: 20px;
+			}
+			
+			.float-nav-list {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				list-style: none;
+				margin: 0 auto;
+				padding: 0;
+			}
+			
+			.float-nav-list li {
+				list-style: none;
+				height: 40px;
+				line-height: 40px;
+			}
+			
+			img {
+				max-width: 100%;
+				height: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<div class="mar_b_50">
+				<!--头部-->
+				<header class="mui-bar mui-bar-nav" style="background-color: transparent; box-shadow: 0px 0px;">
+					<a class="mui-action-back mui-icon mui-pull-left"><img class="img15" src="../imgs/img_23.PNG" /></a>
+				</header>
+				<!-- 图片轮播 -->
+				<div class="mui-slider swiper" style="max-height: 320px;">
+					<div id="banner_id" class="mui-slider-group mui-slider-loop">
+						<div class="mui-slider-item" v-for="(item,i) in list2" :key='i'>
+							<img :src="item" />
+						</div>
+						<!--<div class="mui-slider-item">
+					<img src="../imgs/img_20.jpg" />
+				</div>
+				<div class="mui-slider-item">
+					<img src="../imgs/img_21.jpg" />
+				</div>-->
+					</div>
+				</div>
+				<!--	<template v-for="item in list1">-->
+
+				<div class="pad_10 b_w mar_t_-10">
+					<span class="dom_txt">{{list1.title}}</span>
+					<div class="dom_back pad_b_10 mar_t_10 pad_t_10">
+						<div class="row ali h_38">
+							<div class="row ali">
+								<img class="h_38" src="../imgs/img_38.png" />
+								<span class="ts_12 txt_c1">&nbsp;&nbsp;￥<span class="ts_18">{{list1.price}}</span><span class="txt_c2"> 起</span></span>
+							</div>
+							<span class="ts_12 txt_c4 pad_r_10">100%好评</span>
+						</div>
+					</div>
+					<div class="row ali mar_t_10 pad_t_3">
+						<img class="w_25 mar_r_10" src="../imgs/img_39.PNG" />
+						<span class="ts_13 txt_c2" style="line-height: 15px;">此产品需二次确认，商家将在12个工作小时内（工作日9:00 - 18:00)  核实是否有位。</span>
+					</div>
+				</div>
+				<!--</template>-->
+
+				<div class="row b_w mar_t_10 mar_b_1 h_44 ali pad_l_10 pad_r_10">
+					<span class="ts_14 txt_c2">优惠信息<span class="txt_11 c_txt5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;立减优惠&nbsp;&nbsp;&nbsp;| 点评返现 |</span></span>
+					<span class="c_txt1" style="display: none;">></span>
+				</div>
+				<!--<div class="row b_w h_44 ali pad_l_10 pad_r_10">-->
+					<!--<span class="ts_14 txt_c2">领券活动<span class="txt_11 c_txt5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;满1000元减10 |&nbsp;&nbsp;&nbsp;| 满3000元减50 |</span></span>-->
+					<!--<span class="c_txt1" style="display: none;">></span>-->
+				<!--</div>-->
+
+				<!--产品特色-->
+				<div v-html="list1.content" class="pad_10 pad_10_imgs" style="overflow-x: hidden;">
+					{{list1.content}}
+				</div>
+
+			</div>
+
+			<!--提交订单-->
+			<div class="h_50 zxb_fixed widths b_w" style="bottom: 0;">
+				<div class="row heights">
+					<div class="detail_but1" onclick="location.href='tel:4008700392'">
+						<img src="../imgs/img_44.png" />电话咨询
+					</div>
+					<a href="javaScript:;" @click="go_url()"  class="detail_but2">
+						<!--<a href="order.html" class="detail_but2">-->
+						<span class="c_white" >立即预定</span>
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</body>
+
+</html>
+<script src="../js/mui.min.js" type="text/jscript"></script>
+<script src="../js/vue.min.js" type="text/javascript"></script>
+<script src="../js/vue_resource.js" type="text/javascript"></script>
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js" type="text/jscript"></script>
+<script src="../js/base_data.js" type="text/javascript"></script>
+<script src="../js/showLoding.js" type="text/javascript"></script>
+<script>
+	var app = new Vue({
+				el: "#app",
+				data: {
+					list2: [],
+					list1: [
+
+					]
+				},
+				mounted: function() {
+					//			alert("00")
+					//			$(".pad_10_imgs img").each(function(index,obj){
+					// console.log($(this).attr("src"));
+//				});
+			//延时初始化轮播组件
+			var init_gall = () => {
+				setTimeout(function() {
+					var gallery = mui('.mui-slider');
+					gallery.slider({
+						interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
+					});
+				}, 200);
+			}
+
+			//获取index.html传过来的商品ID
+			var strStoreid = window.sessionStorage ? sessionStorage.getItem("id_item") : Cookie.read("id_item"); console.log(strStoreid)
+
+			Vue.http.get(goods_details + '?id=' + strStoreid).then(function(respones) {
+
+				app.list1 = respones.data.data;
+				var obj = JSON.parse(respones.data.data.thumb)
+
+				for(var i = 0; i < obj.length; i++) {
+					app.list2.push(obj[i])
+				}
+				init_gall();
+				set_img();
+			}, function(err) {
+				mui.toast('网络不可用，请检查网络');
+			})
+		},
+		methods: {
+			go_url: function() {
+				window.location.href = "new_order_set.html"
+			}
+		}
+	})
+	
+  function set_img(){
+  	var list = document.getElementById("imgs").getElementsByTagName("img");
+		console.log(list);
+	//	console.log(list[0]);
+	    for (var i = 0; i < list.length; i++) {
+	    	
+	    	list[i].src = "http://www.xinlv123.com/"+list[i].src;
+	    	console.log(list[i].src)
+	        list[i].style.width = (document.body.clientWidth - 20) + "px";
+	        list[i].style.height = "auto";
+	    }
+  }
+</script>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>热门出游</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="public/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="public/css/base_new.css" />
+		<link rel="stylesheet" type="text/css" href="public/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="public/css/personal_set.css" />
+		<link rel="stylesheet" type="text/css" href="public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="public/css/showLoging.css" />
+		<link rel="stylesheet" type="text/css" href="public/css/new_style.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+			.travel_palce .tr_palce_item .place_item_list ul li a .item_p2 span{
+				margin-top: 7px;
+			}
+			.mui-slider-indicator.mui-segmented-control{
+				background: #FFFFFF;
+			}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+				color: #ff7403;
+				
+			}
+			.mui-segmented-control.mui-scroll-wrapper{
+				height: 40px;
+			}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item{
+				border-bottom: 3px solid transparent;
+			}
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+							border-bottom: 3px solid #ff7403;
+			}
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll{
+				width: 100%;
+				display: flex;
+				justify-content: space-around;
+			}
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item{
+				padding: 0 10px;
+			}
+			
+				@media screen and (min-width:326px) and (max-width:375px){
+  				 .txt_14{
+					font-size: 1.4rem;
+				}
+			}	
+				
+			@media screen and (max-width:325px)  { 
+				.travel_palce .tr_palce_item .place_item_list ul li a .item_p3 .item_span1 i{
+					font-size: 1.4rem;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav b_w" style="box-shadow: none;">
+				<a class="mui-action-back mui-pull-left"><img class="img11" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title">{{title}}</h1>
+			</header>
+			<!--<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">{{title}}</h1>
+			</header>-->
+			<div class="mui-content">
+				<div id="slider" class="mui-slider mui-fullscreen">
+					<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<div class="mui-scroll" style="margin-top: 0px;">
+							<a class="mui-control-item" :class="open_page == 0?'mui-active':''" href="#item0mobile">
+								{{titlelist[0]}}
+							</a>
+							<a class="mui-control-item" :class="open_page == 1?'mui-active':''" href="#item1mobile">
+								{{titlelist[1]}}
+							</a>
+							<a class="mui-control-item" :class="open_page == 2?'mui-active':''" href="#item2mobile">
+								{{titlelist[2]}}
+							</a>
+							<a class="mui-control-item" :class="open_page == 3?'mui-active':''" href="#item3mobile">
+								{{titlelist[3]}}
+							</a>
+						</div>
+					</div>
+					<div class="mui-slider-group" id="nowclick">
+						<div id="item0mobile" style="margin-top: -1px;" class="mui-slider-item mui-control-content" :class="open_page == 0?'mui-active':''">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<div class=" travel_palce">
+										<div class="tr_palce_item" style="display: block; height: auto; overflow: hidden;">
+											<div class="place_item_banner" id="gt_img1">
+												<a><img src="/public/imgs/zhiti.jpg"></a>
+											</div>
+											<div class="place_item_list">
+												<ul>
+													<li v-for="item in open_content0" @click="tolink(item)">
+														<a>
+															<p class="item_p1">
+																<i style="font-style: normal;"><img :src="item.thumb">
+																<span>{{city}}出发</span>
+																</i>
+															</p>
+															<p class="item_p2">
+																<span>{{item.title}}</span>
+															</p>
+															<p class="item_p3">
+																<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+																<span class="item_span2">{{item.id}}购买</span>
+															</p>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="item1mobile"  style="margin-top: -1px;" class="mui-slider-item mui-control-content" :class="open_page == 1?'mui-active':''">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<div class=" travel_palce">
+										<div class="tr_palce_item" style="display: block; height: auto; overflow: hidden;">
+											<div class="place_item_banner" id="gt_img1">
+												<a href="###"><img src="/public/imgs/guonei.jpg"></a>
+											</div>
+											<div class="place_item_list">
+												<ul>
+													<li v-for="item in open_content1" @click="tolink(item)">
+														<a>
+															<p class="item_p1">
+																<i style="font-style: normal;"><img :src="item.thumb">
+																<span>{{city}}出发</span>
+																</i>
+															</p>
+															<p class="item_p2">
+																<span>{{item.title}}</span>
+															</p>
+															<p class="item_p3">
+																<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+																<span class="item_span2">{{item.id}}购买</span>
+															</p>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="item2mobile" style="margin-top: -1px;" class="mui-slider-item mui-control-content" :class="open_page == 2?'mui-active':''">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<div class=" travel_palce">
+										<div class="tr_palce_item" style="display: block; height: auto; overflow: hidden;">
+											<div class="place_item_banner" id="gt_img1">
+												<a href="###"><img src="/public/imgs/zhoubian.jpg"></a>
+											</div>
+											<div class="place_item_list">
+												<ul>
+													<li v-for="item in open_content2" @click="tolink(item)">
+														<a>
+															<p class="item_p1">
+																<i style="font-style: normal;"><img :src="item.thumb">
+																<span>{{city}}周边</span>
+																</i>
+															</p>
+															<p class="item_p2">
+																<span>{{item.title}}</span>
+															</p>
+															<p class="item_p3">
+																<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+																<span class="item_span2">{{item.id}}购买</span>
+															</p>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="item3mobile" style="margin-top: -1px;" class="mui-slider-item mui-control-content" :class="open_page == 3?'mui-active':''">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<div class=" travel_palce">
+										<div class="tr_palce_item" style="display: block; height: auto; overflow: hidden;">
+											<div class="place_item_banner" id="gt_img1">
+												<a href="###"><img src="/public/imgs/chujing.jpg"></a>
+											</div>
+											<div class="place_item_list">
+												<ul>
+													<li v-for="item in open_content3" @click="tolink(item)">
+														<a>
+															<p class="item_p1">
+																<i style="font-style: normal;"><img :src="item.thumb">
+																<span>{{city}}出发</span>
+																</i>
+															</p>
+															<p class="item_p2">
+																<span>{{item.title}}</span>
+															</p>
+															<p class="item_p3">
+																<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+																<span class="item_span2">{{item.id}}购买</span>
+															</p>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="public/js/mui.min.js"></script>
+<script src="public/js/mui.pullToRefresh.js"></script>
+<script src="public/js/mui.pullToRefresh.material.js"></script>
+<script src="public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script>
+var app = new Vue({
+	el: "#app",
+	data: {
+		page:[2,2,2,2,2],//分页数
+		pagetitle:1,
+		pagenum:10,
+		open_page:0,
+		open_content0:'',
+		open_content1:'',
+		open_content2:'',
+		open_content3:'',
+		city:'',
+		title:'',
+		titlelist:['主题游','国内游','周边游','出境游']
+	},
+	created:function() {
+		mui.showLoading("数据加载中...", "div");
+		var tours = window.sessionStorage ? sessionStorage.getItem("tours") : Cookie.read("tours");
+		if(tours == '国内游'){
+			this.open_page = 1;
+		}
+		if(tours == '周边游'){
+			this.city = localStorage.getItem('city');
+			if(this.city == null){
+				this.city = '武汉';
+			}
+			this.open_page = 2;
+		}
+		if(tours == '出境游'){
+			this.open_page = 3;
+		}
+		if(tours == '主题游'){
+			this.open_page = 0;
+		}
+		this.settitle(this.open_page);
+	},
+	methods: {
+		settitle:function(open_page){
+			var _this = this;
+			_this.open_page = open_page;
+			switch(open_page){
+				case 0:
+					//热门推荐
+					_this.title = _this.titlelist[0];
+					if(_this.open_content0==''){
+						_this.setdatalist(_this.pagenum,3,1);
+					}
+					break;
+				case 1:
+					//国内游
+					if(_this.open_content1==''){
+						_this.setdatalist(_this.pagenum,2,1);
+					}
+					_this.title = _this.titlelist[1];
+					break;
+				case 2:
+					//周边游
+					_this.title = _this.titlelist[2];
+					if(_this.open_content1==''){
+						_this.sidedatalist();
+					}
+					break;
+				case 3:
+					//出境游
+					_this.title = _this.titlelist[3];
+					if(_this.open_content3==''){
+						_this.setdatalist(_this.pagenum,1,1);
+					}
+					break;
+			}
+		},
+		setdatalist:function(pagenum,type,page){
+			mui.showLoading("加载中"); 	
+			var _this = this;
+			Vue.http.get('http://mapi.xinlv123.com/xltx/mobile/getDataList?paginate='+pagenum+'&type='+type+'&page='+page).then(function(response) {
+				if(response.body.status == 1){
+					var data = response.body.data.data;
+					switch(_this.open_page){
+						case 0:
+							_this.open_content0 = data;
+							break;
+						case 1:
+							_this.open_content1 = data;
+							break;
+						case 3:
+							_this.open_content3 = data;
+							break;
+					}
+				}
+			});
+			mui.hideLoading();
+		},
+		datalistpage:function(type,page){
+			mui.showLoading("加载中");
+			var _this = this;
+			Vue.http.get('http://mapi.xinlv123.com/xltx/mobile/getDataList?paginate='+_this.pagenum+'&type='+type+'&page='+page).then(function(response) {
+				if(response.body.status == 1){
+					var data = response.body.data.data;
+					
+					switch(_this.open_page){
+						case 0:
+							_this.open_content0.push.apply(_this.open_content0,data);
+							console.log(_this.open_content0);
+							break;
+						case 1:
+							_this.open_content1.push.apply(_this.open_content1,data);
+							break;
+						case 3:
+							_this.open_content3.push.apply(_this.open_content3,data);
+							break;
+					}
+				}
+			});
+			mui.hideLoading();
+		},
+		//周边信息
+		sidedatalist:function(){
+			mui.showLoading("加载中");
+			var _this = this;
+			Vue.http.get('http://mapi.xinlv123.com/xltx/mobile/getTourAroundList?paginate='+this.pagenum+'&city='+this.city).then(function(response) {
+				if(response.body.status == 1){
+					_this.open_content2 = response.body.data.data;
+				}
+			});
+			mui.hideLoading();
+		},
+		//周边分页
+		sidelistpage:function(page){
+			mui.showLoading("加载中");
+			var _this = this;
+			Vue.http.get('http://mapi.xinlv123.com/xltx/mobile/getTourAroundList?paginate='+this.pagenum+'&city='+this.city+'&page='+page).then(function(response) {
+				if(response.body.status == 1){
+					var data = response.body.data.data;
+					_this.open_content2.push.apply(_this.open_content2,data);
+				}
+			});
+			mui.hideLoading();
+		},
+		tolink:function(item){
+			console.log(item);
+			var product_id = item.id
+			if(window.sessionStorage) {
+				sessionStorage.setItem("id_item", product_id);
+			} else {
+				Cookie.write("id_item", product_id);
+			}
+			window.location.href = "/details/index.html?id="+item.id;
+		}
+	}
+});
+(function($) {
+	$(function() {
+		mui("#app").on('tap', 'li', function(event) {
+			this.click();
+		});
+	})
+	var deceleration = mui.os.ios ? 0.003 : 0.0009;
+	$('.mui-scroll-wrapper').scroll({
+		bounce: false,
+		indicators: true, //是否显示滚动条
+		deceleration: deceleration
+	});
+	$.ready(function() {
+		//事件监听方法
+		document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+			app.settitle(event.detail.slideNumber);
+		})
+	});
+	$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+		$(pullRefreshEl).pullToRefresh({
+			down: {
+				callback: function() {
+					var self = this;
+					switch(app.open_page){
+						case 0:
+							var type = 3;
+							break;
+						case 1:
+							var type = 2;
+							break;
+						case 2:
+							var type = 0;
+							break;
+						case 3:
+							var type = 1;
+							break;
+					}
+					app.page[app.open_page] = 2;
+					setTimeout(function() {
+						if(type == 0){
+							app.sidedatalist();
+						}else{
+							app.setdatalist(app.pagenum,type,1);
+						}
+						self.endPullDownToRefresh();
+						mui.toast('刷新成功');
+					}, 1000);
+				}
+			},
+			up: {
+				callback: function() {
+					var self = this;
+					switch(app.open_page){
+						case 0:
+							var type = 3;
+							break;
+						case 1:
+							var type = 2;
+							break;
+						case 2:
+							var type = 0;
+							break;
+						case 3:
+							var type = 1;
+							break;
+					}
+					setTimeout(function() {
+						if(type == 0){
+							app.sidelistpage(app.page[app.open_page]++)
+						}else{
+							app.datalistpage(type,app.page[app.open_page]++);
+						}
+						self.endPullUpToRefresh();
+					}, 1000);
+				}
+			}
+		});
+	});
+})(mui);
+</script>

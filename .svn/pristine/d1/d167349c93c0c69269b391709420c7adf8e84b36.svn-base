@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>联系人</title>
+		<link href="/public/css/mui.min.css" rel="stylesheet" />
+		<link href="/public/css/mui.indexedlist.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+		<style>
+			html,
+			body {
+				height: 100%;
+				overflow: hidden;
+			}
+			.mui-bar {
+				-webkit-box-shadow: none;
+				box-shadow: none; 
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-pull-left"><img class="h_44 pad_13" src="/public/imgs/left_jt.png"/></a>
+			<h1 class="mui-title">联系人</h1>
+			<a class="mui-pull-right" @click="deldata()"><img class="h_44 pad_13" v-if="delect" src="/public/imgs/img_29.PNG"/></a>
+		</header> 
+		
+		<div class="fix_but b_w">
+			<div class="txt_cw ts_16 but_bac mar_13" @click="tothink('/contacts/addlist.html')">
+				新增联系人
+			</div>
+		</div>
+		
+		<div class="mui-content">
+			<div id='list' class="mui-indexed-list ">
+				<div class="bac_hs pad_10" style="display: none;">
+					<div class="mui-indexed-list-search mui-input-row mui-search contacts_tit">
+						<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder=" 在联系人中搜索">
+					</div>
+				</div>
+				<div class="mui-indexed-list-bar">
+					<a>A</a>
+					<a>B</a>
+					<a>C</a>
+					<a>D</a>
+					<a>E</a>
+					<a>F</a>
+					<a>G</a>
+					<a>H</a>
+					<a>I</a>
+					<a>J</a>
+					<a>K</a>
+					<a>L</a>
+					<a>M</a>
+					<a>N</a>
+					<a>O</a>
+					<a>P</a>
+					<a>Q</a>
+					<a>R</a>
+					<a>S</a>
+					<a>T</a>
+					<a>U</a>
+					<a>V</a>
+					<a>W</a>
+					<a>X</a>
+					<a>Y</a>
+					<a>Z</a>
+				</div>
+			
+				<div class="mui-indexed-list-alert"></div>
+				
+				<div class="mui-indexed-list-inner">
+					<div class="mui-indexed-list-empty-alert">没有数据</div>
+					<ul class="mui-table-view">
+						<template v-for="item in data">
+							<li :data-group="item.letter" class="mui-table-view-divider mui-indexed-list-group">{{item.letter}}</li>
+							<li data-value="" v-for="data in item.data"
+							 :data-tags="data.name_letter" 
+							 class="mui-table-view-cell mui-indexed-list-item row" 
+							 onclick="onbox(this)">
+								<input name="checkbox" :value="data.id" type="checkbox" checkbox>
+								<span>{{data.name}}</span>
+								<span>{{data.phone}}</span>
+							</li>
+						</template>
+					</ul>
+				</div>
+			</div>
+		</div>
+		</div>
+	
+	</body>
+
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/mui.indexedlist.js"></script>
+<script src="/public/js/vue.min.js"></script>
+<script src="/public/js/vue_resource.js"></script>
+<script src="/public/config/config.js"></script>
+<script src="/public/js/showLoding.js"></script>
+<script type="text/javascript" charset="utf-8"> 
+var me = new Vue({
+	el:'#app',
+	data:{
+		data:'',
+		datalist:[],//删除列表
+		delect:false,
+	},
+	created:function(){
+		mui.showLoading('加载中');
+		if(localStorage.getItem('userstatus') == 'true'){
+			var _this = this;
+			Vue.http.get(URLS+'/contact',{headers :{Authorization: 'Bearer '+localStorage.getItem('token')}}).then(function(response){
+				console.log(response.body);
+				me.data = response.body;
+				mui.hideLoading();
+			});
+		}else{
+			mui.hideLoading();
+		}
+	},
+	methods:{
+		tothink:function(link){
+			window.location.href = link;
+		},
+		deldata:function(){
+			mui.showLoading("正在删除","div");
+				Vue.http.options.emulateJSON = true;
+				Vue.http.post(URLS + '/contact/delete', {id:this.datalist}, {
+					headers: {
+						Authorization: 'Bearer ' + localStorage.getItem('token')
+					}
+				}).then(function(response) {
+					if(response.status == 200){
+						mui.hideLoading();
+						mui.toast(response.body.msg);
+						setTimeout(function(){
+							location.reload();
+						},1000)
+					}
+				}, function(err) {
+					mui.toast('网络不可用，请检查网络');
+					mui.hideLoading();
+				})
+		}
+	}
+});
+
+function onbox(e){
+	e.firstChild.checked = !e.firstChild.checked;
+	if(e.firstChild.checked){
+		me.datalist.push(e.firstChild.value)
+	}else{
+		for(var key in me.datalist){
+			if(me.datalist[key]==e.firstChild.value){
+				me.datalist.splice(key,1);
+			}
+		}
+	}
+	if(me.datalist.length > 0){
+		me.delect = true;
+	}else{
+		me.delect = false;
+	}
+}
+
+mui.init();
+mui.ready(function() {
+	var header = document.querySelector('header.mui-bar');
+	var list = document.getElementById('list');
+	//calc hieght
+	list.style.height = (document.body.offsetHeight - header.offsetHeight - 70) + 'px';
+	//create
+	window.indexedList = new mui.IndexedList(list);
+});
+</script>

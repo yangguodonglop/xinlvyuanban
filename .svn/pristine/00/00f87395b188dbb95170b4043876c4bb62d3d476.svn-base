@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>兑换记录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+	</head>
+	<body>
+		<!--标题-->
+		<header class="mui-bar mui-bar-nav b_w" style="box-shadow: none;">
+			<a class="mui-action-back mui-pull-left"><img class="img11" src="/public/imgs/img_76.png" /></a>
+			<h1 class="mui-title">兑换记录</h1>
+		</header>
+		
+		<div class="mui-content txt_c2 ts_15" id="app">
+			<template v-for="item in list">
+			<div class="row b_w mar_t_1 h_115 pad_13" @click="getOrderDetail(item.id)">
+				<img class="img18 fshr" :src="item.thumb"/>
+				<div class="col3 mar_l_30">
+					<span class="ts_w_600">{{item.title}}</span>
+					<div class="row mar_b_5 ts_11">
+						<span class="txt_c4">{{item.created_time}}</span>
+						<span class="ts_12 txt_c1">
+							<div v-if="item.status === 1">待发货</div>
+							<div v-if="item.status === 2">已发货</div>
+							<div v-if="item.status === 3">已签收</div>
+						</span>
+					</div>
+				</div>
+			</div>	
+			</template>
+		</div>	
+	</body>
+
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            title:'商品列表',
+            list: [
+            ]
+        },
+        methods: {
+            getOrderDetail: function(id) {
+                mui.openWindow({
+                    url:'detail.html'+'?id='+id,//跳转至指定页面
+                });
+            },
+        }
+    })
+    //加载地址详情
+    get_data();
+    function get_data() {
+        Vue.http.get(URL+'/mobile/integral/conversionLog',{headers :{Authorization: 'Bearer '+localStorage.getItem('token')}}).then(function(response) {
+            var list=response.body.data;
+            app.list = list;
+        }, function(err) {
+            mui.toast('网络异常!');
+        });
+    }
+
+</script>

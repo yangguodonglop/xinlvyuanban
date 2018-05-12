@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>绑定手机号</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+	</head>
+
+	<body>
+		<div>
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1">绑定手机号</h1>
+			</header>
+			<div class="col_2 ali txt_16 con_tal">
+				<div class="con_item">
+					<div class="con_item_l c_txt1 txt_15 con_item_phone">
+						<span class="span_phone ts_15">手机号</span>
+						<input type="text" placeholder="请输入手机号" class="input_item txt_14 c_txt10 ts_15" />
+					</div>
+				</div>
+				<div class="con_item">
+					<div class="con_item_l c_txt1 txt_15 con_item_phone">
+						<span class="span_phone ts_15">验证码</span>
+						<input type="text" placeholder="输入短信验证码" class="input_item txt_14 c_txt10 ts_15" />
+						<span class="span_phone span_br"></span>
+						<span class="span_phone c_txt11 ts_15">发送验证码</span>
+					</div>
+				</div>
+			</div>
+			<div class="drop_btn ">
+				<div class="btn_text c_white">确定</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/user.js" type="text/javascript" charset="utf-8"></script>

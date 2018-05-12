@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>发现</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css" />
+		<style>
+			
+				 .txt_14{
+					font-size: 1.4rem;
+						color: #474747;
+				}
+			@media screen and (min-width:326px) and (max-width:375px){
+  				 .txt_14{
+					font-size: 1.4rem;
+					color: #474747;
+				}
+			}	
+				
+			@media screen and (max-width:325px)  { 
+				 .txt_14{
+					font-size: 1.2rem;
+					color: #474747;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div id="pullrefresh" class="mui-content">
+				<!--头部-->
+				<header class="mui-bar mui-bar-nav" style="box-shadow: none;">
+					<h1 class="mui-title c_white">发现</h1>
+					<a onclick="location.href='../search/new_search.html'" class="mui-pull-right"><img class="w_20 mar_r_15 mar_t_5 mar_t_10" src="/public/imgs/img_31.png" /></a>
+				</header>
+
+				<!--搜索框 、广告图-->
+				<div class="mui-slider margin_b_10 mar_t_45">
+					<div class="mui-slider-group mui-slider-loop">
+						<div class="mui-slider-item">
+							<a href="#"><img class="search_img" src="/public/imgs/new_fx.jpg" alt="" /></a>
+						</div>
+						<!--<div class="mui-slider-item">
+							<a href="#"><img class="search_img" src="/public/images/img_116-min.jpg" alt="" /></a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#"><img class="search_img" src="/public/images/img_117-min.jpg" alt="" /></a>
+						</div>
+						<div class="mui-slider-item">
+							<a href="#"><img class="search_img" src="/public/images/img_116-min.jpg" alt="" /></a>
+						</div>-->
+					</div>
+				</div>
+
+				<!--发现·玩哪里-->
+				<div class="hot b_w mar_t_10 pad_b_5">
+					<!--标题-->
+					<div class="tit row">
+						<div class="ts_15 txt_c1"><img class="tit_iocn" src="/public/imgs/img_36.png" />发现·玩哪里</div>
+						<div onclick="location.href='../search/new_search.html'" class="txt_c3 ts_13">更多 ></div>
+					</div>
+
+					<!--秒杀、特惠-->
+					<div class="row mar_l_10 mar_r_10">
+						<div class="col2 hot_show" v-for="item in dt_list1" @click="go_url(item)" style="width: 48%; justify-content: space-around;">
+							<div class="rel txt_cw">
+								<img class="abs img24" src="/public/imgs/img_14-min.png" />
+								<span class="abs ts_11 txt_cw mar_t_-2 mar_l_5">特惠</span>
+								<div class="abs rob_hs bot_0 one_lin">{{item.title}}</div>
+								<img class="widths" :src="item.thumb" style="height: 10.5rem;" />
+							</div>
+							<div class="widths h_35 row">
+								<div class="txt_c1 pad_l_5">
+									<span class="txt_14">￥</span><span class="txt_14">{{item.price}}</span><span class="txt_14 c_txt">起</span>
+								</div>
+								<div><img class="img25 mar_r_10" src="/public/imgs/img_37.png" /></div>
+							</div>
+						</div>
+					</div>
+					<!--标题模块-->
+					<div class="row mar_r_10">
+						<div class="col widths mar_l_10">
+							<div onclick="location.href='../search/new_search.html?key=泰国'" class="hot_txt1">泰国</div>
+							<div onclick="location.href='../search/new_search.html?key=澳大利亚'" class="hot_txt1">澳大利亚</div>
+						</div>
+						<div class="col widths mar_l_10">
+							<div onclick="location.href='../search/new_search.html?key=日本'" class="hot_txt1">日本</div>
+							<div onclick="location.href='../search/new_search.html?key=西安'" class="hot_txt1">西安</div>
+						</div>
+						<div class="col widths mar_l_10">
+							<div onclick="location.href='../search/new_search.html?key=厦门'" class="hot_txt1">厦门</div>
+							<div onclick="location.href='../search/new_search.html?key=欧洲'" class="hot_txt1">欧洲</div>
+						</div>
+						<div class="col widths mar_l_10">
+							<div onclick="location.href='../search/new_search.html?key=七彩云南'" class="hot_txt1">七彩云南</div>
+							<div onclick="location.href='../search/new_search.html?key=贵州'" class="hot_txt1">贵州</div>
+						</div>
+					</div>
+				</div>
+
+				<!--国内推荐-->
+				<div class="mar_t_10">
+					<!--标题-->
+					<div class="tit row b_w">
+						<div class="ts_15 txt_c1"><img class="tit_iocn" src="/public/imgs/img_36.png" />精选线路</div>
+						<div onclick="location.href='../search/new_search.html'" class="txt_c3 ts_13">更多 ></div>
+					</div>
+					<!--列表-->
+					<div class="row3 mar_t_1 pad_b_10 b_w pad_t_10 h_105" v-for="item in dt_list2" @click="go_url(item)">
+						<img class="w_81 h_80 mar_l_13 mar_r_15 fshr" :src="item.thumb" />
+						<div class="col3 pad_t_5 pad_b_5">
+							<span class="txt_14 c_txt1" >{{item.title}}</span>
+							<div class="row_2 c_red1 padding_t_3">
+								<!--<div class="ts_10">
+							<span class="iocn5">优惠</span>
+							<span class="iocn6">返现</span>
+							<span class="iocn7">今日可订</span>
+						</div>-->
+							</div>
+							<div class="row widths ts_12 txt_c3">
+								<span>{{item.start}} 出发</span>
+								<div class="txt_11 txt_c1 pad_r_15">
+									￥<span class="ts_18">{{item.price}}</span> 起
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="mar_b_50"></div>
+		<!--<div class="mui-bar mui-bar-tab z_9999" id="nav">
+			<template v-for="n in 5">
+				<a class="mui-tab-item" v-on:click="tonavlink(navUrl[n-1])">
+					<span class="mui-icon"> <img class="h_22" :src="navImg[n-1]"/></span>
+					<span id="txt_1" class="mui-tab-label" v-bind:class="navnum ==(n-1)?'txt_c1':'txt_c2'">{{navName[n-1]}}</span>
+				</a>
+			</template>
+		</div>-->
+		<div class="tab_myself" id="nav">
+			<template v-for="n in 5">
+				<a class="tab_myself_a" data-url="" v-on:click="tonavlink(navUrl[n-1])">
+					<span class="tab_myself_span"> <img class="h_22" :src="navImg[n-1]"/></span>
+					<span id="txt_1" class="mui-tab-label" v-bind:class="navnum ==(n-1)?'txt_c1':'txt_c2'">{{navName[n-1]}}</span>
+				</a>
+			</template>
+		</div>
+	</body>
+
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var app = new Vue({
+		el: "#app",
+		data: {
+			people_num: "1",
+			hot_num: "2",
+			dt_list1: '',
+			dt_list2: '',
+			dt_list3: ''
+
+		},
+		mounted: function() {
+			//延时初始化轮播组件
+			var init_gall = function() {
+				setTimeout(function() {
+					var gallery = mui('.mui-slider');
+					gallery.slider({
+						interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
+					});
+				}, 200);
+			}
+			init_gall();
+			//获取数据
+			mui.showLoading("数据加载中...", "div");
+			Vue.http.get(URLS + '/find').then(function(response) {
+				//mui.hideLoading();
+				//发现玩哪里
+				app.dt_list1 = response.body.data.find
+				//精选线路
+				app.dt_list2 = response.body.data.sift
+				//位置推荐
+				app.dt_list3 = response.body.data.path
+				mui.hideLoading();
+			}, function(err) {
+				mui.hideLoading();
+				mui.toast('网络异常！');
+
+			})
+
+		},
+		methods: {
+			go_url: function(item) {
+				var product_id = item.id
+				if(window.sessionStorage) {
+					sessionStorage.setItem("id_item", product_id);
+				} else {
+					Cookie.write("id_item", product_id);
+				}
+				window.location.href = "/details/index.html?id="+item.id;
+			}
+
+		}
+
+	})
+</script>

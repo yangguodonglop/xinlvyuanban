@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>邀请好友</title>
+	
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+	
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/new_style.css" />
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ">邀请好友</h1>
+			</header>
+			<div class="share invite_friend">
+				<div class="iv_friends_item">
+					<a href="#" class="fs_a"><img src="imgs/new_img_016.png"></a>
+				</div>
+				<div class="iv_friends_item iv_friends_item1">
+					<div class="iv_fs_con">
+						<ul>
+							<li>
+								<p class="item_p1"><i></i><span>【陈韩寒】 邀您下载欣旅天下-让旅途更省心</span></p>
+								<p class="item_p2 "><img src="imgs/new_img_017.png"></p>
+							</li>
+							<li>
+								<p class="item_p1"><i></i><span>分享你的专属邀请链接</span></p>
+								<p class="item_p2 item_p2_active">
+									<span class="item_span1">http://xinlv123.com</span>
+									<span class="item_span2">立即分享</span>
+								</p>
+							</li>
+							<li>
+								<p class="item_p1"><i></i><span>分享你的专属邀请链接</span></p>
+								<p class="item_p2 item_p2_active">
+									<span class="item_span1">BH5W8J</span>
+									<span class="item_span2">复制</span>
+								</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			
+		
+		</div>
+	</body>
+
+</html>
+<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/base_data.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.min.js"></script>
+<!--<script>
+	var app= new Vue({
+		el:"#app",
+		data:{
+			list:[
+				{
+					iv_xh:"1",
+					iv_name:"小七",
+					iv_time:"2018-1-13"
+				},
+				{
+					iv_xh:"2",
+					iv_name:"小七1",
+					iv_time:"2018-1-14"
+				},
+				{
+					iv_xh:"3",
+					iv_name:"小七2",
+					iv_time:"2018-1-15"
+				},
+				{
+					iv_xh:"4",
+					iv_name:"小七3",
+					iv_time:"2018-1-16"
+				}
+			]
+		}
+	})
+</script>-->

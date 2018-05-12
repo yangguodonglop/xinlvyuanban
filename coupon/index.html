@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>我的优惠券</title>
+
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<!--<link rel="stylesheet" type="text/css" href="css/domestic.css" />-->
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css" />
+
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+
+		<link rel="stylesheet" type="text/css" href="/public/css/new_style.css" />
+		<style>
+			.my_order_con .con_item_t{
+				height: auto;
+			}
+			.my_order_con .con_item_t .coupon_r .coupon_num{
+				flex-flow: column;
+			}
+			.my_order_con .con_item_t .coupon_l{
+				height: auto;
+			}
+			.my_order_con .con_item_t .coupon_r{
+				padding-bottom: 10px;
+			}
+			.my_order_con .con_item_t .coupon_r .coupon_num .conpon_bth{
+				width: 7rem;
+				margin-left: 0px;
+				margin-top: 5px;
+			}
+			.my_order_con .con_item_t .coupon_r .coupon_num .conpon_bth.conpon_bth_active{
+				text-align: left;
+			}
+			.my_order_con .add_pos{
+				height: 14.5rem;
+			}
+			.my_order_con .con_item_t .coupon_num_txt{
+				padding-top: 25px;
+			}
+			.my_order_con .con_item_t .coupon_r .coupon_num{
+				padding-top: 10px;
+			}
+			.my_order_con .con_item_t .coupon_r .coupon_num .conpon_rq{
+				line-height: 20px;
+			}
+			.my_order_con .con_item_t .coupon_r .coupon_num .conpon_txt{
+				padding-left: 0px;
+			}
+			@media screen and (min-width:326px) and (max-width:374px){
+  				 .txt_14{
+					font-size: 1.4rem;
+				}
+			}	
+				
+			@media screen and (max-width:325px)  { 
+				.travel_palce .tr_palce_item .place_item_list ul li a .item_p3 .item_span1 i{
+					font-size: 1.4rem;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ts_18">我的优惠券</h1>
+			</header>
+			<div class="my_order b_w">
+				<template v-for="(item,index) in list">
+					<div @click="tabswitch(index)" class="my_order_item" v-bind:class="{cl_active:item.isActive}">{{item.tabname}}</div>
+					<!--<div class="my_order_item cl_active">未使用</div>
+				<div class="my_order_item">已使用</div>
+				<div class="my_order_item">已过期</div>-->
+				</template>
+			</div>
+			<div class="my_order_con my_order_con_active">
+				<a href="#" class="order_icon"><img src="/public/imgs/new_img_07.png"></a>
+			</div>
+			<div class="tab_tatol">
+				<div class="my_order_con" style="">
+					<div class="add_pos" v-for="item in datalist">
+						<div class="new_add">
+							<div class="new_add_con"></div>
+						</div>
+						<div class="order_con_tatol">
+							<div class="con_item_t">
+								<div class="coupon_l">
+									<div class="coupon_num coupon_num_txt"><span>￥</span>{{item.sale}}</div>
+									<div class="coupon_num coupon_num_txt1">{{item.name}}</div>
+								</div>
+								<div class="coupon_r">
+									<div class="coupon_num">
+									<!--	<div class="conpon_xz">现金券</div>-->
+										<div class="conpon_txt"> {{item.rule_title}}</div>
+									</div>
+									<div class="coupon_num coupon_num_active">
+										<div class="conpon_rq">{{item .start_time}}至{{item .end_time}}</div>
+										<div class="conpon_bth" @click="golink">立即使用</div>
+									</div>
+								</div>
+							</div>
+							<div class="con_item_b">
+								仅限购买欣旅天下旅游商品
+							</div>
+						</div>
+
+					</div>
+				
+				</div>
+				<div class="my_order_con my_order_nocolor" style="display: none;">
+					<div class="add_pos" v-for="item in datalist1">
+						<div class="new_add new_add_active">
+							<div class="new_add_con"></div>
+						</div>
+						<div class="order_con_tatol">
+							<div class="con_item_t">
+								<div class="coupon_l">
+									<div class="coupon_num coupon_num_txt"><span>￥</span>{{item.sale}}</div>
+									<div class="coupon_num coupon_num_txt1">{{item.name}}</div>
+								</div>
+								<div class="coupon_r">
+									<div class="coupon_num">
+										<div class="conpon_txt">{{item.rule_title}}</div>
+									</div>
+									<div class="coupon_num coupon_num_active">
+										<div class="conpon_rq">{{item .start_time}}至{{item .end_time}}</div>
+										<div class="conpon_bth conpon_bth_active">已使用</div>
+									</div>
+								</div>
+							</div>
+							<div class="con_item_b">
+								仅限购买欣旅天下旅游商品
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="my_order_con my_order_nocolor" style="display: none;">
+					
+					<div class="add_pos" v-for="item in datalist2">
+						<div class="new_add new_add_active">
+							<div class="new_add_con"></div>
+						</div>
+						<div class="order_con_tatol">
+							<div class="con_item_t">
+								<div class="coupon_l">
+									<div class="coupon_num coupon_num_txt"><span>￥</span>{{item.sale}}</div>
+									<div class="coupon_num coupon_num_txt1">{{item.name}}</div>
+								</div>
+								<div class="coupon_r">
+									<div class="coupon_num">
+										<div class="conpon_txt"> {{item.rule_title}}</div>
+									</div>
+									<div class="coupon_num coupon_num_active">
+										<div class="conpon_rq">{{item .start_time}}至{{item .end_time}}</div>
+										<div class="conpon_bth conpon_bth_active">已过期</div>
+									</div>
+								</div>
+							</div>
+							<div class="con_item_b">
+								仅限购买欣旅天下旅游商品
+							</div>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		</div>
+	</body>
+
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js"></script>
+<script src="/public/js/vue_resource.js"></script>
+<script src="/public/config/config.js"></script>
+<script src="/public/js/showLoding.js"></script>
+
+<script>
+	var app = new Vue({
+		el: "#app",
+		data: {
+			status: 0,
+			list: [{
+					tabname: "未使用",
+					isActive: true
+				},
+				{
+					tabname: "已使用",
+					isActive: false
+				},
+				{
+					tabname: "已过期",
+					isActive: false
+				}
+			],
+		datalist:'',
+		datalist1:'',
+		datalist2:''
+		},
+		mounted: function() {
+			//默认加载数据
+			mui.showLoading('加载中');
+			if(localStorage.getItem('userstatus') == 'true') {
+				var _this = this;
+				Vue.http.get(URL + '/coupon/list'+'?status='+1, {
+					headers: {
+						Authorization: 'Bearer ' + localStorage.getItem('token')
+					}
+				}).then(function(response) {
+			
+					app.datalist=response.body.data
+					mui.hideLoading();
+				}, function(err) {
+					mui.toast("请检查网络")
+				});
+			} else {
+				mui.hideLoading();
+			}
+		},
+		methods: {
+			//点击筛选数据
+			tabswitch: function(itemindex) {
+				app.status = itemindex + 1
+				var nowtab = document.querySelectorAll(".tab_tatol .my_order_con");
+				len = nowtab.length
+				for(var i = 0; i < len; i++) {
+					nowtab[i].style.display = "none";
+					this.list[i].isActive = false;
+				}
+				Vue.http.get(URL + '/coupon/list' + '?status=' + app.status, {
+					headers: {
+						Authorization: 'Bearer ' + localStorage.getItem('token')
+					}
+				}).then(function(response) {
+				switch(app.status){
+					case 1:
+					app.datalist=response.body.data
+					break;
+					case 2:
+					app.datalist1=response.body.data
+					break;
+					case 3:
+					app.datalist2=response.body.data
+					break;
+				}
+
+				}, function(err) {
+					mui.toast("请检查网络")
+				});
+				this.list[itemindex].isActive = true;
+				nowtab[itemindex].style.display = "block";
+
+			},
+			golink: function() {
+				window.location.href = "../index.html"
+			}
+		}
+	})
+</script>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>邀请好友</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/new_style.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/share.min.css">
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css"/>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #febc1d;
+			}
+			.zxb_anim {
+				height: auto;
+				overflow: hidden;
+				animation: mymove1 0.4s;
+				animation-fill-mode: forwards;
+				-moz-animation: mymove1 0.4s;
+				-moz-animation-fill-mode: forwards;
+				-webkit-animation: mymove1 0.4s;
+				-webkit-animation-fill-mode: forwards;
+				-o-animation: mymove1 0.4s;
+				-o-animation-fill-mode: forwards;
+			}
+			@keyframes mymove1 {
+				from {
+					opacity: 0px;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+			.invite_friend .iv_friends_item1 {
+				padding: 0 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ">邀请好友</h1>
+			</header>
+			<div class="share invite_friend">
+				<div class="iv_friends_item">
+					<a href="#" class="fs_a"><img src="/public/imgs/new_img_016.png"></a>
+				</div>
+				<div class="iv_friends_item iv_friends_item1">
+					<div class="iv_fs_con">
+						<ul>
+							<li>
+								<p class="item_p1"><i></i><span>欣旅天下-让旅途更省心</span></p>
+								<p class="item_p2" v-html="qrcode"></p>
+							</li>
+							<li>
+								<p class="item_p1"><i></i><span>分享我的专属邀请链接</span></p>
+								<p class="item_p2 item_p2_active">
+									<span class="item_span1" id="text1" style="font-size: 10px;width: 180px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">{{url}}</span>
+									<span class="item_span2" @click="copying">复制</span>
+								</p>
+							</li>
+							<li>
+								<p class="item_p1"><i></i><span>分享我的专属邀请链接</span></p>
+								<p class="item_p2 item_p2_active">
+									<span class="item_span1" id="text2" style="font-size: 10px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">{{invite}}</span>
+									<span class="item_span2" @click="copying">复制</span>
+								</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/mui.indexedlist.js"></script>
+<script src="/public/js/vue.min.js"></script>
+<script src="/public/js/vue_resource.js"></script>
+<script src="/public/config/config.js"></script>
+<script src="/public/js/showLoding.js"></script>
+<script>
+	var app = new Vue({
+		el: "#app",
+		data: {
+			invite:'invite',
+			url:'',
+			qrcode:'',
+		},
+		created: function() {
+			mui.showLoading("载入中");
+			var url=location.search;
+		    var Request = new Object();
+		    if(url.indexOf("?")!=-1)
+		    {
+		        var str = url.substr(1)　//去掉?号
+		        strs = str.split("&");
+		        for(var i=0;i<strs.length;i++)
+		        {
+		            Request[strs[i ].split("=")[0]]=unescape(strs[ i].split("=")[1]);
+		        }
+	        	this.invite = Request['invite'];
+	        	localStorage.invite = Request['invite'];
+                var info = {
+                    invite: this.invite,
+                }
+	        	Vue.http.get(URLS + '/customer/inviteUrl',{params:info}).then(function(response) {
+					if(response.status == 200){
+						app.qrcode = 	response.body.qrcode;
+						app.url = 	response.body.url;
+					}
+					mui.hideLoading();
+				},function(err){
+					mui.hideLoading();
+					mui.toast('数据加载失败');
+					setTimeout(function(){
+						window.location.href = "/user/index.html";
+					},1000);
+				});
+		    }else {
+		        console.log('邀请码不存在');
+		    }
+		},
+		methods: {
+			copying: function() {
+				//点击复制复制邀请码
+				var txt = document.getElementById("text1").innerText;
+				document.activeElement.blur();
+				var oInput = document.createElement('input');
+				oInput.value = txt;
+				document.body.appendChild(oInput);
+				oInput.select(); //选择对象  
+				document.execCommand("Copy"); //执行浏览器复制命令  
+				oInput.value = '';
+				oInput.style.display = 'none';
+				mui.toast('复制成功');
+			},
+            copyingInvite: function() {
+                //点击复制复制邀请码
+                var txt = document.getElementById("text2").innerText;
+                document.activeElement.blur();
+                var oInput = document.createElement('input');
+                oInput.value = txt;
+                document.body.appendChild(oInput);
+                oInput.select(); //选择对象
+                document.execCommand("Copy"); //执行浏览器复制命令
+                oInput.value = '';
+                oInput.style.display = 'none';
+                mui.toast('复制成功');
+            }
+		}
+	})
+</script>

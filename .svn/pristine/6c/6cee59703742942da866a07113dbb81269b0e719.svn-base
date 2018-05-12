@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>城市选择器</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.indexedlist.css" rel="stylesheet" />
+		<style>
+			html,
+			body {
+				height: 100%;
+				overflow: hidden;
+			}
+			
+			.mui-bar {
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">城市选择器（索引列表）</h1>
+			</header>
+			<div class="mui-content">
+				<div id='list' class="mui-indexed-list">
+					<div class="mui-indexed-list-search mui-input-row mui-search">
+						<input type="search" class="mui-input-clear mui-indexed-list-search-input" id="now_vaule" placeholder="搜索机场">
+					</div>
+					<div class="mui-indexed-list-bar">
+						<a>#</a>
+						<a>A</a>
+						<a>B</a>
+						<a>C</a>
+						<a>D</a>
+						<a>E</a>
+						<a>F</a>
+						<a>G</a>
+						<a>H</a>
+						<a>I</a>
+						<a>J</a>
+						<a>K</a>
+						<a>L</a>
+						<a>M</a>
+						<a>N</a>
+						<a>O</a>
+						<a>P</a>
+						<a>Q</a>
+						<a>R</a>
+						<a>S</a>
+						<a>T</a>
+						<a>U</a>
+						<a>V</a>
+						<a>W</a>
+						<a>X</a>
+						<a>Y</a>
+						<a>Z</a>
+					</div>
+
+					<div class="mui-indexed-list-alert"></div>
+
+					<div class="mui-indexed-list-inner">
+						<div class="mui-indexed-list-empty-alert">没有数据</div>
+						<ul class="mui-table-view">
+							<li data-group="#" class="mui-table-view-divider mui-indexed-list-group">#</li>
+							<li data-value="北京" data-tags="BJ" class="mui-table-view-cell mui-indexed-list-item">北京</li>
+							<li data-value="上海" data-tags="SH" class="mui-table-view-cell mui-indexed-list-item">上海</li>
+							<li data-value="天津" data-tags="TJ" class="mui-table-view-cell mui-indexed-list-item">天津</li>
+							<li data-value="重庆" data-tags="CQ" class="mui-table-view-cell mui-indexed-list-item">重庆</li>
+							<li data-group="A" class="mui-table-view-divider mui-indexed-list-group">A</li>
+							<li data-value="阿克苏" data-tags="AKS" class="mui-table-view-cell mui-indexed-list-item">阿克苏</li>
+							<li data-value="安康" data-tags="AK" class="mui-table-view-cell mui-indexed-list-item">安康</li>
+							<li data-value="安宁" data-tags="AN" class="mui-table-view-cell mui-indexed-list-item">安宁</li>
+							<li data-value="安庆" data-tags="AQ" class="mui-table-view-cell mui-indexed-list-item">安庆</li>
+							<li data-value="鞍山" data-tags="AS" class="mui-table-view-cell mui-indexed-list-item">鞍山</li>
+							<li data-value="安顺" data-tags="AS" class="mui-table-view-cell mui-indexed-list-item">安顺</li>
+							<li data-value="安阳" data-tags="AY" class="mui-table-view-cell mui-indexed-list-item">安阳</li>
+							<li data-group="B" class="mui-table-view-divider mui-indexed-list-group">B</li>
+							<li data-value="白城" data-tags="BC" class="mui-table-view-cell mui-indexed-list-item">白城</li>
+							<li data-value="包头" data-tags="BT" class="mui-table-view-cell mui-indexed-list-item">包头</li>
+							<li data-value="白山" data-tags="BS" class="mui-table-view-cell mui-indexed-list-item">白山</li>
+							<li data-value="白银" data-tags="BY" class="mui-table-view-cell mui-indexed-list-item">白银</li>
+							<li data-value="蚌埠" data-tags="BB" class="mui-table-view-cell mui-indexed-list-item">蚌埠</li>
+							<li data-value="保定" data-tags="BD" class="mui-table-view-cell mui-indexed-list-item">保定</li>
+							<li data-value="宝鸡" data-tags="BJ" class="mui-table-view-cell mui-indexed-list-item">宝鸡</li>
+							<li data-value="保山" data-tags="BS" class="mui-table-view-cell mui-indexed-list-item">保山</li>
+							<li data-value="巴中" data-tags="BZ" class="mui-table-view-cell mui-indexed-list-item">巴中</li>
+							<li data-value="北海" data-tags="BH" class="mui-table-view-cell mui-indexed-list-item">北海</li>
+							<li data-value="本溪" data-tags="BX" class="mui-table-view-cell mui-indexed-list-item">本溪</li>
+							<li data-value="滨州" data-tags="BZ" class="mui-table-view-cell mui-indexed-list-item">滨州</li>
+							<li data-value="博乐" data-tags="BL" class="mui-table-view-cell mui-indexed-list-item">博乐</li>
+							<li data-value="亳州" data-tags="HZ" class="mui-table-view-cell mui-indexed-list-item">亳州</li>
+							<li data-group="C" class="mui-table-view-divider mui-indexed-list-group">C</li>
+							<li data-value="沧州" data-tags="CZ" class="mui-table-view-cell mui-indexed-list-item">沧州</li>
+							<li data-value="常德" data-tags="CD" class="mui-table-view-cell mui-indexed-list-item">常德</li>
+							<li data-value="昌吉" data-tags="CJ" class="mui-table-view-cell mui-indexed-list-item">昌吉</li>
+							<li data-value="常熟" data-tags="CS" class="mui-table-view-cell mui-indexed-list-item">常熟</li>
+							<li data-value="常州" data-tags="CZ" class="mui-table-view-cell mui-indexed-list-item">常州</li>
+							<li data-value="巢湖" data-tags="CH" class="mui-table-view-cell mui-indexed-list-item">巢湖</li>
+							<li data-value="朝阳" data-tags="CY" class="mui-table-view-cell mui-indexed-list-item">朝阳</li>
+							<li data-value="潮州" data-tags="CZ" class="mui-table-view-cell mui-indexed-list-item">潮州</li>
+							<li data-value="承德" data-tags="CD" class="mui-table-view-cell mui-indexed-list-item">承德</li>
+							<li data-value="成都" data-tags="CD" class="mui-table-view-cell mui-indexed-list-item">成都</li>
+							<li data-value="城固" data-tags="CG" class="mui-table-view-cell mui-indexed-list-item">城固</li>
+							<li data-value="郴州" data-tags="CZ" class="mui-table-view-cell mui-indexed-list-item">郴州</li>
+							<li data-value="赤壁" data-tags="CB" class="mui-table-view-cell mui-indexed-list-item">赤壁</li>
+							<li data-value="赤峰" data-tags="CF" class="mui-table-view-cell mui-indexed-list-item">赤峰</li>
+							<li data-value="赤水" data-tags="CS" class="mui-table-view-cell mui-indexed-list-item">赤水</li>
+							<li data-value="池州" data-tags="CZ" class="mui-table-view-cell mui-indexed-list-item">池州</li>
+							<li data-value="崇左" data-tags="CZ" class="mui-table-view-cell mui-indexed-list-item">崇左</li>
+							<li data-value="楚雄" data-tags="CX" class="mui-table-view-cell mui-indexed-list-item">楚雄</li>
+							<li data-value="滁州" data-tags="CZ" class="mui-table-view-cell mui-indexed-list-item">滁州</li>
+							<li data-value="慈溪" data-tags="CX" class="mui-table-view-cell mui-indexed-list-item">慈溪</li>
+							<li data-value="从化" data-tags="CH" class="mui-table-view-cell mui-indexed-list-item">从化</li>
+							<li data-value="长海" data-tags="CH" class="mui-table-view-cell mui-indexed-list-item">长海</li>
+							<li data-value="长乐" data-tags="CL" class="mui-table-view-cell mui-indexed-list-item">长乐</li>
+							<li data-value="长沙" data-tags="CS" class="mui-table-view-cell mui-indexed-list-item">长沙</li>
+							<li data-value="长治" data-tags="CZ" class="mui-table-view-cell mui-indexed-list-item">长治</li>
+							<li data-group="D" class="mui-table-view-divider mui-indexed-list-group">D</li>
+							<li data-value="大理" data-tags="DL" class="mui-table-view-cell mui-indexed-list-item">大理</li>
+							<li data-value="大连" data-tags="DL" class="mui-table-view-cell mui-indexed-list-item">大连</li>
+							<li data-value="丹东" data-tags="DD" class="mui-table-view-cell mui-indexed-list-item">丹东</li>
+							<li data-value="丹阳" data-tags="DY" class="mui-table-view-cell mui-indexed-list-item">丹阳</li>
+							<li data-value="大庆" data-tags="DQ" class="mui-table-view-cell mui-indexed-list-item">大庆</li>
+							<li data-value="大同" data-tags="DT" class="mui-table-view-cell mui-indexed-list-item">大同</li>
+							<li data-value="达州" data-tags="DZ" class="mui-table-view-cell mui-indexed-list-item">达州</li>
+							<li data-value="德阳" data-tags="DY" class="mui-table-view-cell mui-indexed-list-item">德阳</li>
+							<li data-value="德州" data-tags="DZ" class="mui-table-view-cell mui-indexed-list-item">德州</li>
+							<li data-value="东莞" data-tags="DG" class="mui-table-view-cell mui-indexed-list-item">东莞</li>
+							<li data-value="东阳" data-tags="DY" class="mui-table-view-cell mui-indexed-list-item">东阳</li>
+							<li data-value="东营" data-tags="DY" class="mui-table-view-cell mui-indexed-list-item">东营</li>
+							<li data-value="都匀" data-tags="DY" class="mui-table-view-cell mui-indexed-list-item">都匀</li>
+							<li data-value="敦化" data-tags="DH" class="mui-table-view-cell mui-indexed-list-item">敦化</li>
+							<li data-group="E" class="mui-table-view-divider mui-indexed-list-group">E</li>
+							<li data-value="鄂州" data-tags="EZ" class="mui-table-view-cell mui-indexed-list-item">鄂州</li>
+							<li data-value="鄂尔多斯" data-tags="ERDS" class="mui-table-view-cell mui-indexed-list-item">鄂尔多斯</li>
+							<li data-value="恩施" data-tags="ES" class="mui-table-view-cell mui-indexed-list-item">恩施</li>
+							<li data-group="F" class="mui-table-view-divider mui-indexed-list-group">F</li>
+							<li data-value="防城港" data-tags="FCG" class="mui-table-view-cell mui-indexed-list-item">防城港</li>
+							<li data-value="肥城" data-tags="FC" class="mui-table-view-cell mui-indexed-list-item">肥城</li>
+							<li data-value="奉化" data-tags="FH" class="mui-table-view-cell mui-indexed-list-item">奉化</li>
+							<li data-value="涪陵" data-tags="FL" class="mui-table-view-cell mui-indexed-list-item">涪陵</li>
+							<li data-value="抚顺" data-tags="FS" class="mui-table-view-cell mui-indexed-list-item">抚顺</li>
+							<li data-value="阜新" data-tags="FX" class="mui-table-view-cell mui-indexed-list-item">阜新</li>
+							<li data-value="阜阳" data-tags="FY" class="mui-table-view-cell mui-indexed-list-item">阜阳</li>
+							<li data-value="富阳" data-tags="FY" class="mui-table-view-cell mui-indexed-list-item">富阳</li>
+							<li data-value="福州" data-tags="FZ" class="mui-table-view-cell mui-indexed-list-item">福州</li>
+							<li data-value="抚州" data-tags="FZ" class="mui-table-view-cell mui-indexed-list-item">抚州</li>
+							<li data-value="福清" data-tags="FQ" class="mui-table-view-cell mui-indexed-list-item">福清</li>
+							<li data-value="佛山" data-tags="FS" class="mui-table-view-cell mui-indexed-list-item">佛山</li>
+							<li data-group="G" class="mui-table-view-divider mui-indexed-list-group">G</li>
+							<li data-value="赣榆" data-tags="GY" class="mui-table-view-cell mui-indexed-list-item">赣榆</li>
+							<li data-value="赣州" data-tags="GZ" class="mui-table-view-cell mui-indexed-list-item">赣州</li>
+							<li data-value="高明" data-tags="GM" class="mui-table-view-cell mui-indexed-list-item">高明</li>
+							<li data-value="高邮" data-tags="GY" class="mui-table-view-cell mui-indexed-list-item">高邮</li>
+							<li data-value="格尔木" data-tags="GEM" class="mui-table-view-cell mui-indexed-list-item">格尔木</li>
+							<li data-value="个旧" data-tags="GJ" class="mui-table-view-cell mui-indexed-list-item">个旧</li>
+							<li data-value="巩义" data-tags="GY" class="mui-table-view-cell mui-indexed-list-item">巩义</li>
+							<li data-value="广安" data-tags="GA" class="mui-table-view-cell mui-indexed-list-item">广安</li>
+							<li data-value="广元" data-tags="GY" class="mui-table-view-cell mui-indexed-list-item">广元</li>
+							<li data-value="广州" data-tags="GZ" class="mui-table-view-cell mui-indexed-list-item">广州</li>
+							<li data-value="公主岭" data-tags="GZL" class="mui-table-view-cell mui-indexed-list-item">公主岭</li>
+							<li data-value="古包头" data-tags="GBT" class="mui-table-view-cell mui-indexed-list-item">古包头</li>
+							<li data-value="贵港" data-tags="GG" class="mui-table-view-cell mui-indexed-list-item">贵港</li>
+							<li data-value="桂林" data-tags="GL" class="mui-table-view-cell mui-indexed-list-item">桂林</li>
+							<li data-value="贵阳" data-tags="GY" class="mui-table-view-cell mui-indexed-list-item">贵阳</li>
+							<li data-value="固原" data-tags="GY" class="mui-table-view-cell mui-indexed-list-item">固原</li>
+							<li data-group="H" class="mui-table-view-divider mui-indexed-list-group">H</li>
+							<li data-value="哈尔滨" data-tags="HEB" class="mui-table-view-cell mui-indexed-list-item">哈尔滨</li>
+							<li data-value="海城" data-tags="HC" class="mui-table-view-cell mui-indexed-list-item">海城</li>
+							<li data-value="海口" data-tags="HK" class="mui-table-view-cell mui-indexed-list-item">海口</li>
+							<li data-value="海门" data-tags="HM" class="mui-table-view-cell mui-indexed-list-item">海门</li>
+							<li data-value="海宁" data-tags="HN" class="mui-table-view-cell mui-indexed-list-item">海宁</li>
+							<li data-value="哈密" data-tags="HM" class="mui-table-view-cell mui-indexed-list-item">哈密</li>
+							<li data-value="邯郸" data-tags="HD" class="mui-table-view-cell mui-indexed-list-item">邯郸</li>
+							<li data-value="杭州" data-tags="HZ" class="mui-table-view-cell mui-indexed-list-item">杭州</li>
+							<li data-value="汉中" data-tags="HZ" class="mui-table-view-cell mui-indexed-list-item">汉中</li>
+							<li data-value="鹤壁" data-tags="HB" class="mui-table-view-cell mui-indexed-list-item">鹤壁</li>
+							<li data-value="合肥" data-tags="HF" class="mui-table-view-cell mui-indexed-list-item">合肥</li>
+							<li data-value="衡水" data-tags="HS" class="mui-table-view-cell mui-indexed-list-item">衡水</li>
+							<li data-value="衡阳" data-tags="HY" class="mui-table-view-cell mui-indexed-list-item">衡阳</li>
+							<li data-value="和田" data-tags="HT" class="mui-table-view-cell mui-indexed-list-item">和田</li>
+							<li data-value="河源" data-tags="HY" class="mui-table-view-cell mui-indexed-list-item">河源</li>
+							<li data-value="菏泽" data-tags="HZ" class="mui-table-view-cell mui-indexed-list-item">菏泽</li>
+							<li data-value="花都" data-tags="HD" class="mui-table-view-cell mui-indexed-list-item">花都</li>
+							<li data-value="淮安" data-tags="HA" class="mui-table-view-cell mui-indexed-list-item">淮安</li>
+							<li data-value="淮北" data-tags="HB" class="mui-table-view-cell mui-indexed-list-item">淮北</li>
+							<li data-value="怀化" data-tags="HH" class="mui-table-view-cell mui-indexed-list-item">怀化</li>
+							<li data-value="淮南" data-tags="HN" class="mui-table-view-cell mui-indexed-list-item">淮南</li>
+							<li data-value="黄冈" data-tags="HG" class="mui-table-view-cell mui-indexed-list-item">黄冈</li>
+							<li data-value="黄山" data-tags="HS" class="mui-table-view-cell mui-indexed-list-item">黄山</li>
+							<li data-value="黄石" data-tags="HS" class="mui-table-view-cell mui-indexed-list-item">黄石</li>
+							<li data-value="呼和浩特" data-tags="HHHT" class="mui-table-view-cell mui-indexed-list-item">呼和浩特</li>
+							<li data-value="惠州" data-tags="HZ" class="mui-table-view-cell mui-indexed-list-item">惠州</li>
+							<li data-value="葫芦岛" data-tags="HLD" class="mui-table-view-cell mui-indexed-list-item">葫芦岛</li>
+							<li data-value="湖州" data-tags="HZ" class="mui-table-view-cell mui-indexed-list-item">湖州</li>
+							<li data-group="J" class="mui-table-view-divider mui-indexed-list-group">J</li>
+							<li data-value="佳木斯" data-tags="JMS" class="mui-table-view-cell mui-indexed-list-item">佳木斯</li>
+							<li data-value="吉安" data-tags="JA" class="mui-table-view-cell mui-indexed-list-item">吉安</li>
+							<li data-value="江都" data-tags="JD" class="mui-table-view-cell mui-indexed-list-item">江都</li>
+							<li data-value="江门" data-tags="JM" class="mui-table-view-cell mui-indexed-list-item">江门</li>
+							<li data-value="江阴" data-tags="JY" class="mui-table-view-cell mui-indexed-list-item">江阴</li>
+							<li data-value="胶南" data-tags="JN" class="mui-table-view-cell mui-indexed-list-item">胶南</li>
+							<li data-value="胶州" data-tags="JZ" class="mui-table-view-cell mui-indexed-list-item">胶州</li>
+							<li data-value="焦作" data-tags="JZ" class="mui-table-view-cell mui-indexed-list-item">焦作</li>
+							<li data-value="嘉善" data-tags="JS" class="mui-table-view-cell mui-indexed-list-item">嘉善</li>
+							<li data-value="嘉兴" data-tags="JX" class="mui-table-view-cell mui-indexed-list-item">嘉兴</li>
+							<li data-value="介休" data-tags="JX" class="mui-table-view-cell mui-indexed-list-item">介休</li>
+							<li data-value="吉林" data-tags="JL" class="mui-table-view-cell mui-indexed-list-item">吉林</li>
+							<li data-value="即墨" data-tags="JM" class="mui-table-view-cell mui-indexed-list-item">即墨</li>
+							<li data-value="济南" data-tags="JN" class="mui-table-view-cell mui-indexed-list-item">济南</li>
+							<li data-value="晋城" data-tags="JC" class="mui-table-view-cell mui-indexed-list-item">晋城</li>
+							<li data-value="景德镇" data-tags="JDZ" class="mui-table-view-cell mui-indexed-list-item">景德镇</li>
+							<li data-value="景洪" data-tags="JH" class="mui-table-view-cell mui-indexed-list-item">景洪</li>
+							<li data-value="靖江" data-tags="JJ" class="mui-table-view-cell mui-indexed-list-item">靖江</li>
+							<li data-value="荆门" data-tags="JM" class="mui-table-view-cell mui-indexed-list-item">荆门</li>
+							<li data-value="荆州" data-tags="JZ" class="mui-table-view-cell mui-indexed-list-item">荆州</li>
+							<li data-value="金华" data-tags="JH" class="mui-table-view-cell mui-indexed-list-item">金华</li>
+							<li data-value="集宁" data-tags="JN" class="mui-table-view-cell mui-indexed-list-item">集宁</li>
+							<li data-value="济宁" data-tags="JN" class="mui-table-view-cell mui-indexed-list-item">济宁</li>
+							<li data-value="晋江" data-tags="JJ" class="mui-table-view-cell mui-indexed-list-item">晋江</li>
+							<li data-value="金坛" data-tags="JT" class="mui-table-view-cell mui-indexed-list-item">金坛</li>
+							<li data-value="晋中" data-tags="JZ" class="mui-table-view-cell mui-indexed-list-item">晋中</li>
+							<li data-value="锦州" data-tags="JZ" class="mui-table-view-cell mui-indexed-list-item">锦州</li>
+							<li data-value="吉首" data-tags="JS" class="mui-table-view-cell mui-indexed-list-item">吉首</li>
+							<li data-value="九江" data-tags="JJ" class="mui-table-view-cell mui-indexed-list-item">九江</li>
+							<li data-value="酒泉" data-tags="JQ" class="mui-table-view-cell mui-indexed-list-item">酒泉</li>
+							<li data-value="鸡西" data-tags="JX" class="mui-table-view-cell mui-indexed-list-item">鸡西</li>
+							<li data-value="济源" data-tags="JY" class="mui-table-view-cell mui-indexed-list-item">济源</li>
+							<li data-value="句容" data-tags="JR" class="mui-table-view-cell mui-indexed-list-item">句容</li>
+							<li data-value="江油" data-tags="JY" class="mui-table-view-cell mui-indexed-list-item">江油</li>
+							<li data-value="姜堰" data-tags="JY" class="mui-table-view-cell mui-indexed-list-item">姜堰</li>
+							<li data-group="K" class="mui-table-view-divider mui-indexed-list-group">K</li>
+							<li data-value="开封" data-tags="JF" class="mui-table-view-cell mui-indexed-list-item">开封</li>
+							<li data-value="凯里" data-tags="KL" class="mui-table-view-cell mui-indexed-list-item">凯里</li>
+							<li data-value="开平" data-tags="KP" class="mui-table-view-cell mui-indexed-list-item">开平</li>
+							<li data-value="开远" data-tags="KY" class="mui-table-view-cell mui-indexed-list-item">开远</li>
+							<li data-value="喀什" data-tags="YM" class="mui-table-view-cell mui-indexed-list-item">喀什</li>
+							<li data-value="克拉玛依" data-tags="KLMY" class="mui-table-view-cell mui-indexed-list-item">克拉玛依</li>
+							<li data-value="库尔勒" data-tags="KRL" class="mui-table-view-cell mui-indexed-list-item">库尔勒</li>
+							<li data-value="奎屯" data-tags="KT" class="mui-table-view-cell mui-indexed-list-item">奎屯</li>
+							<li data-value="昆明" data-tags="KM" class="mui-table-view-cell mui-indexed-list-item">昆明</li>
+							<li data-value="昆山" data-tags="KS" class="mui-table-view-cell mui-indexed-list-item">昆山</li>
+							<li data-group="L" class="mui-table-view-divider mui-indexed-list-group">L</li>
+							<li data-value="来宾" data-tags="LB" class="mui-table-view-cell mui-indexed-list-item">来宾</li>
+							<li data-value="莱芜" data-tags="LW" class="mui-table-view-cell mui-indexed-list-item">莱芜</li>
+							<li data-value="莱西" data-tags="LX" class="mui-table-view-cell mui-indexed-list-item">莱西</li>
+							<li data-value="莱州" data-tags="LZ" class="mui-table-view-cell mui-indexed-list-item">莱州</li>
+							<li data-value="廊坊" data-tags="LF" class="mui-table-view-cell mui-indexed-list-item">廊坊</li>
+							<li data-value="兰州" data-tags="LZ" class="mui-table-view-cell mui-indexed-list-item">兰州</li>
+							<li data-value="醴陵" data-tags="LL" class="mui-table-view-cell mui-indexed-list-item">醴陵</li>
+							<li data-value="拉萨" data-tags="LS" class="mui-table-view-cell mui-indexed-list-item">拉萨</li>
+							<li data-value="乐山" data-tags="LS" class="mui-table-view-cell mui-indexed-list-item">乐山</li>
+							<li data-value="连云港" data-tags="LYG" class="mui-table-view-cell mui-indexed-list-item">连云港</li>
+							<li data-value="聊城" data-tags="LC" class="mui-table-view-cell mui-indexed-list-item">聊城</li>
+							<li data-value="辽阳" data-tags="LY" class="mui-table-view-cell mui-indexed-list-item">辽阳</li>
+							<li data-value="辽源" data-tags="LY" class="mui-table-view-cell mui-indexed-list-item">辽源</li>
+							<li data-value="丽江" data-tags="LJ" class="mui-table-view-cell mui-indexed-list-item">丽江</li>
+							<li data-value="临安" data-tags="LA" class="mui-table-view-cell mui-indexed-list-item">临安</li>
+							<li data-value="临沧" data-tags="LC" class="mui-table-view-cell mui-indexed-list-item">临沧</li>
+							<li data-value="临汾" data-tags="LF" class="mui-table-view-cell mui-indexed-list-item">临汾</li>
+							<li data-value="灵宝" data-tags="LB" class="mui-table-view-cell mui-indexed-list-item">灵宝</li>
+							<li data-value="临河" data-tags="LH" class="mui-table-view-cell mui-indexed-list-item">临河</li>
+							<li data-value="临夏" data-tags="LX" class="mui-table-view-cell mui-indexed-list-item">临夏</li>
+							<li data-value="临沂" data-tags="LX" class="mui-table-view-cell mui-indexed-list-item">临沂</li>
+							<li data-value="丽水" data-tags="LS" class="mui-table-view-cell mui-indexed-list-item">丽水</li>
+							<li data-value="六安" data-tags="LA" class="mui-table-view-cell mui-indexed-list-item">六安</li>
+							<li data-value="六盘水" data-tags="LPS" class="mui-table-view-cell mui-indexed-list-item">六盘水</li>
+							<li data-value="柳州" data-tags="LZ" class="mui-table-view-cell mui-indexed-list-item">柳州</li>
+							<li data-value="溧阳" data-tags="LY" class="mui-table-view-cell mui-indexed-list-item">溧阳</li>
+							<li data-value="龙海" data-tags="LH" class="mui-table-view-cell mui-indexed-list-item">龙海</li>
+							<li data-value="龙岩" data-tags="LY" class="mui-table-view-cell mui-indexed-list-item">龙岩</li>
+							<li data-value="娄底" data-tags="LD" class="mui-table-view-cell mui-indexed-list-item">娄底</li>
+							<li data-value="漯河" data-tags="LH" class="mui-table-view-cell mui-indexed-list-item">漯河</li>
+							<li data-value="洛阳" data-tags="LY" class="mui-table-view-cell mui-indexed-list-item">洛阳</li>
+							<li data-value="潞西" data-tags="LX" class="mui-table-view-cell mui-indexed-list-item">潞西</li>
+							<li data-value="泸州" data-tags="LZ" class="mui-table-view-cell mui-indexed-list-item">泸州</li>
+							<li data-value="吕梁" data-tags="LL" class="mui-table-view-cell mui-indexed-list-item">吕梁</li>
+							<li data-value="旅顺" data-tags="LS" class="mui-table-view-cell mui-indexed-list-item">旅顺</li>
+							<li data-group="M" class="mui-table-view-divider mui-indexed-list-group">M</li>
+							<li data-value="马鞍山" data-tags="MAS" class="mui-table-view-cell mui-indexed-list-item">马鞍山</li>
+							<li data-value="茂名" data-tags="MM" class="mui-table-view-cell mui-indexed-list-item">茂名</li>
+							<li data-value="梅河口" data-tags="MHK" class="mui-table-view-cell mui-indexed-list-item">梅河口</li>
+							<li data-value="眉山" data-tags="MS" class="mui-table-view-cell mui-indexed-list-item">眉山</li>
+							<li data-value="梅州" data-tags="MZ" class="mui-table-view-cell mui-indexed-list-item">梅州</li>
+							<li data-value="勉县" data-tags="MX" class="mui-table-view-cell mui-indexed-list-item">勉县</li>
+							<li data-value="绵阳" data-tags="MY" class="mui-table-view-cell mui-indexed-list-item">绵阳</li>
+							<li data-value="牡丹江" data-tags="MDJ" class="mui-table-view-cell mui-indexed-list-item">牡丹江</li>
+							<li data-group="N" class="mui-table-view-divider mui-indexed-list-group">N</li>
+							<li data-value="南安" data-tags="NA" class="mui-table-view-cell mui-indexed-list-item">南安</li>
+							<li data-value="南昌" data-tags="NC" class="mui-table-view-cell mui-indexed-list-item">南昌</li>
+							<li data-value="南充" data-tags="NC" class="mui-table-view-cell mui-indexed-list-item">南充</li>
+							<li data-value="南京" data-tags="NJ" class="mui-table-view-cell mui-indexed-list-item">南京</li>
+							<li data-value="南宁" data-tags="NJ" class="mui-table-view-cell mui-indexed-list-item">南宁</li>
+							<li data-value="南平" data-tags="NP" class="mui-table-view-cell mui-indexed-list-item">南平</li>
+							<li data-value="南通" data-tags="NT" class="mui-table-view-cell mui-indexed-list-item">南通</li>
+							<li data-value="南阳" data-tags="NY" class="mui-table-view-cell mui-indexed-list-item">南阳</li>
+							<li data-value="内江" data-tags="NJ" class="mui-table-view-cell mui-indexed-list-item">内江</li>
+							<li data-value="宁波" data-tags="NB" class="mui-table-view-cell mui-indexed-list-item">宁波</li>
+							<li data-value="宁德" data-tags="ND" class="mui-table-view-cell mui-indexed-list-item">宁德</li>
+							<li data-group="P" class="mui-table-view-divider mui-indexed-list-group">P</li>
+							<li data-value="盘锦" data-tags="PJ" class="mui-table-view-cell mui-indexed-list-item">盘锦</li>
+							<li data-value="攀枝花" data-tags="PZH" class="mui-table-view-cell mui-indexed-list-item">攀枝花</li>
+							<li data-value="蓬莱" data-tags="PL" class="mui-table-view-cell mui-indexed-list-item">蓬莱</li>
+							<li data-value="平顶山" data-tags="PDS" class="mui-table-view-cell mui-indexed-list-item">平顶山</li>
+							<li data-value="平度" data-tags="PD" class="mui-table-view-cell mui-indexed-list-item">平度</li>
+							<li data-value="平湖" data-tags="PG" class="mui-table-view-cell mui-indexed-list-item">平湖</li>
+							<li data-value="平凉" data-tags="PL" class="mui-table-view-cell mui-indexed-list-item">平凉</li>
+							<li data-value="萍乡" data-tags="PX" class="mui-table-view-cell mui-indexed-list-item">萍乡</li>
+							<li data-value="普兰店" data-tags="PLD" class="mui-table-view-cell mui-indexed-list-item">普兰店</li>
+							<li data-value="普宁" data-tags="PN" class="mui-table-view-cell mui-indexed-list-item">普宁</li>
+							<li data-value="莆田" data-tags="PT" class="mui-table-view-cell mui-indexed-list-item">莆田</li>
+							<li data-value="七台河" data-tags="QTH" class="mui-table-view-cell mui-indexed-list-item">七台河</li>
+							<li data-value="濮阳" data-tags="PY" class="mui-table-view-cell mui-indexed-list-item">濮阳</li>
+							<li data-group="Q" class="mui-table-view-divider mui-indexed-list-group">Q</li>
+							<li data-value="黔南" data-tags="QN" class="mui-table-view-cell mui-indexed-list-item">黔南</li>
+							<li data-value="启东" data-tags="QD" class="mui-table-view-cell mui-indexed-list-item">启东</li>
+							<li data-value="青岛" data-tags="QD" class="mui-table-view-cell mui-indexed-list-item">青岛</li>
+							<li data-value="庆阳" data-tags="QY" class="mui-table-view-cell mui-indexed-list-item">庆阳</li>
+							<li data-value="清远" data-tags="QY" class="mui-table-view-cell mui-indexed-list-item">清远</li>
+							<li data-value="青州" data-tags="QZ" class="mui-table-view-cell mui-indexed-list-item">青州</li>
+							<li data-value="秦皇岛" data-tags="QHD" class="mui-table-view-cell mui-indexed-list-item">秦皇岛</li>
+							<li data-value="钦州" data-tags="QZ" class="mui-table-view-cell mui-indexed-list-item">钦州</li>
+							<li data-value="琼海" data-tags="QH" class="mui-table-view-cell mui-indexed-list-item">琼海</li>
+							<li data-value="齐齐哈尔" data-tags="QQHR" class="mui-table-view-cell mui-indexed-list-item">齐齐哈尔</li>
+							<li data-value="泉州" data-tags="QZ" class="mui-table-view-cell mui-indexed-list-item">泉州</li>
+							<li data-value="曲靖" data-tags="QJ" class="mui-table-view-cell mui-indexed-list-item">曲靖</li>
+							<li data-value="衢州" data-tags="QZ" class="mui-table-view-cell mui-indexed-list-item">衢州</li>
+							<li data-group="R" class="mui-table-view-divider mui-indexed-list-group">R</li>
+							<li data-value="日喀则" data-tags="RKZ" class="mui-table-view-cell mui-indexed-list-item">日喀则</li>
+							<li data-value="日照" data-tags="RZ" class="mui-table-view-cell mui-indexed-list-item">日照</li>
+							<li data-value="荣成" data-tags="RC" class="mui-table-view-cell mui-indexed-list-item">荣成</li>
+							<li data-value="如皋" data-tags="RG" class="mui-table-view-cell mui-indexed-list-item">如皋</li>
+							<li data-value="瑞安" data-tags="RA" class="mui-table-view-cell mui-indexed-list-item">瑞安</li>
+							<li data-value="乳山" data-tags="RS" class="mui-table-view-cell mui-indexed-list-item">乳山</li>
+							<li data-group="S" class="mui-table-view-divider mui-indexed-list-group">S</li>
+							<li data-value="三门峡" data-tags="SMX" class="mui-table-view-cell mui-indexed-list-item">三门峡</li>
+							<li data-value="三明" data-tags="SM" class="mui-table-view-cell mui-indexed-list-item">三明</li>
+							<li data-value="三亚" data-tags="SY" class="mui-table-view-cell mui-indexed-list-item">三亚</li>
+							<li data-value="商洛" data-tags="SL" class="mui-table-view-cell mui-indexed-list-item">商洛</li>
+							<li data-value="商丘" data-tags="SQ" class="mui-table-view-cell mui-indexed-list-item">商丘</li>
+							<li data-value="上饶" data-tags="SR" class="mui-table-view-cell mui-indexed-list-item">上饶</li>
+							<li data-value="上虞" data-tags="SY" class="mui-table-view-cell mui-indexed-list-item">上虞</li>
+							<li data-value="汕头" data-tags="ST" class="mui-table-view-cell mui-indexed-list-item">汕头</li>
+							<li data-value="韶关" data-tags="SG" class="mui-table-view-cell mui-indexed-list-item">韶关</li>
+							<li data-value="绍兴" data-tags="SX" class="mui-table-view-cell mui-indexed-list-item">绍兴</li>
+							<li data-value="邵阳" data-tags="SY" class="mui-table-view-cell mui-indexed-list-item">邵阳</li>
+							<li data-value="沈阳" data-tags="SY" class="mui-table-view-cell mui-indexed-list-item">沈阳</li>
+							<li data-value="深圳" data-tags="SZ" class="mui-table-view-cell mui-indexed-list-item">深圳</li>
+							<li data-value="石河子" data-tags="SHZ" class="mui-table-view-cell mui-indexed-list-item">石河子</li>
+							<li data-value="石家庄" data-tags="SJZ" class="mui-table-view-cell mui-indexed-list-item">石家庄</li>
+							<li data-value="石林" data-tags="SL" class="mui-table-view-cell mui-indexed-list-item">石林</li>
+							<li data-value="石狮" data-tags="SS" class="mui-table-view-cell mui-indexed-list-item">石狮</li>
+							<li data-value="十堰" data-tags="SY" class="mui-table-view-cell mui-indexed-list-item">十堰</li>
+							<li data-value="寿光" data-tags="SG" class="mui-table-view-cell mui-indexed-list-item">寿光</li>
+							<li data-value="双鸭山" data-tags="SYS" class="mui-table-view-cell mui-indexed-list-item">双鸭山</li>
+							<li data-value="朔州" data-tags="SZ" class="mui-table-view-cell mui-indexed-list-item">朔州</li>
+							<li data-value="沭阳" data-tags="SY" class="mui-table-view-cell mui-indexed-list-item">沭阳</li>
+							<li data-value="思茅" data-tags="SM" class="mui-table-view-cell mui-indexed-list-item">思茅</li>
+							<li data-value="四平" data-tags="SP" class="mui-table-view-cell mui-indexed-list-item">四平</li>
+							<li data-value="松原" data-tags="SY" class="mui-table-view-cell mui-indexed-list-item">松原</li>
+							<li data-value="遂宁" data-tags="SN" class="mui-table-view-cell mui-indexed-list-item">遂宁</li>
+							<li data-value="随州" data-tags="SZ" class="mui-table-view-cell mui-indexed-list-item">随州</li>
+							<li data-value="苏州" data-tags="SZ" class="mui-table-view-cell mui-indexed-list-item">苏州</li>
+							<li data-value="松江" data-tags="SJ" class="mui-table-view-cell mui-indexed-list-item">松江</li>
+							<li data-value="邵武" data-tags="SW" class="mui-table-view-cell mui-indexed-list-item">邵武</li>
+							<li data-value="宿迁" data-tags="SQ" class="mui-table-view-cell mui-indexed-list-item">宿迁</li>
+							<li data-value="歙县" data-tags="SX" class="mui-table-view-cell mui-indexed-list-item">歙县</li>
+							<li data-value="宿豫" data-tags="SY" class="mui-table-view-cell mui-indexed-list-item">宿豫</li>
+							<li data-value="宿州" data-tags="SZ" class="mui-table-view-cell mui-indexed-list-item">宿州</li>
+							<li data-group="T" class="mui-table-view-divider mui-indexed-list-group">T</li>
+							<li data-value="塔城" data-tags="TC" class="mui-table-view-cell mui-indexed-list-item">塔城</li>
+							<li data-value="泰安" data-tags="TA" class="mui-table-view-cell mui-indexed-list-item">泰安</li>
+							<li data-value="太仓" data-tags="TC" class="mui-table-view-cell mui-indexed-list-item">太仓</li>
+							<li data-value="泰兴" data-tags="TX" class="mui-table-view-cell mui-indexed-list-item">泰兴</li>
+							<li data-value="太原" data-tags="TY" class="mui-table-view-cell mui-indexed-list-item">太原</li>
+							<li data-value="泰州" data-tags="TZ" class="mui-table-view-cell mui-indexed-list-item">泰州</li>
+							<li data-value="台州" data-tags="TZ" class="mui-table-view-cell mui-indexed-list-item">台州</li>
+							<li data-value="唐山" data-tags="TS" class="mui-table-view-cell mui-indexed-list-item">唐山</li>
+							<li data-value="腾冲" data-tags="TC" class="mui-table-view-cell mui-indexed-list-item">腾冲</li>
+							<li data-value="滕州" data-tags="TZ" class="mui-table-view-cell mui-indexed-list-item">滕州</li>
+							<li data-value="天门" data-tags="TM" class="mui-table-view-cell mui-indexed-list-item">天门</li>
+							<li data-value="天水" data-tags="TS" class="mui-table-view-cell mui-indexed-list-item">天水</li>
+							<li data-value="铁岭" data-tags="TL" class="mui-table-view-cell mui-indexed-list-item">铁岭</li>
+							<li data-value="铜川" data-tags="TZ" class="mui-table-view-cell mui-indexed-list-item">铜川</li>
+							<li data-value="通辽" data-tags="TL" class="mui-table-view-cell mui-indexed-list-item">通辽</li>
+							<li data-value="铜陵" data-tags="TL" class="mui-table-view-cell mui-indexed-list-item">铜陵</li>
+							<li data-value="桐庐" data-tags="TL" class="mui-table-view-cell mui-indexed-list-item">桐庐</li>
+							<li data-value="铜仁" data-tags="TR" class="mui-table-view-cell mui-indexed-list-item">铜仁</li>
+							<li data-value="通州" data-tags="TZ" class="mui-table-view-cell mui-indexed-list-item">通州</li>
+							<li data-value="通化" data-tags="TH" class="mui-table-view-cell mui-indexed-list-item">通化</li>
+							<li data-value="吐鲁番" data-tags="TLF" class="mui-table-view-cell mui-indexed-list-item">吐鲁番</li>
+							<li data-group="W" class="mui-table-view-divider mui-indexed-list-group">W</li>
+							<li data-value="瓦房店" data-tags="WFD" class="mui-table-view-cell mui-indexed-list-item">瓦房店</li>
+							<li data-value="潍坊" data-tags="WF" class="mui-table-view-cell mui-indexed-list-item">潍坊</li>
+							<li data-value="威海" data-tags="WH" class="mui-table-view-cell mui-indexed-list-item">威海</li>
+							<li data-value="渭南" data-tags="WN" class="mui-table-view-cell mui-indexed-list-item">渭南</li>
+							<li data-value="文登" data-tags="WD" class="mui-table-view-cell mui-indexed-list-item">文登</li>
+							<li data-value="温岭" data-tags="WL" class="mui-table-view-cell mui-indexed-list-item">温岭</li>
+							<li data-value="温州" data-tags="WZ" class="mui-table-view-cell mui-indexed-list-item">温州</li>
+							<li data-value="乌海" data-tags="WH" class="mui-table-view-cell mui-indexed-list-item">乌海</li>
+							<li data-value="武汉" data-tags="WH" class="mui-table-view-cell mui-indexed-list-item">武汉</li>
+							<li data-value="芜湖" data-tags="WH" class="mui-table-view-cell mui-indexed-list-item">芜湖</li>
+							<li data-value="吴江" data-tags="WJ" class="mui-table-view-cell mui-indexed-list-item">吴江</li>
+							<li data-value="乌兰浩特" data-tags="WLHT" class="mui-table-view-cell mui-indexed-list-item">乌兰浩特</li>
+							<li data-value="武威" data-tags="WW" class="mui-table-view-cell mui-indexed-list-item">武威</li>
+							<li data-value="无锡" data-tags="WY" class="mui-table-view-cell mui-indexed-list-item">无锡</li>
+							<li data-value="梧州" data-tags="WZ" class="mui-table-view-cell mui-indexed-list-item">梧州</li>
+							<li data-value="乌鲁木齐" data-tags="WLMQ" class="mui-table-view-cell mui-indexed-list-item">乌鲁木齐</li>
+							<li data-value="万州" data-tags="WZ" class="mui-table-view-cell mui-indexed-list-item">万州</li>
+							<li data-group="X" class="mui-table-view-divider mui-indexed-list-group">X</li>
+							<li data-value="西安" data-tags="XA" class="mui-table-view-cell mui-indexed-list-item">西安</li>
+							<li data-value="项城" data-tags="XC" class="mui-table-view-cell mui-indexed-list-item">项城</li>
+							<li data-value="襄阳" data-tags="XY" class="mui-table-view-cell mui-indexed-list-item">襄阳</li>
+							<li data-value="香格里拉" data-tags="XGLL" class="mui-table-view-cell mui-indexed-list-item">香格里拉</li>
+							<li data-value="象山" data-tags="XS" class="mui-table-view-cell mui-indexed-list-item">象山</li>
+							<li data-value="湘潭" data-tags="XT" class="mui-table-view-cell mui-indexed-list-item">湘潭</li>
+							<li data-value="湘乡" data-tags="XX" class="mui-table-view-cell mui-indexed-list-item">湘乡</li>
+							<li data-value="咸宁" data-tags="XN" class="mui-table-view-cell mui-indexed-list-item">咸宁</li>
+							<li data-value="仙桃" data-tags="XT" class="mui-table-view-cell mui-indexed-list-item">仙桃</li>
+							<li data-value="咸阳" data-tags="XY" class="mui-table-view-cell mui-indexed-list-item">咸阳</li>
+							<li data-value="西藏" data-tags="XZ" class="mui-table-view-cell mui-indexed-list-item">西藏</li>
+							<li data-value="西昌" data-tags="XC" class="mui-table-view-cell mui-indexed-list-item">西昌</li>
+							<li data-value="邢台" data-tags="XT" class="mui-table-view-cell mui-indexed-list-item">邢台</li>
+							<li data-value="兴义" data-tags="XY" class="mui-table-view-cell mui-indexed-list-item">兴义</li>
+							<li data-value="西宁" data-tags="XN" class="mui-table-view-cell mui-indexed-list-item">西宁</li>
+							<li data-value="新乡" data-tags="XX" class="mui-table-view-cell mui-indexed-list-item">新乡</li>
+							<li data-value="信阳" data-tags="XY" class="mui-table-view-cell mui-indexed-list-item">信阳</li>
+							<li data-value="新余" data-tags="XY" class="mui-table-view-cell mui-indexed-list-item">新余</li>
+							<li data-value="忻州" data-tags="XZ" class="mui-table-view-cell mui-indexed-list-item">忻州</li>
+							<li data-value="宣城" data-tags="XC" class="mui-table-view-cell mui-indexed-list-item">宣城</li>
+							<li data-value="许昌" data-tags="XC" class="mui-table-view-cell mui-indexed-list-item">许昌</li>
+							<li data-value="徐州" data-tags="XZ" class="mui-table-view-cell mui-indexed-list-item">徐州</li>
+							<li data-value="厦门" data-tags="XM" class="mui-table-view-cell mui-indexed-list-item">厦门</li>
+							<li data-value="萧山" data-tags="XS" class="mui-table-view-cell mui-indexed-list-item">萧山</li>
+							<li data-value="宣化" data-tags="XH" class="mui-table-view-cell mui-indexed-list-item">宣化</li>
+							<li data-value="兴化" data-tags="XH" class="mui-table-view-cell mui-indexed-list-item">兴化</li>
+							<li data-value="辛集" data-tags="XJ" class="mui-table-view-cell mui-indexed-list-item">辛集</li>
+							<li data-value="湘阴" data-tags="XY" class="mui-table-view-cell mui-indexed-list-item">湘阴</li>
+							<li data-group="Y" class="mui-table-view-divider mui-indexed-list-group">Y</li>
+							<li data-value="雅安" data-tags="YA" class="mui-table-view-cell mui-indexed-list-item">雅安</li>
+							<li data-value="牙克石" data-tags="YKS" class="mui-table-view-cell mui-indexed-list-item">牙克石</li>
+							<li data-value="延安" data-tags="YA" class="mui-table-view-cell mui-indexed-list-item">延安</li>
+							<li data-value="延边" data-tags="YB" class="mui-table-view-cell mui-indexed-list-item">延边</li>
+							<li data-value="盐城" data-tags="YC" class="mui-table-view-cell mui-indexed-list-item">盐城</li>
+							<li data-value="阳江" data-tags="YJ" class="mui-table-view-cell mui-indexed-list-item">阳江</li>
+							<li data-value="阳泉" data-tags="YQ" class="mui-table-view-cell mui-indexed-list-item">阳泉</li>
+							<li data-value="扬州" data-tags="YZ" class="mui-table-view-cell mui-indexed-list-item">扬州</li>
+							<li data-value="延吉" data-tags="YJ" class="mui-table-view-cell mui-indexed-list-item">延吉</li>
+							<li data-value="烟台" data-tags="YT" class="mui-table-view-cell mui-indexed-list-item">烟台</li>
+							<li data-value="兖州" data-tags="YZ" class="mui-table-view-cell mui-indexed-list-item">兖州</li>
+							<li data-value="宜宾" data-tags="YB" class="mui-table-view-cell mui-indexed-list-item">宜宾</li>
+							<li data-value="宜昌" data-tags="YC" class="mui-table-view-cell mui-indexed-list-item">宜昌</li>
+							<li data-value="宜春" data-tags="YC" class="mui-table-view-cell mui-indexed-list-item">宜春</li>
+							<li data-value="伊春" data-tags="YC" class="mui-table-view-cell mui-indexed-list-item">伊春</li>
+							<li data-value="伊犁" data-tags="YL" class="mui-table-view-cell mui-indexed-list-item">伊犁</li>
+							<li data-value="银川" data-tags="YC" class="mui-table-view-cell mui-indexed-list-item">银川</li>
+							<li data-value="营口" data-tags="YK" class="mui-table-view-cell mui-indexed-list-item">营口</li>
+							<li data-value="鹰潭" data-tags="YT" class="mui-table-view-cell mui-indexed-list-item">鹰潭</li>
+							<li data-value="伊宁" data-tags="YN" class="mui-table-view-cell mui-indexed-list-item">伊宁</li>
+							<li data-value="义乌" data-tags="YW" class="mui-table-view-cell mui-indexed-list-item">义乌</li>
+							<li data-value="宜兴" data-tags="YX" class="mui-table-view-cell mui-indexed-list-item">宜兴</li>
+							<li data-value="益阳" data-tags="YY" class="mui-table-view-cell mui-indexed-list-item">益阳</li>
+							<li data-value="永康" data-tags="YK" class="mui-table-view-cell mui-indexed-list-item">永康</li>
+							<li data-value="永州" data-tags="YZ" class="mui-table-view-cell mui-indexed-list-item">永州</li>
+							<li data-value="岳阳" data-tags="YY" class="mui-table-view-cell mui-indexed-list-item">岳阳</li>
+							<li data-value="玉环" data-tags="YH" class="mui-table-view-cell mui-indexed-list-item">玉环</li>
+							<li data-value="榆林" data-tags="YL" class="mui-table-view-cell mui-indexed-list-item">榆林</li>
+							<li data-value="玉林" data-tags="YL" class="mui-table-view-cell mui-indexed-list-item">玉林</li>
+							<li data-value="运城" data-tags="YC" class="mui-table-view-cell mui-indexed-list-item">运城</li>
+							<li data-value="玉溪" data-tags="YX" class="mui-table-view-cell mui-indexed-list-item">玉溪</li>
+							<li data-value="余姚" data-tags="YY" class="mui-table-view-cell mui-indexed-list-item">余姚</li>
+							<li data-group="Z" class="mui-table-view-divider mui-indexed-list-group">Z</li>
+							<li data-value="枣庄" data-tags="ZZ" class="mui-table-view-cell mui-indexed-list-item">枣庄</li>
+							<li data-value="增城" data-tags="ZC" class="mui-table-view-cell mui-indexed-list-item">增城</li>
+							<li data-value="长春" data-tags="ZC" class="mui-table-view-cell mui-indexed-list-item">长春</li>
+							<li data-value="张家港" data-tags="ZJG" class="mui-table-view-cell mui-indexed-list-item">张家港</li>
+							<li data-value="张家界" data-tags="ZJJ" class="mui-table-view-cell mui-indexed-list-item">张家界</li>
+							<li data-value="张家口" data-tags="ZJK" class="mui-table-view-cell mui-indexed-list-item">张家口</li>
+							<li data-value="章丘" data-tags="ZQ" class="mui-table-view-cell mui-indexed-list-item">章丘</li>
+							<li data-value="张掖" data-tags="ZY" class="mui-table-view-cell mui-indexed-list-item">张掖</li>
+							<li data-value="漳州" data-tags="ZZ" class="mui-table-view-cell mui-indexed-list-item">漳州</li>
+							<li data-value="湛江" data-tags="Zj" class="mui-table-view-cell mui-indexed-list-item">湛江</li>
+							<li data-value="肇东" data-tags="ZD" class="mui-table-view-cell mui-indexed-list-item">肇东</li>
+							<li data-value="肇庆" data-tags="ZQ" class="mui-table-view-cell mui-indexed-list-item">肇庆</li>
+							<li data-value="昭通" data-tags="ZT" class="mui-table-view-cell mui-indexed-list-item">昭通</li>
+							<li data-value="郑州" data-tags="ZZ" class="mui-table-view-cell mui-indexed-list-item">郑州</li>
+							<li data-value="镇江" data-tags="ZJ" class="mui-table-view-cell mui-indexed-list-item">镇江</li>
+							<li data-value="中山" data-tags="ZS" class="mui-table-view-cell mui-indexed-list-item">中山</li>
+							<li data-value="周口" data-tags="ZK" class="mui-table-view-cell mui-indexed-list-item">周口</li>
+							<li data-value="舟山" data-tags="ZS" class="mui-table-view-cell mui-indexed-list-item">舟山</li>
+							<li data-value="诸城" data-tags="ZC" class="mui-table-view-cell mui-indexed-list-item">诸城</li>
+							<li data-value="珠海" data-tags="ZH" class="mui-table-view-cell mui-indexed-list-item">珠海</li>
+							<li data-value="诸暨" data-tags="ZJ" class="mui-table-view-cell mui-indexed-list-item">诸暨</li>
+							<li data-value="驻马店" data-tags="ZMD" class="mui-table-view-cell mui-indexed-list-item">驻马店</li>
+							<li data-value="株洲" data-tags="ZZ" class="mui-table-view-cell mui-indexed-list-item">株洲</li>
+							<li data-value="淄博" data-tags="ZB" class="mui-table-view-cell mui-indexed-list-item">淄博</li>
+							<li data-value="自贡" data-tags="ZG" class="mui-table-view-cell mui-indexed-list-item">自贡</li>
+							<li data-value="遵义" data-tags="ZY" class="mui-table-view-cell mui-indexed-list-item">遵义</li>
+							<li data-value="邹城" data-tags="ZC" class="mui-table-view-cell mui-indexed-list-item">邹城</li>
+							<li data-value="资阳" id="yang" data-tags="ZY" class="mui-table-view-cell mui-indexed-list-item">资阳</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.indexedlist.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<script src="../js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/base_data.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			var app = new Vue({
+				el: "#app",
+				data: {
+
+				},
+				mounted: function() {
+
+					(function($, doc) {
+
+					}(mui, document));
+					//							mui.init();
+					//MUI列表搜素初始化
+					mui.ready(function() {
+						var header = document.querySelector('header.mui-bar');
+						var list = document.getElementById('list');
+						//calc hieght
+						list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
+						//create
+						window.indexedList = new mui.IndexedList(list);
+					});
+					//初始化预加载详情页面
+					mui.init({
+						preloadPages: [{
+							id: 'citys.html',
+							url: 'citys.html'
+						}]
+					});
+
+					//点击返回按钮存参数
+
+					var detailPage = null;
+					mui(".mui-table-view").on('tap', '.mui-table-view-cell', function() {
+						//获取id
+						
+						var id = this.getAttribute("data-value");
+
+						var city_id=id
+						if(window.sessionStorage){
+							sessionStorage.setItem("get_city_ids",city_id)
+						}else{
+							Cookie.write("get_city_ids",city_id)
+						}
+	
+			window.location.href="../index.html"
+					})
+				},
+		
+				
+				methods: {
+
+				}
+			})
+
+			//Vue.http.options.emulateJSON = true;
+			//				Vue.http.post(SCORDERURL+'/makeOrder',data).then(function(response){
+			//					window.location.href="new_payment.html"
+			//                  
+			//				},function(err){
+			//					mui.toast('网络不可用，请检查网络');
+			//				})
+			//			点击返回按钮存参数
+			//					mui(".mui-bar").on('tap','.mui-icon',function(){
+			//						 var nowtext=mui("#now_vaule")[0].value
+			//						//  mui("#now_vaule")[0].value="11"
+			//						 alert(nowtext)
+			//					});
+		</script>
+	</body>
+
+</html>

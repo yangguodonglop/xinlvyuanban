@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>个人信息</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+		<style>
+			.ts_18{
+				font-size: 1.6rem;
+			}
+			.span_text{
+				width: 200px;
+    			text-overflow: ellipsis;
+   				 white-space: nowrap;
+   				 overflow: hidden;
+   				 text-align: right;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="me">
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ts_18">个人信息</h1>
+			</header>
+			<div class="col_2 ali txt_16 con_tal">
+				<div class="con_item con_item_active">
+					<div class="con_item_l c_txt1 txt_15 ts_18 txt_c2">头像</div>
+					<div class="con_item_r">
+						<span class="span_text c_txt1 txt_12 span_text_active"><img :src="avatar_url" class="img_con_s"></span>
+						<a href="#"><img src="/public/imgs/new_img_01.png" class="img_con"></a>
+					</div>
+				</div>
+				<div class="con_item c_txt1" @click="putname()">
+					<div class="con_item_l c_txt1 txt_15 ts_18 txt_c2">昵称</div>
+					<div class="con_item_r">
+						<span class="span_text c_txt1 ts_15 txt_c4">{{name}}</span>
+						<a href="#"><img src="/public/imgs/new_img_01.png" class="img_con"></a>
+					</div>
+				</div>
+				<div class="con_item c_txt1" @click="putsign()">
+					<div class="con_item_l c_txt1 txt_15 ts_18 txt_c2">签名</div>
+					<div class="con_item_r">
+						<span class="span_text c_txt1 ts_15 txt_c4">{{sign}}</span>
+						<a href="#"><img src="/public/imgs/new_img_01.png" class="img_con"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/user.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var me = new Vue({
+		el:'#me',
+		data:{
+			status:false,
+			name:'用户名',
+			sign:'旅行的意义，就在于不断发现新的世界和新的自己',
+			avatar_url: '/public/imgs/wxlogo-1.png',
+		},
+		created:function(){
+            mui.showLoading('数据加载中');
+			Vue.http.get(URLS+'/customerInfo',{headers :{Authorization: 'Bearer '+localStorage.getItem('token')}}).then(function(response){
+				if(response.status==200){
+					var userdata =response.body.data;
+					me.status=true;
+					me.name = userdata.name;
+	                me.sign = userdata.sign==null?me.sign:userdata.sign;
+	                me.avatar_url = userdata.avatar_url==null?me.avatar_url:userdata.avatar_url;
+					mui.hideLoading();
+				}
+			}, function(err){
+				mui.hideLoading();
+				mui.toast('数据加载失败');
+			});
+		},
+		methods:{
+			tolink:function(link){
+				mui.openWindow({
+					url:link,
+				});
+			},
+			putname:function(){
+				var btnArray = ['取消', '保存'];
+				var _this = this;
+                mui.prompt('', _this.name, '修改昵称', btnArray, function(e) {
+                    if(e.index == 1) {
+            			mui.showLoading('正在修改');
+        				_this.name = e.value;
+                    	var token = localStorage.getItem('token');
+                    	Vue.http.put(URLS+'/customer/changeInfo',{name:_this.name},{headers :{Authorization: 'Bearer '+token}}).then(function(response){
+                    		console.log(response);
+							if(response.status == 200){
+								if(response.body.status == 1){
+									mui.hideLoading();
+									mui.toast(response.body.msg);
+								}else{
+									mui.hideLoading();
+									mui.toast(response.body.msg);
+								}
+							}
+						});
+                    }
+                })
+			},
+			putsign:function(){
+				var btnArray = ['取消', '保存'];
+				var _this = this;
+				mui.prompt('', _this.sign, '修改签名', btnArray, function(e) {
+                    if(e.index == 1) {
+            			mui.showLoading('正在修改');
+            			_this.sign = e.value;
+                    	var token = localStorage.getItem('token');
+                    	Vue.http.put(URLS+'/customer/changeInfo',{sign:_this.sign},{headers :{Authorization: 'Bearer '+token}}).then(function(response){
+                    		console.log(response);
+							if(response.status == 200){
+								if(response.body.status == 1){
+									mui.hideLoading();
+									mui.toast(response.body.msg);
+								}else{
+									mui.hideLoading();
+									mui.toast(response.body.msg);
+								}
+							}
+						});
+                    }
+                })
+			}
+		}
+	});
+</script>

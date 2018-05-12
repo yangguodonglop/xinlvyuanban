@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/showLoging.css" />
+		<style>
+			[v-cloak]{ display: none; }
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<!--头部-->
+			<!--			<a href="pages/details.html">点击</a>
+-->
+			<div class="row h_44 txt_cw ts_14 linear_tit_back">
+				<div class="mar_l_20" @click="addresslink()">{{places}} <img class="img1 mar_l_5" src="imgs/img_01-min.png" alt="" /></div>
+				<div class="tit_back"><img class="img2 mar_r_5" src="imgs/img_02-min.png" alt="" /> 目的地/关键词</div>
+				<img class="img3 mar_r_20" src="imgs/logo(96x96).png" />
+			</div>
+
+			<!--轮播图-->
+			<div class="mui-slider b_w zxb-slider rel">
+				<img class="abs widths" style="z-index: 100; bottom: 6px;" src="imgs/banner_zz.PNG" />
+				<div class="mui-slider-group mui-slider-loop">
+					<div v-for="item in banner" class="mui-slider-item" :onclick="item.url"><img :src="item.thumb" /></div>
+				</div>
+			</div>
+			<!--导航模块-->
+			<div class="row pad_r_10 pad_t_5 b_w">
+				<!--<template v-for="item in navs">
+					<img class="wid_25 pad_l_10" :src="item.thumb" />
+				</template>-->
+
+				<img class="wid_25 pad_l_10" src="imgs/img1.png" />
+				<img class="wid_25 pad_l_10" src="imgs/img2.png" />
+				<img class="wid_25 pad_l_10" src="imgs/img3.png" />
+				<img class="wid_25 pad_l_10" src="imgs/img4.png"  />
+			</div>
+			<div class="row pad_r_10 b_w pad_t_10 pad_b_10">
+				<!--<template v-for="item in navs1">
+					<img class="wid_25 pad_l_10" :src="item.thumb" />
+				</template>-->
+				<img class="wid_25 pad_l_10" src="imgs/img5.png" />
+				<img class="wid_25 pad_l_10" src="imgs/img6.png" />
+				<img class="wid_25 pad_l_10" src="imgs/img7.png" />
+				<img class="wid_25 pad_l_10" src="imgs/img8.png" />
+			</div>
+
+			<!--猜你想去-->
+			<div class="b_w mar_t_10 ts_15" id="txt_tit">
+				<div class="row pad_l_10 pad_r_10 pad_t_10 pad_b_10 tit_bor">
+					<div class="txt_c1 row"><span class="iocn1 linear_back_c9"></span> 猜你想去</div>
+					<div class="ts_12 pad_r_5">更多 ></div>
+				</div>
+
+				<!--文字-->
+				<div :class="(mag_t < -35)?'index_tit_fix tit_bor':'index_tit_fix1 tit_bor'">
+					<div class="row mar_l_20 mar_r_20">
+						<span :class="(cur_page == 0)?'action_tit1':'action_tit'" @click="goto_item(0)">推荐</span>
+						<span :class="(cur_page == 1)?'action_tit1':'action_tit'" @click="goto_item(1)">出境游</span>
+						<span :class="(cur_page == 2)?'action_tit1':'action_tit'" @click="goto_item(2)">国内游</span>
+						<span :class="(cur_page == 3)?'action_tit1':'action_tit'" @click="goto_item(3)">周边游</span>
+					</div>
+				</div>
+
+				<div :class="(mag_t < -35)?'mar_t_37':''">
+					<!--第一个内容区容器-->
+					<img class="pad_t_10 pad_l_10 pad_r_10 widths" src="imgs/img_100.jpg" id="gt_img1" />
+					<div class="pad_l_10 pad_r_10  mar_b_5">
+						<div class="row_wrap">
+							<div v-for="item in dt1" v-cloak class="col wid_49 h_190 mar_b_10" @click="go_url(item)">
+								<div class="rel">
+									<span class="abs iocn2 pad_l_10 pad_r_15 txt_cw ts_12">武汉出发</span>
+									<i><img class="widths zxb_img" :src="item.thumb" /></i>
+								</div>
+								<span class="mar_t_5 txt_c2 as_fs pad_l_5 pad_r_5 h_115">{{item.title}}</span>
+								<div class="row widths mar_t_5">
+									<div class="ts_12 txt_c1">￥<span class="ts_18">{{item.price}}</span> 起</div>
+									<span class="txt_c3 pad_r_5 ts_11">{{item.id}}人购买</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--第二个内容区容器-->
+					<img class="pad_l_10 pad_r_10 widths" src="imgs/img_100.jpg" id="gt_img2" />
+					<div class="pad_l_10 pad_r_10 mar_b_5">
+						<div class="row_wrap">
+							<div v-for="item in dt2" v-cloak class="col wid_49 h_190 mar_b_10" @click="go_url(item)">
+								<div class="rel">
+									<span class="abs iocn2 pad_l_10 pad_r_15 txt_cw ts_12">武汉出发</span>
+									<i><img class="widths zxb_img" :src="item.thumb" /></i>
+								</div>
+								<span class="mar_t_5 txt_c2 as_fs pad_l_5 pad_r_5 h_115">{{item.title}}</span>
+								<div class="row widths mar_t_5">
+									<div class="ts_12 txt_c1">￥<span class="ts_18">{{item.price}}</span> 起</div>
+									<span class="txt_c3 pad_r_5 ts_11">{{item.id}}人购买</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--第三个内容区容器-->
+					<img class="pad_l_10 pad_r_10 widths" src="imgs/img_100.jpg" id="gt_img3" />
+					<div class="pad_l_10 pad_r_10 mar_b_5">
+						<div class="row_wrap">
+							<div v-for="item in dt3" v-cloak class="col wid_49 h_190 mar_b_10" @click="go_url(item)">
+								<div class="rel">
+									<span class="abs iocn2 pad_l_10 pad_r_15 txt_cw ts_12">武汉出发</span>
+									<i><img class="widths zxb_img" :src="item.thumb" /></i>
+								</div>
+								<span class="mar_t_5 txt_c2 as_fs pad_l_5 pad_r_5 h_115">{{item.title}}</span>
+								<div class="row widths mar_t_5">
+									<div class="ts_12 txt_c1">￥<span class="ts_18">{{item.price}}</span> 起</div>
+									<span class="txt_c3 pad_r_5 ts_11">{{item.id}}人购买</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--第四个内容区容器-->
+					<img class="pad_l_10 pad_r_10 widths" src="imgs/img_100.jpg" id="gt_img4" />
+					<div class="pad_l_10 pad_r_10 mar_b_5">
+						<div class="row_wrap">
+							<div v-for="item in dt4" v-cloak class="col wid_49 h_190 mar_b_10" @click="go_url(item)">
+								<div class="rel">
+									<span class="abs iocn2 pad_l_10 pad_r_15 txt_cw ts_12">武汉出发</span>
+									<i><img class="widths zxb_img" :src="item.thumb" /></i>
+								</div>
+								<span class="mar_t_5 txt_c2 as_fs pad_l_5 pad_r_5 h_115">{{item.title}}</span>
+								<div class="row widths mar_t_5">
+									<div class="ts_12 txt_c1">￥<span class="ts_18">{{item.price}}</span> 起</div>
+									<span class="txt_c3 pad_r_5 ts_11">{{item.id}}人购买</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/base_data.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	mui.init();
+	var app = new Vue({
+		el: '#app',
+		data: {
+
+			places: "武汉",
+			navs: '',
+			navs1: '',
+			banner: '',
+			dt1: '',
+			dt2: '',
+			dt3: '',
+			dt4: '',
+			cur_page: 0,
+			mag_t: 10,
+			citys: '武汉'
+		},
+		mounted: function() {
+			(function($, doc) {
+
+			}(mui, document));
+
+			//获取城市传过来的ID
+			var js_citys_id = window.sessionStorage ? sessionStorage.getItem("get_city_ids") : Cookie.read("get_city_ids");
+			if(js_citys_id == null) {
+
+				this.places = "武汉"
+			} else {
+
+				this.places = js_citys_id
+			}
+			var  data = {
+				city: js_citys_id
+			}
+			//首页位置切换
+			Vue.http.options.emulateJSON = true;
+			Vue.http.post(URLS + '/city', data).then(function(respones) {
+
+			}, function(err) {
+				mui.toast('网络不可用，请检查网络');
+			});
+
+			//轮播下导航
+			Vue.http.get(URLS + '/menu').then(function(respones) {
+
+				//将8张图片分为两个数组保存起来
+				var new_nav = []
+				var new_nav1 = []
+				for(var i = 0; i <= 3; i++) {
+					new_nav.push(respones.body.data[i])
+				}
+
+				for(var i = 4; i <= 7; i++) {
+					new_nav1.push(respones.body.data[i])
+				}
+				app.navs = new_nav;
+				app.navs1 = new_nav1;
+			}, function(err) {
+				mui.toast('网络不可用，请检查网络');
+			});
+
+			//获取轮播图
+			Vue.http.get(URLS + '/banner').then(function(response) {
+				//加头加尾
+				response.body.data.unshift(response.body.data[response.body.data.length - 1]);
+				response.body.data.push(response.body.data[1]);
+				app.banner = response.body.data;
+				init_gall();
+				mui.hideLoading();
+			}, function(err) {
+				mui.toast('网络异常！');
+			});
+
+			//获取页面数据
+			
+				mui.showLoading("正在刷新数据...","div");   
+
+			Vue.http.get(URLS + '/recommend').then(function(response) {
+					
+				app.dt1 = response.body.data.abroad;
+				app.dt2 = response.body.data.inland;
+				app.dt3 = response.body.data.recommend;
+				app.dt4 = response.body.data.tour_around;
+				mui.hideLoading();
+				//延时动态修改页面图片的高度
+				setTimeout(function() {
+					var aImg = document.getElementsByClassName('zxb_img');
+					var w = document.body.clientWidth;
+					for(var i = 0; i < aImg.length; i++) {
+						aImg[i].style.height = w / 3.1 + 'px';
+					}
+				}, 200);
+
+			}, function(err) {
+				mui.toast('网络异常！');
+			});
+			//延时初始化轮播组件
+			var init_gall = function() {
+				setTimeout(function() {
+					var gallery = mui('.zxb-slider');
+					gallery.slider({
+						interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
+					});
+				}, 200);
+			}
+
+			//悬停功能
+			window.onscroll = function() {
+				//获取div距离顶部的距离
+
+				var mTop = document.getElementById('txt_tit').offsetTop;
+				//减去滚动条的高度
+				var sTop;
+				if(document.documentElement && document.documentElement.scrollTop)
+					sTop = document.documentElement.scrollTop;
+				else if(document.body)
+					sTop = document.body.scrollTop;
+				var result = mTop - sTop;
+				app.mag_t = result;
+
+				//得到每个部位距离顶部的距离
+				var img1 = document.getElementById('gt_img1').offsetTop;
+				var img2 = document.getElementById('gt_img2').offsetTop;
+				var img3 = document.getElementById('gt_img3').offsetTop;
+				var img4 = document.getElementById('gt_img4').offsetTop;
+				var n1 = img1 - sTop;
+				var n2 = img2 - sTop;
+				var n3 = img3 - sTop;
+				var n4 = img4 - sTop;
+			
+			
+
+				if(n1 < 48 && n2 > 48)
+					app.cur_page = 0;
+				else if(n2 < 48 && n3 > 48)
+					app.cur_page = 1;
+				else if(n3 < 48 && n4 > 48)
+					app.cur_page = 2;
+				else if(n4 < 48)
+					app.cur_page = 3;
+			}
+
+//			function goto_item(n) {
+//
+//			}
+			//			mui.showLoading('正在加载数据...');
+			//			this.getdata();
+		},
+		methods: {
+			addresslink: function() {
+				window.location.href = "pages/citys.html"
+			},
+			goto_item: function(n) {
+				window.scrollTo(0, document.getElementById('gt_img' + (n + 1)).offsetTop - 47);
+			},
+			//点击跳转页面传递ID参数
+			go_url: function(item) {
+				var product_id = item.id
+
+				if(window.sessionStorage) {
+					sessionStorage.setItem("id_item", product_id);
+				} else {
+					Cookie.write("id_item", product_id);
+				}
+				window.location.href = "pages/details.html";
+			}
+		}
+	});
+</script>

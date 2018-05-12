@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>积分商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav b_w" style="box-shadow: none;">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<a class="mui-action-back mui-pull-left"><img class="img11" src="../imgs/left_jt.png"/></a>
+			<h1 class="mui-title">积分商城</h1>
+		</header>
+		<div id="app">
+			<div class="tit_fix2"></div>
+			<header class="mui-bar mui-bar-nav b_w mar_t_22" style="box-shadow: none;">
+				<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+				<a class="mui-action-back mui-pull-left"><img class="img11" src="../imgs/left_jt.png"/></a>
+				<h1 class="mui-title">{{title}}</h1>
+			</header>
+			<div class="mui-scroll mar_t_67 txt_c2" style="margin-top: 45px;">
+				<ul class="mui-table-view">
+					<template v-for="item in list">
+					<li class="mui-table-view-cell row1 h_125" @click="getGooodDetail(item.id)">
+						<div class="fshr" style="overflow: hidden; width: 100px; height: 98px;">
+							<img :src="item.thumb" class="widths" />
+						</div>
+						<div class="col3 mar_l_10 pad_t_5 pad_b_5">
+							<span class="ts_16">{{item.title}}</span>
+							<div class="row2">
+								<span class="ts_17 txt_c1">{{item.price}}<span class="ts_12 txt_c4 pad_l_10">积分</span></span>
+								<img @click="getGooodDetail(item.id)" class="img10 mar_b_5" style="width: 71px;" src="../imgs/msdh.png"/>
+							</div>
+						</div>
+					</li>
+					</template>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script src="../js/mui.min.js"></script>
+<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/base_data.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            title:'商品列表',
+            list: [
+            ]
+        },
+        methods: {
+            getGooodDetail: function(id) {
+                mui.openWindow({
+                    url:'detail.html'+'?id='+id,//跳转至指定页面
+                });
+            },
+        }
+    })
+    //获取传递数据
+    var url=location.search;
+    var Request = new Object();
+    if(url.indexOf("?")!=-1)
+    {
+        var str = url.substr(1)　//去掉?号
+        strs = str.split("&");
+        for(var i=0;i<strs.length;i++)
+        {
+            Request[strs[i ].split("=")[0]]=unescape(strs[ i].split("=")[1]);
+            console.log();
+        }
+    }else {
+        console.log('数据未找到');
+    }
+    //加载地址详情
+    get_data(Request['level_id']);
+    function get_data(level_id) {
+        Vue.http.get(URL+'/mobile/integralList?level_id='+level_id).then(function(response) {
+            var list=response.body.data;
+            app.title=response.body.msg
+            app.list = list;
+        }, function(err) {
+            mui.toast('网络异常！');
+        });
+    }
+
+</script>

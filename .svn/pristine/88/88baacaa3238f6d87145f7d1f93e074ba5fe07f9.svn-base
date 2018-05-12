@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>定制游</title>
+		<link rel="stylesheet" href="/public/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base_new.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/new_style.css" />
+	</head>
+
+	<body>
+		<div id="app">
+			
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> 
+				<h1 class="mui-title">国内游</h1></header>
+			<div class=" travel_palce" style="margin-top: 50px;">
+				<div class="tr_palce_item">
+					<div class="place_item_banner" id="gt_img5">
+						<a href="###"><img src="/public/imgs/img_124.jpg"></a>
+					</div>
+					<div class="back_white col_1 ali padding_l_20 padding_r_20">
+						<span class="margin_t_15 txt_14 customized_tit">我要定制 · 优惠省心</span>
+						<div class="customized_hx margin_t_10"></div>
+						<div class="row_2 widths margin_t_10 txt_12 c_txt1 padding_l_10 padding_r_10">
+							<span style="font-size: 1.5rem;">出发地</span><span style="font-size: 1.5rem;">目的地</span>
+						</div>
+						<div class="row_2 widths margin_b_-5">
+							<input style="border: 0px; padding-left: 9px; color: #cccccc; font-size: 1.5rem;" v-model="start" type="text" placeholder="start" />
+							<img class="customized_img margin_t_10" src="/public/imgs/new_img_025.png" style=" " @click="switchChange('item1','item2')" />
+							<input style="text-align:right; border: 0px; padding-right: 9px;color: #cccccc;font-size: 1.5rem;" v-model="end" type="text" placeholder="end" />
+						</div>
+						<div class="col_2 ali txt_16 con_tal">
+							<div class="con_item con_item_login">
+								<div class="con_item_l c_txt1 txt_15 con_item_phone">
+									<span class="span_phone ts_15">联系人</span>
+									<input type="text" v-model="name" placeholder="name" class="input_item txt_14 c_txt10 ts_15" />
+								</div>
+							</div>
+							<div class="con_item con_item_login">
+								<div class="con_item_l c_txt1 txt_15 con_item_phone">
+									<span class="span_phone ts_15">手机号</span>
+									<input type="text" v-model="phone" placeholder="phone" class="input_item txt_14 c_txt10 ts_15" />
+								</div>
+							</div>
+							<div class="con_item con_item_login" style="height: 80px;">
+								<div class="con_item_l c_txt1 txt_15 con_item_phone" style="height: 80px;">
+									<span class="span_phone ts_15" style="line-height: 10px; float: left; margin-top: 0px;">留言</span>
+									<textarea type="text" style="height: 70px;float: left; padding-left: 18px; margin-left: 10px; padding-top: .6rem;" v-model="contents" placeholder="contents" class="input_item txt_14 c_txt10 ts_15" />
+									</textarea>
+								</div>
+							</div>
+							<div class="drop_btn">
+								<div class="btn_text c_white" @click="go_btn()">提交定制</div>
+							</div>
+						</div>
+					<!--</div>
+					<div class="place_item_list">
+						<ul>
+							<li>
+								<a href="###">
+									<p class="item_p1">
+										<img src="imgs/new_img_024.png">
+										<span>武汉出发</span>
+									</p>
+									<p class="item_p2">
+										<span>马尔代夫Outriger奥特瑞格6-7天自由行</span>
+									</p>
+									<p class="item_p3">
+										<span class="item_span1">¥<i>499</i> 起</span>
+										<span class="item_span2">503人购买</span>
+									</p>
+								</a>
+							</li>
+							<li>
+								<a href="###">
+									<p class="item_p1">
+										<img src="imgs/new_img_024.png">
+										<span>武汉出发</span>
+									</p>
+									<p class="item_p2">
+										<span>马尔代夫Outriger奥特瑞格6-7天自由行</span>
+									</p>
+									<p class="item_p3">
+										<span class="item_span1">¥<i>499</i> 起</span>
+										<span class="item_span2">503人购买</span>
+									</p>
+								</a>
+							</li>
+
+						</ul>
+					</div>-->
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js"></script>
+
+<script src="/public/js/vue_resource.js"></script>
+<script src="/public/js/base_data.js"></script>
+<script src="/public/js/base_data.js"></script>
+<script>
+		var app = new Vue({
+		el: "#app",
+		data: {
+			start: "武汉",
+			end: "请输入目的地",
+			phone: "请输入电话",
+			name: "请输入姓名",
+			contents: "请留言",
+			cur_page:0,
+		
+			list: [
+
+			]
+
+		},
+		mounted: function() {
+
+		},
+
+		methods: {
+			//	目的地和城市切换
+			switchChange: function(item1, item2) {
+				this.flag = !this.flag
+				if(this.flag == false) {
+					item1 = this.start
+					item2 = this.end
+					app.start = item2
+					app.end = item1
+				} else {
+					item1 = this.end
+					item2 = this.start
+					app.start = item1
+					app.end = item2
+				}
+			},
+			//点击提交定制验证
+			go_btn: function() {
+				var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+				//var url="/nptOfficialWebsite/apply/sendSms?mobile="+this.ruleForm.phone;
+				if(app.name == '') {
+					alert('请输入联系人');
+					return
+				};
+				if(app.phone == '') {
+					alert('手机号码不能为空');
+					return
+				} else if(!reg.test(app.phone)) {
+					alert('请输入正确的手机号码');
+					return
+				};
+				if(app.start == "" || app.start == "请输入目的地") {
+					alert("请输入正确地址")
+					return
+				}
+				if(app.end == "" || app.end == "请输入目的地") {
+					alert("请输入正确地址")
+					return
+				}
+				var data = {
+					start: app.start,
+					end: app.end,
+					name: app.name,
+					phone: app.phone,
+					contents: app.contents
+				}
+				//发送定制后的内容接口
+				Vue.http.options.emulateJSON = true;
+				Vue.http.post(URLS + '/customization/store', data).then(function(response) {
+					alert("你已成功提交定制")
+				}, function(err) {
+					alert("网络错误，请检查网络")
+				})
+			}
+		}
+
+	});
+
+</script>

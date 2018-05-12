@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/base_new.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/personal_set.css" />
+
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/showLoging.css" />
+		<link rel="stylesheet" type="text/css" href="css/new_style.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">选项卡切换+下拉刷新</h1>
+			</header>
+			<div class="mui-content">
+				<div id="slider" class="mui-slider mui-fullscreen">
+					<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<div class="mui-scroll" style="margin-top: 0px;">
+							<a class="mui-control-item mui-active" href="#item1mobile">
+								推荐
+							</a>
+							<a class="mui-control-item" href="#item2mobile">
+								出境游
+							</a>
+							<a class="mui-control-item" href="#item3mobile">
+								国内游
+							</a>
+							<a class="mui-control-item" href="#item4mobile">
+								周边游
+							</a>
+							<a class="mui-control-item" href="#item5mobile">
+								定制游
+							</a>
+
+						</div>
+					</div>
+					<div class="mui-slider-group" id="nowclick">
+						<div id="item1mobile" class="mui-slider-item mui-control-content">
+							<div id="scroll1" class="mui-scroll-wrapper">
+								<div class="mui-scroll travel_palce">
+									<div class="tr_palce_item" style="display: block; height: auto; overflow: hidden;">
+										<div class="place_item_banner" id="gt_img1">
+											<a href="###"><img src="imgs/new_img_023.png"></a>
+										</div>
+										<div class="place_item_list">
+											<ul>
+												<li v-for="item in dt1" onclick="switchChange('item1','item2')">
+													<a href="###">
+														<p class="item_p1">
+															<i style="font-style: normal;"><img :src="item.thumb">
+														<span>武汉出发</span>
+														</i>
+
+														</p>
+														<p class="item_p2">
+															<span>{{item.title}}</span>
+														</p>
+														<p class="item_p3">
+															<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+															<span class="item_span2">3266购买</span>
+														</p>
+													</a>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="item2mobile" class="mui-slider-item mui-control-content">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<div class="mui-scroll travel_palce">
+										<div class="tr_palce_item" style="display: block; height: auto; overflow: hidden;">
+											<div class="place_item_banner" id="gt_img1">
+												<a href="###"><img src="imgs/new_img_023.png"></a>
+											</div>
+											<div class="place_item_list">
+												<ul>
+													<li v-for="item in dt2">
+														<a href="###">
+															<p class="item_p1">
+																<i style="font-style: normal;"><img :src="item.thumb">
+														<span>武汉出发</span>
+														</i>
+
+															</p>
+															<p class="item_p2">
+																<span>{{item.title}}</span>
+															</p>
+															<p class="item_p3">
+																<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+																<span class="item_span2">3266购买</span>
+															</p>
+														</a>
+													</li>
+
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="item3mobile" class="mui-slider-item mui-control-content">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<div class="mui-scroll travel_palce">
+										<div class="tr_palce_item" style="display: block; height: auto; overflow: hidden;">
+											<div class="place_item_banner" id="gt_img1">
+												<a href="###"><img src="imgs/new_img_023.png"></a>
+											</div>
+											<div class="place_item_list">
+												<ul>
+													<li v-for="item in dt3">
+														<a href="###">
+															<p class="item_p1">
+																<i style="font-style: normal;"><img :src="item.thumb">
+														<span>武汉出发</span>
+														</i>
+
+															</p>
+															<p class="item_p2">
+																<span>{{item.title}}</span>
+															</p>
+															<p class="item_p3">
+																<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+																<span class="item_span2">3266购买</span>
+															</p>
+														</a>
+													</li>
+
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="item4mobile" class="mui-slider-item mui-control-content">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<div class="mui-scroll travel_palce">
+										<div class="tr_palce_item" style="display: block; height: auto; overflow: hidden;">
+											<div class="place_item_banner" id="gt_img1" @click="switchChange('item1','item2')">
+												<a href="###"><img src="imgs/new_img_023.png"></a>
+											</div>
+											<div class="place_item_list">
+												<ul>
+													<li v-for="item in dt4">
+														<a href="###">
+															<p class="item_p1">
+																<i style="font-style: normal;"><img :src="item.thumb">
+														<span>武汉出发</span>
+														</i>
+
+															</p>
+															<p class="item_p2">
+																<span>{{item.title}}</span>
+															</p>
+															<p class="item_p3">
+																<span class="item_span1">¥<i>{{item.price}}</i> 起</span>
+																<span class="item_span2">3266购买</span>
+															</p>
+														</a>
+													</li>
+
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="item5mobile" class="mui-slider-item mui-control-content">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll travel_palce">
+									<div class="tr_palce_item">
+										<div class="place_item_banner" id="gt_img5">
+											<a href="###"><img src="imgs/img_124.jpg"></a>
+										</div>
+										<div class="back_white col_1 ali padding_l_20 padding_r_20">
+											<span class="margin_t_15 txt_14 customized_tit">我要定制 · 优惠省心</span>
+											<div class="customized_hx margin_t_10"></div>
+											<div class="row_2 widths margin_t_10 txt_12 c_txt1 padding_l_10 padding_r_10">
+												<span>出发地</span><span>目的地</span>
+											</div>
+											<div class="row_2 widths margin_b_-5">
+												<input style="border: 0px; padding-left: 9px; color: #cccccc;" v-model="start" type="text" placeholder="start" />
+												<img class="customized_img margin_t_10" src="imgs/new_img_025.png" style="width: 17px; height: 17px; " @click="switchChange('item1','item2')" />
+												<input style="text-align:right; border: 0px; padding-right: 9px;color: #cccccc;" v-model="end" type="text" placeholder="end" />
+											</div>
+											<div class="col_2 ali txt_16 con_tal">
+												<div class="con_item con_item_login">
+													<div class="con_item_l c_txt1 txt_15 con_item_phone">
+														<span class="span_phone ts_15">联系人</span>
+														<input type="text" v-model="name" placeholder="name" class="input_item txt_14 c_txt10 ts_15" />
+													</div>
+												</div>
+												<div class="con_item con_item_login">
+													<div class="con_item_l c_txt1 txt_15 con_item_phone">
+														<span class="span_phone ts_15">手机号</span>
+														<input type="text" v-model="phone" placeholder="phone" class="input_item txt_14 c_txt10 ts_15" />
+													</div>
+												</div>
+												<div class="con_item con_item_login">
+													<div class="con_item_l c_txt1 txt_15 con_item_phone">
+														<span class="span_phone ts_15">留言</span>
+														<input type="text" v-model="contents" placeholder="contents" class="input_item txt_14 c_txt10 ts_15" />
+													</div>
+												</div>
+												<div class="drop_btn">
+													<div class="btn_text c_white" @click="go_btn()">提交定制</div>
+												</div>
+											</div>
+										</div>
+										<div class="place_item_list">
+											<ul>
+												<li>
+													<a href="###">
+														<p class="item_p1">
+															<img src="imgs/new_img_024.png">
+															<span>武汉出发</span>
+														</p>
+														<p class="item_p2">
+															<span>马尔代夫Outriger奥特瑞格6-7天自由行</span>
+														</p>
+														<p class="item_p3">
+															<span class="item_span1">¥<i>499</i> 起</span>
+															<span class="item_span2">503人购买</span>
+														</p>
+													</a>
+												</li>
+												<li>
+													<a href="###">
+														<p class="item_p1">
+															<img src="imgs/new_img_024.png">
+															<span>武汉出发</span>
+														</p>
+														<p class="item_p2">
+															<span>马尔代夫Outriger奥特瑞格6-7天自由行</span>
+														</p>
+														<p class="item_p3">
+															<span class="item_span1">¥<i>499</i> 起</span>
+															<span class="item_span2">503人购买</span>
+														</p>
+													</a>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</body>
+
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/base_data.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script src="js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+	//mui.init();
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			get_cx: '1',
+			dt1: '',
+			dt2: '',
+			dt3: '',
+			dt4: '',
+			nowtype: 1,
+			paginate: 6,
+			zb_page: 0,
+			zb_pagenext: '',
+			zb_pagenext1: '',
+			zb_data: '',
+			now_zb_page: 1,
+						type: 1,
+						flag: false,
+						current_page:1,
+						current_pagen:'',
+						start: "武汉",
+						end: "请输入目的地",
+						phone: "15951813234",
+						name: "杨国栋",
+						contents: "光谷软件园",
+						list: [
+			
+						]
+
+		},
+		mounted: function() {
+
+		},
+
+		methods: {
+
+		}
+
+	});
+
+	(function($) {
+
+		//	alert(app.page+"*"+app.type)
+		//阻尼系数
+		var deceleration = mui.os.ios ? 0.003 : 0.0009;
+		$('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: true, //是否显示滚动条
+			deceleration: deceleration
+		});
+
+		$.ready(function() {
+			//循环初始化所有下拉刷新，上拉加载。
+			$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+				$(pullRefreshEl).pullToRefresh({
+					down: {
+						callback: function() {
+							var self = this;
+							self = this;
+							var x = app.paginate
+							var y = app.nowtype
+							var z = 1
+							setTimeout(function() {
+								//yang(x, y, z);
+							}, 1000);
+								self.endPullDownToRefresh();
+						}
+					},
+					up: {
+						callback: function() {
+							self = this;
+							var x = app.paginate
+							var y = app.nowtype
+							var z = app.now_zb_page++
+							setTimeout(function() {
+								//yang(x, y, z);
+								self.endPullUpToRefresh();
+							}, 1000);
+
+						}
+					}
+				});
+			});
+		});
+		$.ready(function() {
+			//事件监听方法
+			document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+				console.log('-------------');
+				app.open_page = event.detail.slideNumber + 1;
+				//alert(event.detail.slideNumber)
+		
+				if(event.detail.slideNumber == 0) {
+					y = 1
+					//alert(x+"*"+y)
+					gat_firstdata(x, y,z)
+				} else if(event.detail.slideNumber == 1) {
+					y = 2
+					//alert(x+"*"+y)
+					gat_firstdata(x, y,z)
+				} else if(event.detail.slideNumber == 2) {
+					y = 3
+					gat_firstdata(x, y,z)
+				} else if(event.detail.slideNumber == 3) {
+					y = "武汉"
+					gat_firstdata(x, y,z)
+				} else if(event.detail.slideNumber == 4) {
+					return
+				}
+		
+			});
+		});
+	})(mui);
+
+	
+	var y;
+	var a = app.paginate;
+	//y=app.type
+	function get_data(a, y) {
+		if(y == "武汉") {
+			mui.showLoading("正在刷新数据...", "div");
+			Vue.http.get(index_listcity + '?paginate=' + x + '&city=' + y).then(function(response) {
+				mui.hideLoading();
+
+				app.dt4 = response.body.data.data
+				console.log(app.da4)
+			}, function(err) {
+				mui.toast('网络异常！');
+			})
+		} else {
+
+			mui.showLoading("正在刷新数据...", "div");
+			Vue.http.get(index_list + '?paginate=' + a + '&type=' + y).then(function(response) {
+				mui.hideLoading();
+				//console.log(app.da+'x')
+
+				app.dt1 = response.body.data.data
+				app.dt2 = response.body.data.data
+				app.dt3 = response.body.data.data
+				app.dt4 = response.body.data.data
+			}, function(err) {
+				mui.toast('网络异常！');
+			})
+		}
+
+	}
+	
+	
+	
+	
+	
+	//获取从首页传过来的城市ID
+	var now_data1 = window.sessionStorage ? sessionStorage.getItem("now_navtype") : Cookie.read("now_navtype");
+	if(now_data1 == 1) {
+		x = app.paginate
+		y = now_data1
+		z=	app.now_zb_page
+		gat_firstdata(x, y,z)
+	}
+	//获取从首页传过来的ID方法
+	function gat_firstdata(x, y,z) {
+		//alert(z+"*"+y+"*"+z)
+		mui.showLoading("正在刷新数据...", "div");
+		Vue.http.get(index_list + '?paginate=' + app.paginate + '&type=' + now_data1+ '&current_page=' + z).then(function(response) {
+			mui.hideLoading();
+			/*switch(y){
+				case:1
+					app.dt1 = response.body.data.data
+			}*/
+				app.dt1 = response.body.data.data
+				app.dt2=response.body.data.data
+				app.dt3=response.body.data.data
+				app.dt4=response.body.data.data
+		}, function(err) {
+			mui.toast('网络异常！');
+		})
+	}
+	//下拉请求数据方法
+	function yang(x, y, z) {
+		mui.showLoading("正在刷新数据...", "div");
+		Vue.http.get(index_list + '?paginate=' + x + '&type=' + y + '&current_page=' + z).then(function(response) {
+			app.dt1 = response.body.data.data
+			app.dt2 = response.body.data.data
+			app.dt3= response.body.data.data
+			app.dt4 = response.body.data.data
+			mui.hideLoading();
+		}, function(err) {
+			mui.toast('网络异常！');
+		})
+	}
+</script>

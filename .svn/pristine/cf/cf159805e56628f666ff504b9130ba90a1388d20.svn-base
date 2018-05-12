@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>填写邀请码</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+	</head>
+	<body>
+		<div>
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ">上级推荐人</h1>
+			</header>
+			<div class="col_2 ali txt_16 con_tal con_tal_phone ">
+				<div class="change_phone_img my_code_con my_code_fill">
+					<div class="my_in_code">
+						<div class="code_num">
+							<input type="text" class="input_code" oninput="if(value.length>1)value=value.slice(0,1)"/>
+						</div>
+						<div class="code_num">
+							<input type="text" class="input_code" oninput="if(value.length>1)value=value.slice(0,1)"/>
+						</div>
+						<div class="code_num">
+							<input type="text" class="input_code" oninput="if(value.length>1)value=value.slice(0,1)"/>
+						</div>
+						<div class="code_num">
+							<input type="text" class="input_code" oninput="if(value.length>1)value=value.slice(0,1)"/>
+						</div>
+						<div class="code_num">
+							<input type="text" class="input_code" oninput="if(value.length>1)value=value.slice(0,1)"/>
+						</div>
+						<div class="code_num">
+							<input type="text" class="input_code" oninput="if(value.length>1)value=value.slice(0,1)"/>
+						</div>
+					</div>
+				</div>
+				<div class="change_phone_text txt_18 c_txt1 ts_15 txt_c2 code_active">
+					注意：填写上级人推荐人的邀请码后，不得修改
+				</div>
+			</div>
+			<div class="drop_btn">
+				<div class="btn_text c_white">复制邀请码</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>

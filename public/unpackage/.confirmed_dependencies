@@ -1,0 +1,132 @@
+{
+	"index.html": {
+		"resources": [
+			"css/base.css",
+			"js/vue_resource.js",
+			"imgs/logo(96x96).png",
+			"imgs/img1.png",
+			"imgs/img7.png",
+			"js/vue.min.js",
+			"imgs/img6.png",
+			"imgs/img3.png",
+			"js/base_data.js",
+			"imgs/banner_zz.PNG",
+			"css/index.css",
+			"imgs/img_100.jpg",
+			"imgs/img8.png",
+			"js/mui.min.js",
+			"imgs/img_01-min.png",
+			"imgs/img4.png",
+			"css/mui.min.css",
+			"js/data.json",
+			"imgs/img5.png",
+			"imgs/img_02-min.png",
+			"imgs/img2.png",
+			"invite_friends.html",
+			"discount_coupon.html",
+			"pages/search.html",
+			"invitation_code.html",
+			"css/showLoging.css",
+			"js/showLoding.js",
+			"pages/new_order_set.html",
+			"pages/details.html"
+		],
+		"refer": [
+			"invite_friends.html",
+			"discount_coupon.html",
+			"pages/search.html",
+			"invitation_code.html",
+			"pages/new_order_set.html",
+			"pages/details.html"
+		]
+	},
+	"invite_friends.html": {
+		"resources": [
+			"imgs/new_img_016.png",
+			"css/base.css",
+			"css/new_style.css",
+			"fonts/mui.ttf",
+			"imgs/new_img_017.png",
+			"css/mui.min.css",
+			"imgs/img_76.png"
+		]
+	},
+	"discount_coupon.html": {
+		"resources": [
+			"imgs/new_img_07.png",
+			"css/new_style.css",
+			"fonts/mui.ttf",
+			"css/personal_set.css",
+			"imgs/img_76.png",
+			"css/mui.min.css",
+			"imgs/new_img_05.png",
+			"css/base.css",
+			"imgs/new_img_022.png"
+		]
+	},
+	"pages/search.html": {
+		"resources": [
+			"imgs/left_jt.png",
+			"css/index.css",
+			"css/base.css",
+			"imgs/img_35.PNG",
+			"imgs/img_31.png",
+			"imgs/img_103.JPG",
+			"css/mui.min.css",
+			"imgs/img_32.PNG"
+		]
+	},
+	"invitation_code.html": {
+		"resources": [
+			"css/base.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/personal_set.css",
+			"imgs/img_76.png"
+		]
+	},
+	"pages/new_order_set.html": {
+		"resources": [
+			"imgs/left_jt.png",
+			"imgs/img_41.png",
+			"imgs/img_78.png",
+			"imgs/img_103.JPG",
+			"css/index.css",
+			"css/base.css",
+			"css/mui.min.css",
+			"pages/new_payment.html"
+		],
+		"refer": [
+			"pages/new_payment.html"
+		]
+	},
+	"pages/details.html": {
+		"resources": [
+			"imgs/img_39.PNG",
+			"css/index.css",
+			"css/base.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"imgs/img_44.png",
+			"imgs/img_38.png",
+			"pages/new_order_set.html"
+		],
+		"refer": [
+			"pages/new_order_set.html"
+		]
+	},
+	"pages/new_payment.html": {
+		"resources": [
+			"css/index.css",
+			"imgs/img_wx.png",
+			"imgs/img_zfb.png",
+			"css/base.css",
+			"imgs/img_51.png",
+			"css/base_new.css",
+			"css/mui.min.css",
+			"imgs/img_50.png",
+			"css/personal_set.css",
+			"imgs/new_img_027.png"
+		]
+	}
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>建议反馈</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+	</head>
+	<body>
+		<div>
+			<header class="mui-bar mui-bar-nav" style="box-shadow: none; border-bottom: 1px solid #e6e6e6;">
+				<a class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title">建议反馈</h1>
+			</header>
+			<div class="col_2 ali txt_16 con_tal">
+				<div class="con_item">
+					<div class="con_item_l c_txt1 txt_15 con_item_phone con_item_feedback">
+						<textarea class="feedback_txt c_txt10 txt_15 ts_15 txt_c2">请留下你的宝贵建议...</textarea>
+					</div>
+				</div>
+			</div>
+			<div class="drop_btn">
+				<div class="btn_text c_white">提交</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js"></script>

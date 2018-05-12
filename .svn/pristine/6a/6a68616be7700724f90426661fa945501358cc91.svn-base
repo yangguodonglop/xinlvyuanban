@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>目的地</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css"/>
+		<style>
+			.mar_t_230{
+				margin-top: 90px;
+			}
+			.col1{
+				position: relative;
+				width: 48%;
+				padding: 0px;
+			}
+			.col1 img{
+			
+					opacity: 0.9;
+					border-radius: 2px;
+					width: 100%;
+					min-height: 80px;
+			}
+			.col1 .ts_active{
+				position: absolute;
+				color: #FFFFFF;
+				font-size: 1.4rem;
+				font-weight: 500;
+				top:15px;
+			}
+				.col1 .ts_active1{
+				position: absolute;
+				color: #FFFFFF;
+				font-size: 1.4rem;
+				font-weight: 500;
+				top:35px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!--标题-->
+			<header class="mui-bar mui-bar-nav b_w" style="box-shadow: none;"><a class="mui-action-back mui-pull-left">
+				<img src="/public/imgs/img_76.png" class="img11"></a> 
+				<h1 class="mui-title">目的地</h1>
+			</header>
+			<div class="h_50 b_w row ts_15 br1" style="margin-top: 44px;">
+				<!--<div class="mar_l_20 txt_c1">{{city}} <img class="img1 mar_l_5" src="/public/imgs/img_01.png" alt="" /></div>-->
+				<div class="tit_back1 txt_c4" style="margin-left: 15px; width: 100%;" onclick="window.open('../search/new_search.html','_self')"><img class="img2 mar_r_5" src="/public/imgs/img_02.png" alt="" /> 搜索你想去的地方</div>
+			</div>
+			<div id="zxb_cont" class="mui-row mui-fullscreen mar_t_230 b_w">    
+				<div id="zxb_cont1" class="mui-col-xs-3 margin_t_-5">
+					<ul class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+						<li v-for="(item,key) in left" :class="(key==page)?'l_item_action':'l_item'" :data-key="key" onclick="tothis(this)">{{item}}</li>
+						<div style="width: 100%; background-color: white; height: 100px;"></div>
+					</ul>
+				</div>
+				<div id="zxb_cont2" class="mui-col-xs-9 pad_10">
+					<div v-for="(items,i,$index) in data" :id="i">
+						<img :src="'/public/imgs/mude'+$index+'.jpg'" class="widths brad_5">
+						<!--:scr="'../xx/xx'+index+'.jpg'"-->
+						<div class="row_wrap mar_t_5" >
+							<div  v-for="(item,key) in items" :data-id="item.id" class="col1 wid_48 mar_b_10 pad_l_10 pad_r_10" @click="go_url(item)">
+								<img :src="item.thumb" class="w_80 h_80">
+								<span class="ts_12 txt_c2 widths one_lin margin_t_10 ts_active" style="text-align: center; margin-top: 5px;">{{item.title}}</span>
+								<span class="ts_12 txt_c2 widths one_lin margin_t_10 ts_active1" style="text-align: center; margin-top: 5px;">{{item.letter}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+        	city:'武汉',
+        	left:'',
+        	page:0,
+        	data:'',
+        	itemsTop:[],
+        
+        },
+        created: function () {
+        	var _this = this;
+        	mui.showLoading('加载中');
+        	Vue.http.get(URLS+'/destination').then(function(response) {
+	            _this.left = response.body.data.left;
+	            console.log(response)
+	            _this.data = response.body.data.data;
+	            setTimeout(function(){
+					onscrol();
+					mui.hideLoading();
+				},500);
+	        }, function(err) {
+	            alert('网络异常!');
+				mui.hideLoading();
+	        });
+        },
+        methods: {
+        	      go_url: function(item) {
+                var product_id = item.id
+
+                if(window.sessionStorage) {
+                    sessionStorage.setItem("id_item", product_id);
+                } else {
+                    Cookie.write("id_item", product_id);
+                }
+                window.location.href = "/details/index.html?id="+item.id;
+            },
+        }
+    });
+    var contentsElem = document.getElementById("zxb_cont2");
+    function tothis(e){
+		app.page = e.getAttribute('data-key');
+		contentsElem.scrollTop = app.itemsTop[app.page];
+	}
+    function onscrol(){
+    	var n = 0;
+    	for(var i in app.data){
+    		app.itemsTop[n] = document.getElementById(i).offsetTop -10;
+    		n++;
+    	}
+    	contentsElem.addEventListener('scroll', function(e) {
+            var cur_scro = contentsElem.scrollTop;
+            for(var i= 0;i < n;i++){
+            	if(app.itemsTop[i]<cur_scro && cur_scro<app.itemsTop[i+1]){
+            		app.page = i;
+            	}
+            }
+    	});
+    }
+</script>

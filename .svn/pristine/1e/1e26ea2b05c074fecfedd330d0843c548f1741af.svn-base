@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>新增联系人</title>
+
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ts_18">新增联系人</h1>
+			</header>
+			<div class="col_2 ali txt_16 con_tal">
+				<div class="con_item con_item_login">
+					<div class="con_item_l c_txt1 txt_15 con_item_phone">
+						<span class="span_phone ts_15">姓名</span>
+						<input type="text" placeholder="输入姓名" v-model="name" class="input_item txt_14 c_txt10 ts_15" />
+					</div>
+				</div>
+				<div class="con_item con_item_login">
+					<div class="con_item_l c_txt1 txt_15 con_item_phone">
+						<span class="span_phone ts_15">电话</span>
+						<input type="text" placeholder="输入电话号码" v-model="phone"  class="input_item txt_14 c_txt10 ts_15" />
+					</div>
+				</div>
+			</div>
+
+			<div class="drop_btn">
+				<div class="btn_text c_white" @click="golink()">确定</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js"></script>
+<script src="/public/js/vue_resource.js"></script>
+<script src="/public/config/config.js"></script>
+<script>
+		mui.init()
+	var vm = new Vue({
+		el: '#app',
+		data: {
+		
+			name: '',
+			phone: ''
+		},
+		mounted: function() {
+//			if(localStorage.getItem('userstatus') == 'true') {
+//				var strStoreid = window.sessionStorage ? sessionStorage.getItem("id_item") : Cookie.read("id_item");
+//				Vue.http.get(order_fill + '?id=' + strStoreid,{
+//					headers: {
+//						Authorization: 'Bearer ' + localStorage.getItem('token')
+//					}
+//				}).then(function(respones) {
+//					var data = new Date();
+//					vm.datatime = data.getFullYear() + '-' + (data.getMonth() + 1) + '-' + data.getDate();
+//					vm.datalist = respones.body.data;
+//					vm.price = vm.datalist.suggest_price;
+//
+//				}, function(err) {
+//					mui.toast('网络不可用，请检查网络');
+//				})
+//			} else {
+//				mui.toast('您还没有登录！');
+//				setTimeout(function() {
+//					window.location.href = '/login/login.html';
+//				}, 1000);
+//			}
+		},
+		methods: {
+//			//阅读条款切换
+//			onaction: function() {
+//				vm.action = !vm.action;
+//			},
+//			//购买增减少数量
+//			but_del: function() {
+//				vm.num--;
+//				vm.price = vm.datalist.suggest_price * vm.num;
+//				if(vm.num < 0) {
+//					vm.num = 0;
+//					vm.price = 0;
+//				}
+//			},
+//			//购买增加数量
+//			but_add: function() {
+//				vm.num++
+//					vm.price = vm.datalist.suggest_price * vm.num;
+//			},
+			//提交订单验证
+			golink: function() {
+				 var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+				if(vm.name == '') {
+					mui.toast('请输入联系人姓名');
+					return
+				};
+				if(vm.phone == '') {
+					mui.toast('手机号必须填写');
+					return
+				} else if(!reg.test(vm.phone)) {
+					mui.toast('手机号错误');
+					return
+				};
+				let data = {
+				
+					phone: vm.phone,
+					name: vm.name
+
+				}
+				Vue.http.options.emulateJSON = true;
+				Vue.http.post(URLS + '/contact/store', data, {
+					headers: {
+						Authorization: 'Bearer ' + localStorage.getItem('token')
+					}
+				}).then(function(response) {
+					console.log(response)
+//					var now_order_id = response.body.data.order_id
+//					var now_price1 = response.body.data.price
+//					if(window.sessionStorage) {
+//						sessionStorage.setItem("now_price1", now_price1)
+//						sessionStorage.setItem("now_order_id", now_order_id)
+//					} else {
+//						Cookie.write("now_price1", now_price1)
+//						Cookie.write("now_order_id", now_order_id)
+//					}
+//					window.location.href = "new_payment.html"
+				}, function(err) {
+					mui.toast('网络不可用，请检查网络');
+				})
+			}
+		}
+	});
+</script>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的订单</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/personal_set.css" />
+		<link rel="stylesheet" type="text/css" href="css/new_style.css" />
+
+	</head>
+
+	<body>
+		<div id="app">
+
+			<div class="my_order_bgcolor">
+				<header class="mui-bar mui-bar-nav back_red bg_white">
+					<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="imgs/img_76.png"></a>
+					<h1 class="mui-title c_white c_txt1 ">我的订单</h1>
+				</header>
+				<div class="mui-content">
+					<div id="slider" class="mui-slider b_w" style="background: #f5f5f5;">
+						<div class="my_order b_w" style="margin-top: 0px;">
+							<template v-for="(item,$index) in list1">
+								<div @click="choicetab(item,$index)" class="my_order_item" v-bind:class="{'bottom_bor5':curr1==$index}">{{item.nowtab}}</div>
+							</template>
+						</div>
+
+						<div class="mui-slider-group" id="action_hei" style=" background: #F5F5F5;">
+							<div class="my_order_new">
+								<ul>
+
+									<li v-for="item in list">
+										<p class="item_p1"><span class="item_span1">订单编号：{{item.order_id}}</span><span class="item_span2">待支付</span></p>
+										<p class="item_p2"  @click="go_url(item)">
+											<a href="#">
+												<span class="item_span1"><img :src="item.thumb"></span>
+												<span class="item_span2">
+														<i class="item_i1">摩天轮平日天空票</i>
+														<i class="item_i2">出行日期{{item.start_time}}</i>
+														<i class="item_i3">总价:<b>{{item.price}}</b></i>
+													</span>
+											</a>
+										</p>
+										<p class="item_p3">
+											<a href="javascript:void(0)">
+												取消订单
+											</a>
+											<a href="javascript:void(0)" class="zf_bth" @click="go_pay(item)">
+												{{item.status}}
+											</a>
+										</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+
+<script src="js/base_data.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			curr: '',
+			curr1: '',
+			list1: [{
+					nowtab: "全部"
+
+				},
+				{
+					nowtab: "待付款"
+				},
+				{
+					nowtab: "已完成"
+				},
+				{
+					nowtab: "进行中"
+				}
+			],
+			list: [
+
+			]
+		},
+		mounted: function() {
+			//获取订单数据列表
+			Vue.http.get(SCORDERURL + '/orderList' + '?type=1').then(function(respones) {
+				//console.log(respones.body.data)
+							console.log(respones.body.data)
+								
+				vm.list = respones.body.data
+				console.log(vm.list)
+				for(var i = 0; i < vm.list.length; i++) {
+					if(vm.list[i].status == 1) {
+						vm.list[i].status = "立即支付"
+					} else {
+						vm.list[i].status = "重新购买"
+					}
+
+				}
+
+			}, function(err) {
+
+			})
+		},
+		methods: {
+			//点击tab进行数据筛选
+			choicetab: function(item, $index) {
+				let _this = this
+				vm.curr = item
+				vm.curr1 = $index
+				let now_index = $index + 1
+
+				Vue.http.get(SCORDERURL + '/orderList' + '?type=' + now_index).then(function(respones) {
+
+					vm.list = respones.body.data
+
+					for(var i = 0; i < vm.list.length; i++) {
+						if(vm.list[i].status == 1) {
+							vm.list[i].status = "立即支付"
+						} else {
+							vm.list[i].status = "重新购买"
+						}
+
+					}
+
+					this.vm.list = respones.body.data
+
+				}, function(err) {
+					mui.toast('网络异常！');
+				})
+			},
+			go_url:function(item){
+				var order_xq_id=item.id
+			
+
+				if(window.sessionStorage) {
+					sessionStorage.setItem("order_xq_id",order_xq_id);
+				} else {
+					Cookie.write("order_xq_id", order_xq_id);
+				}
+				window.location.href = "pages/new_order_details.html";
+			},
+			go_pay:function(item){
+				var order_xq_id=item.id
+			
+
+				if(window.sessionStorage) {
+					sessionStorage.setItem("order_xq_id",order_xq_id);
+				} else {
+					Cookie.write("order_xq_id", order_xq_id);
+				}
+				window.location.href = "pages/new_payment.html";
+			}
+			
+		}
+	})
+
+	mui.init({
+		swipeBack: true
+	});
+	(function($) {
+
+		//		$('#action_hei')[0].style.height = (window.screen.availHeight-84)+'px';
+		//		
+		//		
+		//		$('.mui-scroll-wrapper').scroll({
+		//			indicators: true//是否显示滚动条
+		//		});
+		//		var html2 = document.getElementById('item3mobile');;
+		//		var html3 = '<ul class="mui-table-view"><li class="mui-table-view-cell">第三个选项卡子项-1</li><li class="mui-table-view-cell">第三个选项卡子项-2</li><li class="mui-table-view-cell">第三个选项卡子项-3</li><li class="mui-table-view-cell">第三个选项卡子项-4</li><li class="mui-table-view-cell">第三个选项卡子项-5</li></ul>';
+		//		var item2 = document.getElementById('item1mobile');
+		//		var item3 = document.getElementById('item4mobile');
+		//		document.getElementById('slider').addEventListener('slide', function(e) {
+		//			if(e.detail.slideNumber === 1) {
+		//				if(item2.querySelector('.mui-loading')) {
+		//					setTimeout(function() {
+		//						item2.querySelector('.mui-scroll').innerHTML = html3;
+		//					}, 500);
+		//				}
+		//			} else if(e.detail.slideNumber === 3) {
+		//				if(item3.querySelector('.mui-loading')) {
+		//					setTimeout(function() {
+		//						item3.querySelector('.mui-scroll').innerHTML = html3;
+		//					}, 500);
+		//				}
+		//			}
+		//		});
+
+	})(mui);
+</script>

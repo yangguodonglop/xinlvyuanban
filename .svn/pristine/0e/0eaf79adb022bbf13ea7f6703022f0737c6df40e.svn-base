@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>重置登录密码</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+	</head>
+
+	<body>
+		<div id="me">
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ts_18">重置登录密码</h1>
+			</header>
+			<div class="col_2 ali txt_16 con_tal">
+				<div class="con_item con_item_login">
+					<div class="con_item_l c_txt1 txt_15 con_item_phone">
+						<span class="span_phone ts_15">新密码</span>
+						<input type="password" placeholder="6-12位数字和字母组合" v-model="password" oninput="if(value.length>11)value=value.slice(0,11)"
+							 class="input_item txt_14 c_txt10 ts_15" style="border: 0; background-color: transparent; margin-top: 15px;"/>
+					</div>
+				</div>
+				<div class="con_item con_item_login">
+					<div class="con_item_l c_txt1 txt_15 con_item_phone">
+						<span class="span_phone ts_15">确认密码</span>
+						<input type="password" placeholder="6-12位数字和字母组合" v-model="password_confirmation" oninput="if(value.length>11)value=value.slice(0,11)"
+							 class="input_item txt_14 c_txt10 ts_15" style="border: 0; background-color: transparent; margin-top: 15px;"/>
+					</div>
+				</div>
+			</div>
+			<div class="drop_btn">
+				<div class="btn_text c_white" @click="putpassword()">确定</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var me = new Vue({
+		el:'#me',
+		data:{
+			password:'',
+			password_confirmation:''
+		},
+		methods:{
+			putpassword:function(){
+				var _this = this;
+				if(_this.password == ''){
+					mui.toast('密码不能为空');
+					return;
+				}
+				if(_this.password.length < 5){
+					mui.toast('密码长度 6-12');
+					return;
+				}
+				if(_this.password.length != _this.password_confirmation.length){
+					mui.toast('两次密码不一致');
+					return;
+				}
+            	var token = localStorage.getItem('token');
+				Vue.http.put(URLS+'/customer/changPassword',{password:_this.password,password_confirmation:_this.password_confirmation},{headers :{Authorization: 'Bearer '+token}}).then(function(response){
+            		console.log(response);
+					if(response.status == 200){
+						if(response.body.status == 1){
+							mui.toast(response.body.msg);
+							setTimeout(function(){
+								window.location.href = "/user/mysettings.html";
+							},2000);
+						}
+					}
+				});
+			}
+		}
+	});
+</script>

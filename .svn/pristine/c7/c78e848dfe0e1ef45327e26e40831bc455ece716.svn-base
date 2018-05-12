@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>我的分享</title>
+		<link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/new_style.css" />
+	</head>
+
+	<body>
+		<div id="app">
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="../imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ">我的分享</h1>
+				<a href="javascript:void(0);" class="mui-icon mui-pull-right mui-action-back "><img class="nar_back_l margin_l_10" src="../imgs/new_img_08.png"></a>
+			</header>
+			<div class="share">
+				<div class="share_item">
+					<a href="#"><img src="../imgs/new_img_013.gif"></a>
+					<div class="share_img">
+						<img src="../imgs/new_img_015.png">
+					</div>
+				</div>
+				
+				<div class="share_tx">
+					欣旅天下
+				</div>
+				<div class="share_sm">
+					<div class="share_sm_img">
+						<img src="../imgs/new_img_014.png">
+					</div>
+					<div class="share_sm_txt">邀请好友 扫码得优惠券</div>
+				</div>
+				<div class="copy">
+					<div class="copy_txt">
+						<div class="copy_txtnum">268654</div>
+						<div class="copy_txtbtn">复制邀请码</div>
+					</div>
+				</div>
+				<!--<div class="share_other">
+					<div class="share_other_child">
+						<div class="other_child_t">
+							<a href="#"><img src="../imgs/new_img_09.png" style="width:28px ; height: 23px;"></a>
+						</div>
+						<div class="other_child_b">
+							微信好友
+						</div>
+					</div>
+					<div class="share_other_child">
+						<div class="other_child_t">
+							<a href="#"><img src="../imgs/new_img_010.png"  style="width:28px ; height: 28px;"></a>
+						</div>
+						<div class="other_child_b">
+							微朋友圈
+						</div>
+					</div>
+					<div class="share_other_child">
+						<div class="other_child_t">
+							<a href="#"><img src="../imgs/new_img_011.gif" style="width:25px ; height: 28px;"></a>
+						</div>
+						<div class="other_child_b">
+							QQ好友
+						</div>
+					</div>
+					<div class="share_other_child">
+						<div class="other_child_t">
+							<a href="#"><img src="../imgs/new_img_012.gif" style="width:28px ; height: 22px;"></a>
+						</div>
+						<div class="other_child_b">
+							新浪微博
+						</div>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</body>
+</html>
+<script src="../js/mui.min.js"></script>
+<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/base_data.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/config/user.js" type="text/javascript" charset="utf-8"></script>

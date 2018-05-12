@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>我的邀请记录</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/new_style.css" />
+		<style>
+			.iv_list .iv_list_con table tr th{
+				font-weight: 100;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" v-cloak>
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ">我的邀请记录</h1>
+			</header>
+			<div class="ivnitayion_jl">
+				<div class="ivnitayion_jl_num">{{invite}}</div>
+				<div class="ivnitayion_jl_txt">累计邀请（人数）</div>
+			</div>
+			<div class="iv_list">
+				<div class="iv_list_tilte">我的好友</div>
+				<div class="iv_list_con">
+					<table>
+						<tr> 
+							<th>序号</th><th>昵称</th><th>电话</th><!--<th>注册时间</th>-->
+						</tr>
+						
+						<tr v-for="item in list">
+							<td>{{item.id}}</td><td>{{item.name}}</td><td>{{item.phone}}</td><!--<td>{{item.id.created_time}}</td>-->
+						</tr>	
+					</table>
+				</div>
+			</div>
+			
+		
+		</div>
+	</body>
+
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/user.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var me = new Vue({
+		el:'#app',
+		data:{
+			status:false,
+			invite:0,
+			list:[''],
+		},
+		created:function(){
+			Vue.http.get(URLS+'/customer/inviteLog?type=1',{headers :{Authorization: 'Bearer '+localStorage.getItem('token')}}).then(function(response){
+				me.invite = response.body.data.length;
+				if(response.status == 200){
+					if(response.body.status == 1){
+						me.list = response.body.data;
+					}
+				}
+			});
+		}
+	});
+</script>

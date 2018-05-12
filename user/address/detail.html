@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>编辑收货地址</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.picker.min.css" />
+	</head>
+	<body>
+		<!--标题-->
+		<header class="mui-bar mui-bar-nav b_w" style="box-shadow: none;">
+			<a class="mui-action-back mui-pull-left"><img class="img11" src="/public/imgs/img_76.png"/></a>
+			<h1 class="mui-title">编辑收货地址</h1>
+		</header>
+		<div class="mui-content mar_t_1 txt_c2 ts_14" id="app">
+			<div class="b_w">
+				<div class="h_44 b_w row pad_l_15 pad_r_15">
+					<span class="w_75 ts_w_600">收货人</span>
+					<input type="text" name="" v-model="address.name" placeholder="填写收货人"
+						style="border: 0; flex-grow: 1; height: 40px; margin-top: 13px; font-size: 14px;"/>
+				</div>
+				<div class="br4"></div>
+				<div class="h_44 b_w row pad_l_15 pad_r_15">
+					<span class="w_75 ts_w_600">联系电话</span>
+					<input type="number" name="" v-model="address.phone" placeholder="填写联系电话"
+						style="border: 0; flex-grow: 1; height: 40px; margin-top: 13px; font-size: 14px;"/>
+				</div>
+				<div class="br4"></div>
+				<div class="h_44 b_w row pad_l_15 pad_r_15" id="zxb_search">
+					<span class="w_75 ts_w_600">所在地区</span>
+					<span style="flex-grow: 1;">{{address.province}}{{address.city}}{{address.area}}</span>
+					<img class="img17" src="/public/imgs/img_25.png"/>
+				</div>
+				<div class="br4"></div>
+				<div class="h_80 b_w row1 pad_l_15 pad_r_15">
+					<span class="w_75 ts_w_600 pad_t_10">详细地址</span>
+					<textarea class="h_80 ts_14" v-model="address.address" type="text" name="" id="" value="光谷软件园" placeholder="填写详细地址"
+						style="border: 0; flex-grow: 1;"></textarea>
+				</div>
+			</div>
+			<div class="txt_cw ts_16 but_bac mar_13 mar_t_30" @click="updateAddress()">
+				保存地址
+			</div>
+		</div>
+	</body>
+</html>
+
+<script src="/public/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            address: [
+
+            ]
+        },
+        methods: {
+            updateAddress:function () {
+                 let data = {
+                     address_id:app.address.id,
+					 name:app.address.name,
+					 phone:app.address.phone,
+                     province:app.address.province,
+                     city:app.address.city,
+                     area:app.address.area,
+                     address:app.address.address
+                }
+        		var token = localStorage.getItem('token');
+                Vue.http.post(URL+'/updateAddress',data,{headers :{Authorization: 'Bearer '+token}}).then(function(response) {
+                    if(response.body.status==1){
+                        mui.openWindow({
+                            url:'index.html',//跳转至指定页面
+                        });
+                    }
+                }, function(err) {
+                    alert('网络异常!');
+                });
+            }
+        }
+    })
+	//获取传递数据
+    var url=location.search;
+    var Request = new Object();
+    if(url.indexOf("?")!=-1)
+    {
+        var str = url.substr(1)　//去掉?号
+        strs = str.split("&");
+        for(var i=0;i<strs.length;i++)
+        {
+            Request[strs[i ].split("=")[0]]=unescape(strs[ i].split("=")[1]);
+            console.log();
+        }
+    }else {
+       console.log('数据未找到');
+	}
+	//加载地址详情
+    get_data(Request['id']);
+    function get_data(id) {
+        var token = localStorage.getItem('token');
+        Vue.http.get(URL+'/address/details?address_id='+id,{headers :{Authorization: 'Bearer '+token}}).then(function(response) {
+            var address=response.body.data;
+            app.address = address;
+        }, function(err) {
+            mui.toast('网络异常！');
+        });
+    }
+
+    //预先读取json文件为弹出框准备
+
+    var cityData = null;
+	Vue.http.options.emulateJSON = true;
+	Vue.http.get('/public/json/city.json').then(function(respones){
+		cityData=respones.body;
+	},function(err){
+	})
+
+    //弹出框
+    document.getElementById('zxb_search').addEventListener("tap", function(){
+        //创建弹出框
+        var picker = new mui.PopPicker({
+            layer: 3
+        });
+        //数据
+        picker.setData(cityData);
+        //默认值
+        picker.show(function(SelectedItem) {
+            app.address.province = SelectedItem[0].text;
+            app.address.city = SelectedItem[1].text;
+            app.address.area = SelectedItem[2];
+
+        });
+    });
+
+</script>

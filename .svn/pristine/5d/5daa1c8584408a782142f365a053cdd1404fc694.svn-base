@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>搜索</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/new_style.css" />
+	</head>
+
+	<body>
+		<div id="app" class="search_active">
+			<!--搜索标题-->
+			<div class="h_44 row tit_bor b_w">
+				<span class="mui-action-back"><img class="img11" src="../imgs/left_jt.png"/></span>
+				<span class="txt_c2 ts_18 wgt_600">桂林</span>
+				<span><img class="w_20 mar_r_15 mar_t_5" src="../imgs/img_31.png"/></span>
+			</div>
+			<!--选项一-->
+			<div id="tit1" class="h_44 tit_bor row5 ts_14 txt_c2 b_w">
+				<span :class="(tit1==1)?'tit_action':'tit_txt'" @click="choosetab1(1)">产品推荐</span>
+				<span :class="(tit1==2)?'tit_action':'tit_txt'" @click="choosetab1(2)">自由行</span>
+				<span :class="(tit1==3)?'tit_action':'tit_txt'" @click="choosetab1(3)">跟团游</span>
+				<span :class="(tit1==4)?'tit_action':'tit_txt'" @click="choosetab1(4)">周边游</span>
+				<span :class="(tit1==5)?'tit_action':'tit_txt'" @click="choosetab1(5)">景点门票</span>
+			</div>
+			<!--选项二-->
+			<div class="h_44 tit_bor row5 ts_14 txt_c3 b_w">
+				<span :class="(back==1)?'txt_c1':''" @click="tit2(1)">推荐排序 <img v-if="back==1" class="img21" src="../imgs/img_33.PNG"/><img v-else class="img21" src="../imgs/img_32.PNG"/></span>
+				<span :class="(back==2)?'txt_c1':''" @click="tit2(2)">日期天数 <img v-if="back==2" class="img21" src="../imgs/img_33.PNG"/><img v-else class="img21" src="../imgs/img_32.PNG"/></span>
+			</div>
+
+			<!--弹出选项卡-->
+			<div v-if="back!=0" @click="close_all()" class="abs bac_b widths heights" style="bottom: 0; z-index: -10;"></div>
+			<!--推荐排序-->
+			<div v-if="back==1" class="abs widths b_w ts_12 txt_c2 zxb_anim" style="z-index: 100; height: 0px;">
+
+				<div class="h_44 back_white row pad_l_10 pad_r_15 tit_bor" @click="choosetab('1','all')">
+					<span>新品推荐</span>
+					<img :class="(active_class==1)?'img22':'img23'" src="../imgs/img_35.PNG" />
+				</div>
+				<div class="h_44 back_white row pad_l_10 pad_r_15 tit_bor" @click="choosetab('2','desc')">
+					<span>价格从低到高</span>
+					<img :class="(active_class==2)?'img22':'img23'" src="../imgs/img_35.PNG" />
+				</div>
+				<div class="h_44 back_white row pad_l_10 pad_r_15 tit_bor" @click="choosetab('3','asc')">
+					<span>价格从高到低</span>
+					<img :class="(active_class==3)?'img22':'img23'" src="../imgs/img_35.PNG" />
+				</div>
+				<div class="row h_50 new_search_active">
+					<span class="search_but1">重置</span>
+					<span class="search_but2" @click="go_search()">确认<br /></span>
+				</div>
+			</div>
+			<!--日期天数-->
+			<div v-if="back==2" class="abs widths b_w ts_12 txt_c2 zxb_anim2">
+				<div class="row pad_13">
+					<span>游玩天数</span>
+					<img class="img1" style="display: none;" src="../imgs/img_51.png" />
+				</div>
+				<!--标题模块-->
+				<div class="row_wrap1 mar_l_10 mar_t_-15">
+					<div :class="(active_days=='不限')?'hot_action2':'hot_txt4'" @click="chooseday('不限')">不限</div>
+					<div :class="(active_days==1)?'hot_action2':'hot_txt4'" @click="chooseday(1)">1天</div>
+					<div :class="(active_days==2)?'hot_action2':'hot_txt4'" @click="chooseday(2)">2天</div>
+					<div :class="(active_days==3)?'hot_action2':'hot_txt4'" @click="chooseday(3)">3天</div>
+					<div :class="(active_days==4)?'hot_action2':'hot_txt4'" @click="chooseday(4)">4天</div>
+					<div :class="(active_days==5)?'hot_action2':'hot_txt4'" @click="chooseday(5)">5天</div>
+					<div :class="(active_days==6)?'hot_action2':'hot_txt4'" @click="chooseday(6)">6天</div>
+					<div :class="(active_days==7)?'hot_action2':'hot_txt4'" @click="chooseday(7)">7天</div>
+				</div>
+
+				<div class="row h_50 new_search_active">
+					<span class="search_but1">重置</span>
+					<span class="search_but2" @click="go_search()">确认<br /></span>
+				</div>
+			</div>
+
+			<!--列表-->
+			<div class="mui-scroll-wrapper" style="z-index: -100; margin-top: 132px;">
+				<div class="mui-scroll">
+					<div class="h_105 tit_bor row pad_t_5 pad_b_5" v-for="item in dt_list">
+						<img class="w_80 h_80 fshr mar_l_13" :src="item.thumb" />
+						<div class="col4 mar_l_13 pad_r_10">
+							<span class="h_35 txt_c7 ts_14">{{item.title}}</span>
+							<!--<div class="row3 ts_10 mar_b_-10">
+							<span class="iocn5">可订今日</span>
+							<span class="iocn6">优惠</span>
+							<span class="iocn7">推荐</span>
+						</div>-->
+							<div class="row ts_12">
+								<span class="txt_c4">{{item.start}}</span>
+								<span class="txt_c1 ts_11">￥<span class="ts_18"> {{item.price}}</span>起</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</body>
+
+</html>
+<script src="../js/mui.min.js"></script>
+<script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/base_data.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.init()
+
+	var app = new Vue({
+		el: '#app',
+		data: {
+			tit1: 1,
+			back: 0,
+			active_class: 1,
+			active_days: '不限',
+			active_px: 'all',
+			dt_list: [{
+				thumb: "../imgs/img_103.JPG",
+				title: "俄+北欧+双峡湾+塔林+柏林+爱沙尼亚11...",
+				start: "西安",
+				price: "7723",
+				is_hot: "0"
+
+			}]
+		},
+		mounted: function() {
+			Vue.http.get(URLS + '/search' + '?type=1').then(function(response) {
+				console.log(response.body.data.data)
+				app.dt_list = response.body.data.data
+			}, function(err) {
+				mui.toast('网络不可用，请检查网络');
+
+			})
+			mui('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
+		},
+		methods: {
+			//关闭所有
+			close_all: function(n) {
+				app.back = 0;
+			},
+			//弹层和出现
+			tit2: function(n) {
+				if(n == app.back)
+					app.back = 0;
+				else
+					app.back = n;
+			},
+			//价格升降序选择
+			choosetab: function(n, x) {
+
+				app.active_px = x
+				app.active_class = n
+			},
+			//选择天数
+			chooseday: function(n, y) {
+				app.active_days = n
+			},
+			//一级删选
+			choosetab1: function(n) {
+				app.tit1 = n
+				Vue.http.get(URLS + '/search' + '?type=' + app.tit1).then(function(response) {
+					app.dt_list = response.body.data.data
+				}, function(err) {
+					mui.toast('网络不可用，请检查网络');
+
+				})
+
+			},
+			//点击确认按钮，进行多方面筛选
+			go_search: function() {
+				app.back = 0;
+
+				if(app.active_px == 'all') {
+					Vue.http.get(URLS + '/search' + '?type=' + app.tit1).then(function(response) {
+						app.dt_list = response.body.data.data
+					}, function(err) {
+						mui.toast('网络不可用，请检查网络');
+
+					})
+				} else {
+					alert(app.tit1 + "*" + app.active_px + "*" + app.active_days)
+					Vue.http.get(URLS + '/search' + '?type=' + app.tit1 + '&sort=' + app.active_px + '&key=' + app.active_days).then(function(response) {
+						app.dt_list = response.body.data.data
+					}, function(err) {
+						mui.toast('网络不可用，请检查网络');
+
+					})
+				}
+
+			}
+
+		}
+	});
+</script>
+<script type="text/javascript">
+</script>

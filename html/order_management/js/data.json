@@ -1,0 +1,207 @@
+[
+    {
+        "title": "推荐",
+        "data": [
+            {
+                "id": 2209,
+                "title_top": "北京天津6日双卧跟团游",
+                "title": "夕阳红老年团",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2018-03-06/1c1a7307-d7b6-47b1-8758-a186431ae0a9.jpg",
+                "price": "1780",
+                "start": "武汉"
+            },
+            {
+                "id": 2210,
+                "title_top": "北京承德双飞6晚7日深度游",
+                "title": "[纯玩]含接送服务，畅游北京承德盛景 赠送圆明园电瓶车 避暑山庄 小布达拉宫 普宁寺",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2017-11-06/e604ff1c-9ee0-4b9e-9668-5a8479fade2e.jpg",
+                "price": "2790",
+                "start": "武汉"
+            },
+            {
+                "id": 2211,
+                "title_top": "北京双飞5日跟团游",
+                "title": "[2大免1儿童地接费用]首游TOP线推荐，万人出游佳选，五星连住，2大免1小，赏樱踏春，轻松游帝都全景",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2016-05-19/0e614367-ff4d-452d-82bb-9706034f246e.jpg",
+                "price": "2310",
+                "start": "武汉"
+            },
+            {
+                "id": 2212,
+                "title_top": "北京4晚双飞5日深度游",
+                "title": "[爸妈放心游]含接送服务，  宿商务快捷酒店、  探定陵博物馆  逛万园之园-圆明园 赠送圆明园内电瓶车",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2018-01-25/57105377-81bb-42d4-8cf5-17ae5aca18f9.jpg",
+                "price": "1830",
+                "start": "武汉"
+            }
+        ]
+    },
+    {
+        "title": "出境游",
+        "data": [
+            {
+                "id": 2209,
+                "title_top": "北京天津6日双卧跟团游",
+                "title": "夕阳红老年团",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2018-03-06/1c1a7307-d7b6-47b1-8758-a186431ae0a9.jpg",
+                "price": "1780",
+                "start": "武汉"
+            },
+            {
+                "id": 2210,
+                "title_top": "北京承德双飞6晚7日深度游",
+                "title": "[纯玩]含接送服务，畅游北京承德盛景 赠送圆明园电瓶车 避暑山庄 小布达拉宫 普宁寺",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2017-11-06/e604ff1c-9ee0-4b9e-9668-5a8479fade2e.jpg",
+                "price": "2790",
+                "start": "武汉"
+            },
+            {
+                "id": 2211,
+                "title_top": "北京双飞5日跟团游",
+                "title": "[2大免1儿童地接费用]首游TOP线推荐，万人出游佳选，五星连住，2大免1小，赏樱踏春，轻松游帝都全景",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2016-05-19/0e614367-ff4d-452d-82bb-9706034f246e.jpg",
+                "price": "2310",
+                "start": "武汉"
+            },
+            {
+                "id": 2212,
+                "title_top": "北京4晚双飞5日深度游",
+                "title": "[爸妈放心游]含接送服务，  宿商务快捷酒店、  探定陵博物馆  逛万园之园-圆明园 赠送圆明园内电瓶车",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2018-01-25/57105377-81bb-42d4-8cf5-17ae5aca18f9.jpg",
+                "price": "1830",
+                "start": "武汉"
+            }
+        ]
+    },
+    {
+        "title": "国内游",
+        "data": [
+            {
+                "id": 2209,
+                "title_top": "北京天津6日双卧跟团游",
+                "title": "夕阳红老年团",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2018-03-06/1c1a7307-d7b6-47b1-8758-a186431ae0a9.jpg",
+                "price": "1780",
+                "start": "武汉"
+            },
+            {
+                "id": 2210,
+                "title_top": "北京承德双飞6晚7日深度游",
+                "title": "[纯玩]含接送服务，畅游北京承德盛景 赠送圆明园电瓶车 避暑山庄 小布达拉宫 普宁寺",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2017-11-06/e604ff1c-9ee0-4b9e-9668-5a8479fade2e.jpg",
+                "price": "2790",
+                "start": "武汉"
+            },
+            {
+                "id": 2211,
+                "title_top": "北京双飞5日跟团游",
+                "title": "[2大免1儿童地接费用]首游TOP线推荐，万人出游佳选，五星连住，2大免1小，赏樱踏春，轻松游帝都全景",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2016-05-19/0e614367-ff4d-452d-82bb-9706034f246e.jpg",
+                "price": "2310",
+                "start": "武汉"
+            },
+            {
+                "id": 2212,
+                "title_top": "北京4晚双飞5日深度游",
+                "title": "[爸妈放心游]含接送服务，  宿商务快捷酒店、  探定陵博物馆  逛万园之园-圆明园 赠送圆明园内电瓶车",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2018-01-25/57105377-81bb-42d4-8cf5-17ae5aca18f9.jpg",
+                "price": "1830",
+                "start": "武汉"
+            }
+        ]
+    },
+    {
+        "title": "周边游",
+        "data": [
+            {
+                "id": 2209,
+                "title_top": "北京天津6日双卧跟团游",
+                "title": "夕阳红老年团",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2018-03-06/1c1a7307-d7b6-47b1-8758-a186431ae0a9.jpg",
+                "price": "1780",
+                "start": "武汉"
+            },
+            {
+                "id": 2210,
+                "title_top": "北京承德双飞6晚7日深度游",
+                "title": "[纯玩]含接送服务，畅游北京承德盛景 赠送圆明园电瓶车 避暑山庄 小布达拉宫 普宁寺",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2017-11-06/e604ff1c-9ee0-4b9e-9668-5a8479fade2e.jpg",
+                "price": "2790",
+                "start": "武汉"
+            },
+            {
+                "id": 2211,
+                "title_top": "北京双飞5日跟团游",
+                "title": "[2大免1儿童地接费用]首游TOP线推荐，万人出游佳选，五星连住，2大免1小，赏樱踏春，轻松游帝都全景",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2016-05-19/0e614367-ff4d-452d-82bb-9706034f246e.jpg",
+                "price": "2310",
+                "start": "武汉"
+            },
+            {
+                "id": 2212,
+                "title_top": "北京4晚双飞5日深度游",
+                "title": "[爸妈放心游]含接送服务，  宿商务快捷酒店、  探定陵博物馆  逛万园之园-圆明园 赠送圆明园内电瓶车",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2018-01-25/57105377-81bb-42d4-8cf5-17ae5aca18f9.jpg",
+                "price": "1830",
+                "start": "武汉"
+            }
+        ]
+    },
+    {
+        "title": "逍遥游",
+        "data": [
+            {
+                "id": 2209,
+                "title_top": "北京天津6日双卧跟团游",
+                "title": "夕阳红老年团",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2018-03-06/1c1a7307-d7b6-47b1-8758-a186431ae0a9.jpg",
+                "price": "1780",
+                "start": "武汉"
+            },
+            {
+                "id": 2210,
+                "title_top": "北京承德双飞6晚7日深度游",
+                "title": "[纯玩]含接送服务，畅游北京承德盛景 赠送圆明园电瓶车 避暑山庄 小布达拉宫 普宁寺",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2017-11-06/e604ff1c-9ee0-4b9e-9668-5a8479fade2e.jpg",
+                "price": "2790",
+                "start": "武汉"
+            },
+            {
+                "id": 2211,
+                "title_top": "北京双飞5日跟团游",
+                "title": "[2大免1儿童地接费用]首游TOP线推荐，万人出游佳选，五星连住，2大免1小，赏樱踏春，轻松游帝都全景",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2016-05-19/0e614367-ff4d-452d-82bb-9706034f246e.jpg",
+                "price": "2310",
+                "start": "武汉"
+            },
+            {
+                "id": 2212,
+                "title_top": "北京4晚双飞5日深度游",
+                "title": "[爸妈放心游]含接送服务，  宿商务快捷酒店、  探定陵博物馆  逛万园之园-圆明园 赠送圆明园内电瓶车",
+                "type": "跟团游",
+                "thumb": "http://s1.lvjs.com.cn/uploads/pc/place2/2018-01-25/57105377-81bb-42d4-8cf5-17ae5aca18f9.jpg",
+                "price": "1830",
+                "start": "武汉"
+            }
+        ]
+    }
+]

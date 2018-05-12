@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>填写邀请码</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css" />
+		<style>
+			.change_phone_img{
+				display: inline-block;
+			}
+			.code_shade{
+				width: 70%;
+				height: 40px;
+				background: #ebebeb;
+				margin: 0 auto;
+				overflow: hidden;
+				position: relative;
+			}
+			.code_shade ul li{
+				width: 16.66%;
+				float: left;
+				height: 40px;
+			/*	border-right: 1px solid #bfbfbf;*/
+				box-sizing: border-box;
+			}
+			.input_code[type=text]{
+				padding: 0;margin: 0; height: 40px; line-height: 40px; position: absolute; color: #ff7403; width: 100%; left: 0%; padding-left: 25px; background: none;letter-spacing: 24px;
+			}
+			.input_code[type=text]::-webkit-input-placeholder{
+			color: #ff7403;	
+			}
+			@media screen and (min-width:326px) and (max-width:375px){
+  				.input_code[type=text]{
+  					padding-left: 10px;
+  						font-size: 2.4rem;
+  				}
+			}
+			@media screen and (max-width:325px)  { 
+				.input_code[type=text]{
+  					padding-left: 10px;
+  					font-size: 2.2rem;
+  				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="me">
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a href="javascript:void(0);" class="mui-icon mui-pull-left mui-action-back "><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ">上级推荐人</h1>
+			</header>
+			<div class="col_2 ali txt_16 con_tal con_tal_phone ">
+				<div class="change_phone_img my_code_con my_code_fill">
+					<div class="my_in_code">
+						<div class="code_shade">
+							<input type="text" maxlength="6" class="input_code" v-model="invite"/>
+						</div>
+					</div>
+				</div>
+				<div class="change_phone_text txt_18 c_txt1 ts_15 txt_c2 code_active">
+					注意：填写上级人推荐人的邀请码后，不得修改
+				</div>
+			</div>
+			<div class="drop_btn">
+				<div class="btn_text c_white" @click="setInvite">确认提交</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var me = new Vue({
+		el:'#me',
+		data:{
+			invite:'',
+		},
+		created:function(){
+			mui.showLoading('数据加载中');
+			Vue.http.get(URLS+'/customerInfo',{headers :{Authorization: 'Bearer '+localStorage.getItem('token')}}).then(function(response){
+				if(response.status==200){
+					var userdata =response.body.data;
+					if(userdata.customer_id !=null){
+						window.location.href = "/user/mysettings.html";
+					}
+					mui.hideLoading();
+				}
+			}, function(err){
+				mui.hideLoading();
+				mui.toast('数据加载失败');
+			});
+		},
+		methods:{
+			setInvite:function(){
+				if(this.invite == ''){
+					mui.toast('请输入邀请码');
+					return;
+				}
+				mui.showLoading('提交中');
+				Vue.http.put(URLS+'/customer/setInvite',{invite:this.invite},{headers :{Authorization: 'Bearer '+localStorage.getItem('token')}}).then(function(response){
+					console.log(response);
+					mui.hideLoading();
+					if(response.status==200){
+						if(response.body.status == 1){
+							mui.toast(response.body.msg);
+							setTimeout(function(){
+								window.location.href = "/user/mysettings.html";
+							},2000);
+						}else{
+							mui.toast(response.body.msg);
+						}
+					}
+				}, function(err){
+					mui.hideLoading();
+					mui.toast('提交失败');
+				});
+			}
+		}
+	});
+</script>

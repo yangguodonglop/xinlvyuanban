@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>个人设置</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/showLoging.css" />
+	</head>
+	<body>
+		<div id="me">
+			<header class="mui-bar mui-bar-nav back_red bg_white">
+				<a class="mui-icon mui-pull-left" @click="tolink('/user/index.html')"><img class="nar_back margin_l_10" src="/public/imgs/img_76.png"></a>
+				<h1 class="mui-title c_white c_txt1 ts_18">设置</h1>
+			</header>
+			<div class="col_2 ali txt_16 con_tal">
+				<div class="con_item" v-on:click="tolink('../user/information.html')">
+					<div class="con_item_l c_txt1 ts_15 txt_c2">个人信息</div>
+					<div class="con_item_r">
+						<span class="span_text c_txt1 txt_12 ts_15 txt_c4">{{name}}</span>
+						<a><img src="/public/imgs/new_img_01.png" class="img_con"></a>
+					</div>
+				</div>
+				<div class="con_item c_txt1" @click="bind_phone()">
+					<div class="con_item_l c_txt1 ts_15 txt_c2" >手机绑定</div>
+					<div class="con_item_r">
+						<span class="span_text c_txt1 txt_12 ts_15 txt_c4">{{phone}}</span>
+						<a><img src="/public/imgs/new_img_01.png" class="img_con"></a>
+					</div>
+				</div>
+				<div class="con_item c_txt1" @click="bind_mailbox()">
+					<div class="con_item_l c_txt1 ts_15 txt_c2">邮箱绑定</div>
+					<div class="con_item_r">
+						<span class="span_text c_txt1 txt_12 ts_15 txt_c4">{{email}}</span>
+						<a><img src="/public/imgs/new_img_01.png" class="img_con"></a>
+					</div>
+				</div>
+				<div class="con_item c_txt1" @click="tolink('../user/mypassword.html')">
+					<div class="con_item_l c_txt1 ts_15 txt_c2">登录密码</div>
+					<div class="con_item_r">
+						<span class="span_text c_txt1 txt_12 ts_15 txt_c4">修改</span>
+						<a><img src="/public/imgs/new_img_01.png" class="img_con"></a>
+					</div>
+				</div>
+			</div>
+			<div class="col_2 ali txt_16 con_tal con_active">
+				<div class="con_item c_txt1" @click="tolink('../user/myfather.html')" v-if="father">
+					<div class="con_item_l c_txt1 ts_15 txt_c2">上级推荐人</div>
+					<div class="con_item_r">
+						<a><img src="/public/imgs/new_img_01.png" class="img_con"></a>
+					</div>
+				</div>
+			</div>
+			<div class="drop_btn">
+				<div class="btn_text c_white" @click="loginout()">退出登录</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/user.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var me = new Vue({
+		el:'#me',
+		data:{
+			status:false,
+			phone:'绑定手机号',
+			email:'绑定邮箱',
+			name:'用户名',
+			father:true,
+		},
+		created:function(){
+            mui.showLoading('数据加载中');
+			Vue.http.get(URLS+'/customerInfo',{headers :{Authorization: 'Bearer '+localStorage.getItem('token')}}).then(function(response){
+				if(response.status==200){
+					var userdata =response.body.data;
+					me.status=true;
+					me.name = userdata.name;
+					if(userdata.phone != null){
+						let start = (userdata.phone).slice(0,3);
+						let end = (userdata.phone).slice(-4);
+						me.phone = start+'****'+end;
+					}
+					if(userdata.email != null){
+						let email = (userdata.email).split('@');
+						me.email = email[0].slice(0,3)+'****@'+email[1];
+					}
+					if(userdata.customer_id !=null){
+						me.father=false;
+					}
+					mui.hideLoading();
+				}
+			}, function(err){
+				mui.hideLoading();
+				mui.toast('数据加载失败');
+			});
+		},
+		methods:{
+			tolink:function(link){
+				window.location.href = link;
+			},
+			bind_phone:function(){
+				if(me.phone =='绑定手机号'){
+					window.location.href = "/user/bind_phone.html";
+				}
+			},
+			bind_mailbox:function(){
+				if(me.email =='绑定邮箱'){
+					window.location.href = "/user/bind_mailbox.html";
+				}
+			},
+			loginout:function(){
+				localStorage.clear();
+				window.location.href = '/user/index.html';
+			}
+		}
+	});
+
+</script>

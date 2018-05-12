@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>订单支付</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="/public/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base_new.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/personal_set.css" />
+
+	</head>
+
+	<body>
+		<!--头部-->
+		<header class="mui-bar mui-bar-nav b_w" style="box-shadow: none;">
+			<a class="mui-action-back mui-pull-left"><img class="img11" src="/public/imgs/img_76.png" /></a>
+			<h1 class="mui-title">订单支付</h1>
+		</header>
+
+		<div id="pay">
+			<!--支付详情-->
+			<div class="back_white margin_t_55">
+				<div class="row_2 padding_10 ali">
+					<div class="col_1">
+						<span class="margin_t_3 txt_16 c_txt1">
+							在线支付:&nbsp;
+							<span class="c_txt5 c_txt5_new">¥ {{price}}</span>
+						</span>
+						<div class="margin_t_5 margin_b_5">
+							<span class="txt_14 c_txt4">剩余支付时间</span>
+							<img class="order_details_iocn margin_l_10 margin_r_10" src="/public/imgs/img_49.png"/>
+							<span class="txt_12 c_txt3">{{minute}}:{{second}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--选择支付方式-->
+			<div class="margin_t_10 back_white padding_r_10 txt_14 c_txt4">
+				<div class="order_details_hr"></div>
+				<label id="check1" class="zxb_but row ali widths padding_10" :class="{'check':onzfb}" @click="zfbpay()" style="justify-content: flex-start;">
+					<img class="payment_iocn" src="/public/imgs/img_zfb.png"/>
+					<div class="margin_l_15">支付宝</div>
+				</label>
+				<label id="check1" class="zxb_but row ali widths padding_10 br1" :class="{'check':onwx}" @click="wxpay()" style="justify-content: flex-start;">
+					<img class="payment_iocn" src="/public/imgs/img_wx.png"/>
+					<div class="margin_l_15">微信</div>
+				</label>
+			</div>
+
+			<!--确认支付-->
+			<div class="fix_but1 row">
+				<span class="ts_12 txt_c2 mar_l_20">应付：<span class="ts_20 txt_c1">￥{{price}}</span></span>
+				<span class="wid_42 but_bac1" @click="go_pay()">确认支付</span>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+	var pay = new Vue({
+		el: '#pay',
+		data: {
+			minutes:30,
+            seconds:0,
+            orderid:'',
+			price:0,
+			onzfb:true,
+			onwx:false,
+		},
+		mounted: function() {
+			var _this = this;
+			_this.price = window.sessionStorage ? sessionStorage.getItem("now_price1") : Cookie.read("now_price1");
+			_this.orderid = window.sessionStorage ? sessionStorage.getItem("now_order_id") : Cookie.read("now_order_id");
+            var time = window.setInterval(function () {
+                if (_this.seconds == 00 && _this.minutes != 00) {
+                    _this.seconds = 59;
+                    _this.minutes -= 1; 
+                }else if(_this.minutes == 00 && _this.seconds == 00){
+                    _this.seconds = 0;
+                    window.clearInterval(time);
+                }else{
+                    _this.seconds -= 1 
+                }
+            },1000);
+		},
+		methods: {
+			zfbpay: function() {
+				this.onzfb = true;
+				this.onwx = !this.onzfb;
+			},
+			wxpay:function(){
+				this.onwx = true;
+				this.onzfb = !this.onwx;
+			},
+			go_pay: function() {
+				if(this.onzfb == true){
+					window.location.href = URL + "/alipay?order_id=" + this.orderid + "&pay_type=1&type=wap";
+				}
+				if(this.onwx == true){
+					window.location.href = URL + "/wechatpay?order_id=" + this.orderid + "&pay_type=2&type=wap";
+				}
+			},
+			num:function (n) {
+                return n<10 ? "0" + n : "" + n
+            }
+		},
+		watch:{
+            second:{
+                handler(newVal){
+                    this.num(newVal)
+                }
+            },
+            minute:{
+                handler(newVal){
+                    this.num(newVal)
+                }
+            }
+        },
+        computed:{
+            second:function () {
+                return this.num(this.seconds)
+            },
+            minute:function () {
+                return this.num(this.minutes)
+            }
+        }
+	});
+</script>
+<script>
+	//保存支付通道对象
+	//	var channel_ali = null;
+	//	var channel_wx = null;
+	//	//onload从服务器获取列表数据；
+	//	window.onload = function(){
+	//		mui.plusReady(function(){
+	//			var currentView = plus.webview.currentWebview();
+	//			vm.order_id = currentView.ids;
+	//			vm.title = currentView.title;
+	//			vm.price = currentView.price; 
+	//			vm.count = currentView.count;
+	//		  
+	//			//关闭等待框 
+	//			plus.nativeUI.closeWaiting();
+	//			//显示当前页面
+	//			mui.currentWebview.show();
+	//			
+	//			 // 获取支付通道
+	//			plus.payment.getChannels(function(channels){
+	//				channel_ali = channels[0];
+	//				channel_wx = channels[1];
+	//			},function(e){
+	//				alert("获取支付通道失败："+e.message);
+	//			});
+	//		});
+	//	}
+
+	//	//支付
+	//	function wechat_pay(){
+	//		var pay_url = '';
+	//		var channel = null;
+	//
+	//		if(vm.pay_type == 1){
+	//			pay_url = PAY_AL;
+	//			channel = channel_ali;
+	//		}else if(vm.pay_type == 2){
+	//			pay_url = PAY_WX;
+	//			channel = channel_wx;
+	//			
+	//		}  
+	//		
+	//
+	//		pay_url = pay_url+'?order_id='+vm.order_id;
+	//		
+	//		var xhr=new XMLHttpRequest(); 
+	//		xhr.onreadystatechange=function(){ 
+	//			switch(xhr.readyState){
+	//				case 4:    
+	//				if(xhr.status==200){
+	//					plus.payment.request(channel, xhr.responseText, function(result){
+	//						mui.toast('支付成功!');
+	//						mui.back();
+	//					},function(error){
+	////						alert(JSON.stringify(error));
+	//						mui.toast('支付失败：'+JSON.stringify(error));
+	//					});
+	//				}else{
+	//					alert("获取订单信息失败！");
+	//				}  
+	//				break;
+	//				default:
+	//				break;
+	//			}
+	//		}
+	//		xhr.open('GET',pay_url);
+	//		xhr.send();
+	//	}
+	//	
+	//
+
+// //
+
+	//	(function($, doc) {
+	//		mui.init();
+	////		var is_show = true;  //是否需要显示详情
+	////		$('#show_click')[0].addEventListener('tap', function(){
+	////			if (is_show) {
+	////				$('.payment_hei_120')[0].setAttribute('style', '');
+	////				this.setAttribute('src', '/public/imgs/img_50.png');
+	////				is_show = false;
+	////			}else{
+	////				$('.payment_hei_120')[0].setAttribute('style', 'display: none;');
+	////				this.setAttribute('src', '/public/imgs/img_51.png');
+	////				is_show = true;
+	////			}
+	////		});
+	//		//选择支付方法
+	////		$('.padding_r_10').on('tap', '.zxb_but', function(){
+	////			for (var i=1; i<3; i++) 
+	////				$('#check'+i)[0].setAttribute('class', 'zxb_but row ali widths padding_10');	
+	////			this.setAttribute('class', 'zxb_but row ali widths padding_10 check');
+	////			vm.pay_type = this.getAttribute('data-id');
+	////		});
+	//	}(mui, document));
+	//
+
+
+	//        mui.init();
+	//      //B页面onload从服务器获取列表数据；
+	//      window.onload = function(){
+	//      	
+	//          //从服务器获取数据
+	//          
+	//          //业务数据获取完毕，并已插入当前页面DOM；
+	//          //注意：若为ajax请求，则需将如下代码放在处理完ajax响应数据之后；
+	//          mui.plusReady(function(){
+	//          	
+	//              var self = plus.webview.currentWebview();
+	//              var name = self.name;
+	//             
+	//              console.log(name);
+	//              //关闭等待框
+	//              plus.nativeUI.closeWaiting();
+	//              //显示当前页面
+	//              mui.currentWebview.show();
+	//          });
+	//      }
+	//      
+	//
+</script>

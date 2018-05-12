@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>订单详情</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/public/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+	</head>
+	<body>
+		<!--标题-->
+		<header class="mui-bar mui-bar-nav b_w" style="box-shadow: none;">
+			<a class="mui-action-back mui-pull-left"><img class="img11" src="/public/imgs/img_76.png" /></a>
+			<h1 class="mui-title">订单详情</h1>
+		</header>
+		<div class="mui-content" id="app">	
+			<!--订单商品-->
+			<div class="b_w mar_t_10 pad_l_15 pad_r_10 pad_t_10 pad_b_10 txt_c2">
+				<div class="ts_16 mar_b_5 ts_w_800">交易完成</div>	
+				<div class="ts_14 mar_t_10">物流:<span class="txt_c1">
+					<span v-if="order.status == 1">待发货</span>
+					<span v-if="order.status == 2">
+						{{order.logistics}}快递单号 {{order.logistics_code}}
+					<span>
+					<span v-if="order.status == 3">已签收</span>
+				</span>
+				</div>
+			</div>		
+			<!--收货地址-->
+			<div class="b_w mar_t_10 pad_b_10 txt_c2">
+				<div class="ts_16 pad_13 ts_w_800">收货地址</div>
+				<div class="br4"></div>
+				<div class="ts_16 pad_13"><span class="mar_l_13">{{address.name}}</span><span class="mar_l_13">{{address.phone}}</span></div>
+				<span class="ts_13 txt_c2 pad_13">
+					<img class="h_14" style="vertical-align: -10%;" src="/public/imgs/img_26.PNG"/>
+					{{address.province}}{{address.city}}{{address.area}}{{address.address}}
+				</span>
+			</div>
+			<!--产品信息-->
+			<div class="b_w mar_t_10 txt_c2 ts_14 pad_t_15">
+				<span class="ts_16 pad_l_15 ts_w_800">产品信息</span>
+				<div class="br4 mar_t_10"></div>
+				<div class="row h_115">
+					<img class="w_80 mar_l_13 fshr" :src="'http://www.xinlv123.com'+product.thumb"/>
+					<div class="col mar_l_13 mar_r_15">
+						<span class="ts_15 ts_w_600">{{product.title}} </span>
+						<div class="row widths">
+							<span class="ts_17 txt_c1">575<span class="ts_12 txt_c3"> 积分</span></span>
+							<span>数量: {{order.num}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="br4 mar_t_10"></div>
+				<div class="row widths h_44 pad_13">
+					<span class="ts_14 txt_c2">总计：</span>
+					<span class="ts_17 txt_c1">{{order.price}}<span class="ts_12 txt_c3"> 积分</span></span>
+				</div>
+			</div>
+			<!--订单信息-->
+			<div class="b_w mar_t_10 txt_c2 ts_14 pad_t_15 pad_b_10">
+				<span class="ts_16 pad_l_15 ts_w_800">订单信息</span>
+				<div class="br4 mar_t_10"></div>
+				<div class="mar_l_13 mar_t_10">订单编号<span class="mar_l_30">{{order.order_id}}</span></div>
+				<div class="mar_l_13 mar_t_5">创建时间<span class="mar_l_30">{{order.created_time}}</span></div>
+			</div>
+			<!--客服热线-->
+			<div class="b_w mar_t_10 mar_b_60 h_44 row txt_c2">
+				<span class="ts_16 pad_l_15 ts_w_800">客服热线</span>
+				<span class="ts_14 txt_c3 pad_r_15">4008700392</span>
+			</div>
+			<div class="h_50 zxb_fixed b_w widths row6" style="bottom: 0;">
+				<!--<span class="but2 mar_r_10">删除订单</span>-->
+				<span class="but3 mar_r_10" @click="returnIndex()">再次兑换</span>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="/public/js/mui.min.js"></script>
+<script src="/public/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/vue_resource.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/config/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/showLoding.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            order: [],
+			product:[],
+            address:[]
+        },
+        methods: {
+            returnIndex:function () {
+                mui.openWindow({
+                    url:'../integral/index.html',//跳转至指定页面
+                });
+            }
+        }
+    })
+    //获取传递数据
+    var url=location.search;
+    var Request = new Object();
+    if(url.indexOf("?")!=-1)
+    {
+        var str = url.substr(1)　//去掉?号
+        strs = str.split("&");
+        for(var i=0;i<strs.length;i++)
+        {
+            Request[strs[i ].split("=")[0]]=unescape(strs[ i].split("=")[1]);
+            console.log();
+        }
+    }else {
+        mui.toast('网络异常！');
+    }
+    //加载地址详情
+    get_data(Request['id']);
+    function get_data(id) {
+        Vue.http.get(URL+'/mobile/integral/orderDetails?id='+id,{headers :{Authorization: 'Bearer '+localStorage.getItem('token')}}).then(function(response) {
+            var order=response.body.data.order;
+            var product=response.body.data.product;
+            var address=response.body.data.address;
+            app.order = order;
+            app.product = product;
+            app.address = address;
+        }, function(err) {
+            mui.toast('网络异常！');
+        });
+    }
+</script>
